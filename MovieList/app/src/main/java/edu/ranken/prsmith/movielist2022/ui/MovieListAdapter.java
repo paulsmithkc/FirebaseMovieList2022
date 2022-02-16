@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 import edu.ranken.prsmith.movielist2022.R;
 import edu.ranken.prsmith.movielist2022.data.Movie;
@@ -45,8 +47,9 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieViewHolder> {
 
         MovieViewHolder vh = new MovieViewHolder(itemView);
         vh.name = itemView.findViewById(R.id.item_movie_name);
-        vh.director = itemView.findViewById(R.id.item_moview_director);
+        vh.director = itemView.findViewById(R.id.item_movie_director);
         vh.image = itemView.findViewById(R.id.item_movie_image);
+        vh.genre = itemView.findViewById(R.id.item_movie_genre);
 
         return vh;
     }
@@ -74,6 +77,18 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieViewHolder> {
             vh.image.setImageResource(R.drawable.ic_broken_image);
         } else {
             vh.image.setImageResource(R.drawable.ic_downloading);
+        }
+
+        if (item.genre == null) {
+            vh.genre.setText("");
+        } else {
+            StringBuilder genres = new StringBuilder();
+            for (Map.Entry<String, Boolean> entry : item.genre.entrySet()) {
+                if (Objects.equals(entry.getValue(), Boolean.TRUE)) {
+                    genres.append(entry.getKey()).append(" ");
+                }
+            }
+            vh.genre.setText(genres);
         }
     }
 }

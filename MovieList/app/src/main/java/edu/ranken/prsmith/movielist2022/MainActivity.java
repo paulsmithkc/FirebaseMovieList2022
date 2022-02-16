@@ -56,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
 
         moviesRegistration =
             db.collection("movies")
+                .orderBy("name")
+                .limit(100)
                 .addSnapshotListener(this, (QuerySnapshot querySnapshot, FirebaseFirestoreException error) -> {
                     if (error != null) {
                         Log.e(LOG_TAG, "Error getting movies.", error);
