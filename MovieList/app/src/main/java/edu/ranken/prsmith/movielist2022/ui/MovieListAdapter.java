@@ -8,6 +8,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -17,13 +19,15 @@ import edu.ranken.prsmith.movielist2022.data.Movie;
 
 public class MovieListAdapter extends RecyclerView.Adapter<MovieViewHolder> {
 
-    private AppCompatActivity context;
-    private LayoutInflater layoutInflater;
+    private final AppCompatActivity context;
+    private final LayoutInflater layoutInflater;
+    private final Picasso picasso;
     private List<Movie> items;
 
     public MovieListAdapter(AppCompatActivity context, List<Movie> items) {
         this.context = context;
         this.layoutInflater = LayoutInflater.from(context);
+        this.picasso = Picasso.get();
         this.items = items;
     }
 
@@ -77,6 +81,14 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieViewHolder> {
             vh.image.setImageResource(R.drawable.ic_broken_image);
         } else {
             vh.image.setImageResource(R.drawable.ic_downloading);
+            this.picasso
+                .load(item.image)
+                .noPlaceholder()
+                //.placeholder(R.drawable.ic_downloading)
+                .error(R.drawable.ic_error)
+                .resize(200, 300)
+                .centerInside()
+                .into(vh.image);
         }
 
         if (item.genre == null) {
