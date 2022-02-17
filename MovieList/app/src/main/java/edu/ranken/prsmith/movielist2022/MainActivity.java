@@ -1,25 +1,15 @@
 package edu.ranken.prsmith.movielist2022;
 
+import android.os.Bundle;
+import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Bundle;
-import android.util.Log;
-
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.ListenerRegistration;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import edu.ranken.prsmith.movielist2022.data.Movie;
 import edu.ranken.prsmith.movielist2022.ui.MovieListAdapter;
 import edu.ranken.prsmith.movielist2022.ui.MovieListViewModel;
 
@@ -28,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String LOG_TAG = "MainActivity";
 
     // views
+    private TextView errorText;
     private RecyclerView recyclerView;
 
     // state
@@ -40,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // find views
+        errorText = findViewById(R.id.errorText);
         recyclerView = findViewById(R.id.movieList);
 
         // create adapter
@@ -55,8 +47,7 @@ public class MainActivity extends AppCompatActivity {
             adapter.setItems(movies);
         });
         model.getErrorMessage().observe(this, (errorMessage) -> {
-            if (errorMessage != null) Log.e(LOG_TAG, errorMessage);
-            // errorText.setText(errorMessage);
+            errorText.setText(errorMessage);
         });
         model.getSnackbarMessage().observe(this, (snackbarMessage) -> {
             Snackbar.make(recyclerView, snackbarMessage, Snackbar.LENGTH_SHORT).show();
