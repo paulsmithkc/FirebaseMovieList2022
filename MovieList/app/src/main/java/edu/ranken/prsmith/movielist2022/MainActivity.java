@@ -34,24 +34,29 @@ public class MainActivity extends AppCompatActivity {
         errorText = findViewById(R.id.errorText);
         recyclerView = findViewById(R.id.movieList);
 
-        // create adapter
-        adapter = new MovieListAdapter(this, null);
-
         // setup recycler view
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        // setup view model and adapter
+        model = new ViewModelProvider(this).get(MovieListViewModel.class);
+        adapter = new MovieListAdapter(this, model);
         recyclerView.setAdapter(adapter);
 
-        // bind model
-        model = new ViewModelProvider(this).get(MovieListViewModel.class);
+        // observe model
         model.getMovies().observe(this, (movies) -> {
             adapter.setItems(movies);
+        });
+        model.getVotes().observe(this, (votes) -> {
+            adapter.setVotes(votes);
         });
         model.getErrorMessage().observe(this, (errorMessage) -> {
             errorText.setText(errorMessage);
         });
         model.getSnackbarMessage().observe(this, (snackbarMessage) -> {
-            Snackbar.make(recyclerView, snackbarMessage, Snackbar.LENGTH_SHORT).show();
-            model.clearSnackbar();
+            if (snackbarMessage != null) {
+                Snackbar.make(recyclerView, snackbarMessage, Snackbar.LENGTH_SHORT).show();
+                model.clearSnackbar();
+            }
         });
     }
 }

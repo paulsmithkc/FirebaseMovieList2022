@@ -1,5 +1,6 @@
 package edu.ranken.prsmith.movielist2022.ui;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,23 +17,33 @@ import java.util.Objects;
 
 import edu.ranken.prsmith.movielist2022.R;
 import edu.ranken.prsmith.movielist2022.data.Movie;
+import edu.ranken.prsmith.movielist2022.data.MovieVoteValue;
 
 public class MovieListAdapter extends RecyclerView.Adapter<MovieViewHolder> {
+
+    private static final String LOG_TAG = "MovieListAdapter";
 
     private final AppCompatActivity context;
     private final LayoutInflater layoutInflater;
     private final Picasso picasso;
+    private final MovieListViewModel model;
     private List<Movie> items;
+    private List<MovieVoteValue> votes;
 
-    public MovieListAdapter(AppCompatActivity context, List<Movie> items) {
+    public MovieListAdapter(AppCompatActivity context, MovieListViewModel model) {
         this.context = context;
         this.layoutInflater = LayoutInflater.from(context);
         this.picasso = Picasso.get();
-        this.items = items;
+        this.model = model;
     }
 
     public void setItems(List<Movie> items) {
         this.items = items;
+        notifyDataSetChanged();
+    }
+
+    public void setVotes(List<MovieVoteValue> votes) {
+        this.votes = votes;
         notifyDataSetChanged();
     }
 
@@ -54,6 +65,27 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieViewHolder> {
         vh.director = itemView.findViewById(R.id.item_movie_director);
         vh.image = itemView.findViewById(R.id.item_movie_image);
         vh.genre = itemView.findViewById(R.id.item_movie_genre);
+        vh.upvote = itemView.findViewById(R.id.item_movie_upvote);
+        vh.downvote = itemView.findViewById(R.id.item_movie_downvote);
+
+        vh.upvote.setOnClickListener((view) -> {
+            Log.i(LOG_TAG, "upvote");
+            Movie movie = items.get(vh.getAdapterPosition());
+            if (vh.voteValue > 0) {
+                model.clearVote(movie.id);
+            } else {
+                model.upvote(movie.id);
+            }
+        });
+        vh.downvote.setOnClickListener((view) -> {
+            Log.i(LOG_TAG, "downvote");
+            Movie movie = items.get(vh.getAdapterPosition());
+            if (vh.voteValue < 0) {
+                model.clearVote(movie.id);
+            } else {
+                model.downvote(movie.id);
+            }
+        });
 
         return vh;
     }
@@ -101,6 +133,26 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieViewHolder> {
                 }
             }
             vh.genre.setText(genres);
+        }
+
+        vh.upvote.setVisibility(votes == null ? View.GONE : View.VISIBLE);
+        vh.downvote.setVisibility(votes == null ? View.GONE : View.VISIBLE);
+        vh.upvote.setImageResource(R.drawable.ic_thumbs_up_outline);
+        vh.downvote.setImageResource(R.drawable.ic_thumbs_down_outline);
+        vh.voteValue = 0;
+
+        if (votes != null) {
+            for (MovieVoteValue vote : votes) {
+                if (Objects.equals(item.id, vote.movieId)) {
+                    vh.voteValue = vote.value;
+                    if (vote.value > 0) {
+                        vh.upvote.setImageResource(R.drawable.ic_thumbs_up_solid);
+                    } else if (vote.value < 0) {
+                        vh.downvote.setImageResource(R.drawable.ic_thumbs_down_solid);
+                    }
+                    break;
+                }
+            }
         }
     }
 }
