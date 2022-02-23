@@ -40,23 +40,13 @@
             app:layout_constraintTop_toBottomOf="@+id/item_movie_name"
             tools:text="MOVIE DIRECTOR" />
 
-        <TextView
-            android:id="@+id/item_movie_genre"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/item_movie_image"
-            app:layout_constraintTop_toBottomOf="@+id/item_movie_director"
-            tools:text="MOVIE GENRE" />
-
         <ImageButton
             android:id="@+id/item_movie_upvote"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:scaleType="centerInside"
             app:layout_constraintStart_toEndOf="@+id/item_movie_image"
-            app:layout_constraintTop_toBottomOf="@+id/item_movie_genre"
+            app:layout_constraintTop_toBottomOf="@+id/item_movie_director"
             app:srcCompat="@drawable/ic_thumbs_up_outline" />
 
         <ImageButton
@@ -65,8 +55,47 @@
             android:layout_height="50dp"
             android:scaleType="centerInside"
             app:layout_constraintStart_toEndOf="@+id/item_movie_upvote"
-            app:layout_constraintTop_toBottomOf="@+id/item_movie_genre"
+            app:layout_constraintTop_toBottomOf="@+id/item_movie_director"
             app:srcCompat="@drawable/ic_thumbs_down_outline" />
+
+        <ImageView
+            android:id="@+id/item_movie_genre_1"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/item_movie_image"
+            app:srcCompat="@drawable/ic_downloading"
+            tools:srcCompat="@drawable/ic_action" />
+
+        <ImageView
+            android:id="@+id/item_movie_genre_2"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/item_movie_genre_1"
+            app:layout_constraintTop_toBottomOf="@+id/item_movie_image"
+            app:srcCompat="@drawable/ic_downloading"
+            tools:srcCompat="@drawable/ic_comedy" />
+
+        <ImageView
+            android:id="@+id/item_movie_genre_3"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/item_movie_genre_2"
+            app:layout_constraintTop_toBottomOf="@+id/item_movie_image"
+            app:srcCompat="@drawable/ic_downloading"
+            tools:srcCompat="@drawable/ic_romance" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

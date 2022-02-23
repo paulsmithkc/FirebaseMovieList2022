@@ -10,7 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 public class MovieViewHolder extends RecyclerView.ViewHolder {
     public TextView name;
     public TextView director;
-    public TextView genre;
+    //public TextView genre;
+    public ImageView[] genreIcons;
     public ImageView image;
     public ImageButton upvote;
     public ImageButton downvote;

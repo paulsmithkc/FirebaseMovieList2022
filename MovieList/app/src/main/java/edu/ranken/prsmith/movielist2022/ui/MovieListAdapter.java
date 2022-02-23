@@ -4,6 +4,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -64,9 +65,20 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieViewHolder> {
         vh.name = itemView.findViewById(R.id.item_movie_name);
         vh.director = itemView.findViewById(R.id.item_movie_director);
         vh.image = itemView.findViewById(R.id.item_movie_image);
-        vh.genre = itemView.findViewById(R.id.item_movie_genre);
+        //vh.genre = itemView.findViewById(R.id.item_movie_genre);
         vh.upvote = itemView.findViewById(R.id.item_movie_upvote);
         vh.downvote = itemView.findViewById(R.id.item_movie_downvote);
+
+//        vh.genreIcons = new ImageView[3];
+//        vh.genreIcons[0] = itemView.findViewById(R.id.item_movie_genre_1);
+//        vh.genreIcons[1] = itemView.findViewById(R.id.item_movie_genre_2);
+//        vh.genreIcons[2] = itemView.findViewById(R.id.item_movie_genre_3);
+
+        vh.genreIcons = new ImageView[] {
+            itemView.findViewById(R.id.item_movie_genre_1),
+            itemView.findViewById(R.id.item_movie_genre_2),
+            itemView.findViewById(R.id.item_movie_genre_3)
+        };
 
         vh.upvote.setOnClickListener((view) -> {
             Log.i(LOG_TAG, "upvote");
@@ -124,15 +136,38 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieViewHolder> {
         }
 
         if (item.genre == null) {
-            vh.genre.setText("");
+            for (int i = 0; i < vh.genreIcons.length; ++i) {
+                vh.genreIcons[i].setImageResource(0);
+                vh.genreIcons[i].setVisibility(View.GONE);
+            }
         } else {
-            StringBuilder genres = new StringBuilder();
+            int iconIndex = 0;
             for (Map.Entry<String, Boolean> entry : item.genre.entrySet()) {
                 if (Objects.equals(entry.getValue(), Boolean.TRUE)) {
-                    genres.append(entry.getKey()).append(" ");
+                    vh.genreIcons[0].setVisibility(View.VISIBLE);
+                    switch (entry.getKey()) {
+                        default:
+                            vh.genreIcons[iconIndex++].setImageResource(R.drawable.ic_error);
+                            break;
+                        case "action":
+                            vh.genreIcons[iconIndex++].setImageResource(R.drawable.ic_action);
+                            break;
+                        case "comedy":
+                            vh.genreIcons[iconIndex++].setImageResource(R.drawable.ic_comedy);
+                            break;
+                        case "romance":
+                            vh.genreIcons[iconIndex++].setImageResource(R.drawable.ic_romance);
+                            break;
+                    }
+                    if (iconIndex >= vh.genreIcons.length) {
+                        break;
+                    }
                 }
             }
-            vh.genre.setText(genres);
+            for (; iconIndex < vh.genreIcons.length; ++iconIndex) {
+                vh.genreIcons[iconIndex].setImageResource(0);
+                vh.genreIcons[iconIndex].setVisibility(View.GONE);
+            }
         }
 
         vh.upvote.setVisibility(votes == null ? View.GONE : View.VISIBLE);
