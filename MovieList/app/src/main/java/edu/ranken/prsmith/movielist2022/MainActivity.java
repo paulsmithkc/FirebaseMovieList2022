@@ -80,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         model.getErrorMessage().observe(this, (errorMessage) -> {
+            errorText.setVisibility(errorMessage != null ? View.VISIBLE : View.GONE);
             errorText.setText(errorMessage);
         });
         model.getSnackbarMessage().observe(this, (snackbarMessage) -> {
