@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
         // observe model
         model.getMovies().observe(this, (movies) -> {
-            moviesAdapter.setItems(movies);
+            moviesAdapter.setMovies(movies);
         });
         model.getVotes().observe(this, (votes) -> {
             moviesAdapter.setVotes(votes);

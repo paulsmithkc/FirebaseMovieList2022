@@ -28,7 +28,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieViewHolder> {
     private final LayoutInflater layoutInflater;
     private final Picasso picasso;
     private final MovieListViewModel model;
-    private List<Movie> items;
+    private List<Movie> movies;
     private List<MovieVoteValue> votes;
 
     public MovieListAdapter(AppCompatActivity context, MovieListViewModel model) {
@@ -38,8 +38,8 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieViewHolder> {
         this.model = model;
     }
 
-    public void setItems(List<Movie> items) {
-        this.items = items;
+    public void setMovies(List<Movie> movies) {
+        this.movies = movies;
         notifyDataSetChanged();
     }
 
@@ -50,8 +50,8 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieViewHolder> {
 
     @Override
     public int getItemCount() {
-        if (items != null) {
-            return items.size();
+        if (movies != null) {
+            return movies.size();
         }
         return 0;
     }
@@ -82,7 +82,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieViewHolder> {
 
         vh.upvote.setOnClickListener((view) -> {
             Log.i(LOG_TAG, "upvote");
-            Movie movie = items.get(vh.getAdapterPosition());
+            Movie movie = movies.get(vh.getAdapterPosition());
             if (vh.voteValue > 0) {
                 model.removeVoteFromMovie(movie.id);
             } else {
@@ -91,7 +91,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieViewHolder> {
         });
         vh.downvote.setOnClickListener((view) -> {
             Log.i(LOG_TAG, "downvote");
-            Movie movie = items.get(vh.getAdapterPosition());
+            Movie movie = movies.get(vh.getAdapterPosition());
             if (vh.voteValue < 0) {
                 model.removeVoteFromMovie(movie.id);
             } else {
@@ -104,29 +104,29 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder vh, int position) {
-        Movie item = items.get(position);
+        Movie movie = movies.get(position);
 
-        if (item.name == null || item.name.length() == 0) {
+        if (movie.name == null || movie.name.length() == 0) {
             vh.name.setText(R.string.nameMissing);
-        } else if (item.releaseYear == null) {
-            vh.name.setText(item.name);
+        } else if (movie.releaseYear == null) {
+            vh.name.setText(movie.name);
         } else {
-            // vh.name.setText(item.name + " (" + item.releaseYear + ")");
-            vh.name.setText(context.getString(R.string.movieNameFormat, item.name, item.releaseYear));
+            // vh.name.setText(movie.name + " (" + movie.releaseYear + ")");
+            vh.name.setText(context.getString(R.string.movieNameFormat, movie.name, movie.releaseYear));
         }
 
-        if (item.director == null || item.director.length() == 0) {
+        if (movie.director == null || movie.director.length() == 0) {
             vh.director.setText("");
         } else {
-            vh.director.setText(item.director);
+            vh.director.setText(movie.director);
         }
 
-        if (item.image == null || item.image.length() == 0) {
+        if (movie.image == null || movie.image.length() == 0) {
             vh.image.setImageResource(R.drawable.ic_broken_image);
         } else {
             vh.image.setImageResource(R.drawable.ic_downloading);
             this.picasso
-                .load(item.image)
+                .load(movie.image)
                 .noPlaceholder()
                 //.placeholder(R.drawable.ic_downloading)
                 .error(R.drawable.ic_error)
@@ -135,14 +135,14 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieViewHolder> {
                 .into(vh.image);
         }
 
-        if (item.genre == null) {
+        if (movie.genre == null) {
             for (int i = 0; i < vh.genreIcons.length; ++i) {
                 vh.genreIcons[i].setImageResource(0);
                 vh.genreIcons[i].setVisibility(View.GONE);
             }
         } else {
             int iconIndex = 0;
-            for (Map.Entry<String, Boolean> entry : item.genre.entrySet()) {
+            for (Map.Entry<String, Boolean> entry : movie.genre.entrySet()) {
                 if (Objects.equals(entry.getValue(), Boolean.TRUE)) {
                     vh.genreIcons[0].setVisibility(View.VISIBLE);  // FIXME: this is only making the first icon visible
                     switch (entry.getKey()) {
@@ -178,7 +178,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieViewHolder> {
 
         if (votes != null) {
             for (MovieVoteValue vote : votes) {
-                if (Objects.equals(item.id, vote.movieId)) {
+                if (Objects.equals(movie.id, vote.movieId)) {
                     vh.voteValue = vote.value;
                     if (vote.value > 0) {
                         vh.upvote.setImageResource(R.drawable.ic_thumbs_up_solid);
