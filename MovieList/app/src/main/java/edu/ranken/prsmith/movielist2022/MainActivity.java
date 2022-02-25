@@ -65,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
         });
         model.getGenres().observe(this, (genres) -> {
             if (genres != null) {
+                // FIXME: preserve selected item
+
                 ArrayList<GenreFilter> genreNames = new ArrayList<>(genres.size());
                 genreNames.add(new GenreFilter(
                     null,

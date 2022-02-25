@@ -195,6 +195,8 @@ public class MovieListViewModel extends ViewModel {
             moviesRegistration.remove();
         }
 
+        // FIXME: sort movies by: name, releaseYear
+        // FIXME: filter down to personal lists
         Query query = db.collection("movies");
         if (filterGenreId != null) {
             query = query.whereEqualTo("genre." + filterGenreId, true);
