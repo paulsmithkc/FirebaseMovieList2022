@@ -31,7 +31,7 @@ public class MovieListViewModel extends ViewModel {
     private ListenerRegistration moviesRegistration;
     private ListenerRegistration votesRegistration;
     private ListenerRegistration genresRegistration;
-    private String username = "prsmith";
+    private String username = "prsmith";  // FIXME: implement a login screen, and use the logged in user's id
     private String filterGenreId = null;
 
     // live data
@@ -55,6 +55,8 @@ public class MovieListViewModel extends ViewModel {
         queryMovies();
 
         // observe the votes collection
+        // FIXME: move to a separate method
+        // FIXME: extract user-visible strings
         votesRegistration =
             db.collection("movieVote")
                 .whereEqualTo("username", username)
@@ -82,6 +84,9 @@ public class MovieListViewModel extends ViewModel {
                 });
 
         // observe genres collection
+        // FIXME: move to a separate method
+        // FIXME: extract user-visible strings
+        // FIXME: sort by name
         genresRegistration =
             db.collection("genres")
               .addSnapshotListener((@NonNull QuerySnapshot querySnapshot, FirebaseFirestoreException error) -> {
@@ -141,6 +146,7 @@ public class MovieListViewModel extends ViewModel {
         vote.put("votedOn", FieldValue.serverTimestamp());
         vote.put("value", value);
 
+        // FIXME: extract user-visible strings
         db.collection("movieVote")
             .document(username + ";" + movieId)
             .set(vote)
@@ -156,6 +162,7 @@ public class MovieListViewModel extends ViewModel {
     }
 
     public void clearVote(String movieId) {
+        // FIXME: extract user-visible strings
         db.collection("movieVote")
             .document(username + ";" + movieId)
             .delete()
@@ -193,6 +200,7 @@ public class MovieListViewModel extends ViewModel {
             query = query.whereEqualTo("genre." + filterGenreId, true);
         }
 
+        // FIXME: extract user-visible strings
         moviesRegistration =
             query.addSnapshotListener((QuerySnapshot querySnapshot, FirebaseFirestoreException error) -> {
                 if (error != null) {

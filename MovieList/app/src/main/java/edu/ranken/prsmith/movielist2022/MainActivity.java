@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
                 ));
 
                 for (Genre genre : genres) {
+                    // FIXME: filter out genres that do not have a name
                     genreNames.add(new GenreFilter(genre.id, genre.name));
                 }
 
@@ -80,10 +81,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         model.getErrorMessage().observe(this, (errorMessage) -> {
-            errorText.setVisibility(errorMessage != null ? View.VISIBLE : View.GONE);
+            // FIXME: hide error message when it is null/empty
             errorText.setText(errorMessage);
         });
         model.getSnackbarMessage().observe(this, (snackbarMessage) -> {
+            // Only show a snackbar, when there is a message to be shown
             if (snackbarMessage != null) {
                 Snackbar.make(recyclerView, snackbarMessage, Snackbar.LENGTH_SHORT).show();
                 model.clearSnackbar();
@@ -104,5 +106,7 @@ public class MainActivity extends AppCompatActivity {
                 // Do nothing.
             }
         });
+
+        // FIXME: register listener for listSpinner
     }
 }
