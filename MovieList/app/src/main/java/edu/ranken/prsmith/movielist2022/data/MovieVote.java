@@ -12,7 +12,7 @@ public class MovieVote {
     public String username;
     public Long value;
 
-    // FIXME: Add MovieSummary
+    public MovieSummary movie;
 
     @ServerTimestamp
     public Date votedOn;

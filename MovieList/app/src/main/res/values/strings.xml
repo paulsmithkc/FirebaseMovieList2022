@@ -4,18 +4,18 @@
     <string name="movieNameFormat">%1$s (%2$d)</string>
     <string name="allGenres">All Genres</string>
 
-    <string-array name="genreFilters">
-        <item>All Genres</item>
+<!--    <string-array name="genreFilters">-->
+<!--        <item>All Genres</item>-->
 <!--        <item>Action</item>-->
 <!--        <item>Comedy</item>-->
 <!--        <item>Romance</item>-->
-    </string-array>
+<!--    </string-array>-->
 
-    <string-array name="listFilters">
-        <item>All Movies</item>
-        <item>My Votes</item>
-        <item>My Upvotes</item>
-        <item>My Downvotes</item>
-    </string-array>
+<!--    <string-array name="listFilters">-->
+<!--        <item>All Movies</item>-->
+<!--        <item>My Votes</item>-->
+<!--        <item>My Upvotes</item>-->
+<!--        <item>My Downvotes</item>-->
+<!--    </string-array>-->
 
 </resources>

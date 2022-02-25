@@ -18,9 +18,10 @@ import com.google.android.material.snackbar.Snackbar;
 import java.util.ArrayList;
 
 import edu.ranken.prsmith.movielist2022.data.Genre;
-import edu.ranken.prsmith.movielist2022.data.GenreFilter;
+import edu.ranken.prsmith.movielist2022.data.MovieList;
 import edu.ranken.prsmith.movielist2022.ui.MovieListAdapter;
 import edu.ranken.prsmith.movielist2022.ui.MovieListViewModel;
+import edu.ranken.prsmith.movielist2022.ui.SpinnerOption;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,7 +36,8 @@ public class MainActivity extends AppCompatActivity {
     // state
     private MovieListViewModel model;
     private MovieListAdapter moviesAdapter;
-    private ArrayAdapter<GenreFilter> genresAdapter;
+    private ArrayAdapter<SpinnerOption<String>> genresAdapter;
+    private ArrayAdapter<SpinnerOption<MovieList>> listAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +58,16 @@ public class MainActivity extends AppCompatActivity {
         moviesAdapter = new MovieListAdapter(this, model);
         recyclerView.setAdapter(moviesAdapter);
 
+        // populate list spinner
+        SpinnerOption<MovieList>[] listOptions = new SpinnerOption[] {
+            new SpinnerOption<>("All Movies", MovieList.ALL_MOVIES),
+            new SpinnerOption<>("My Votes", MovieList.MY_VOTES),
+            new SpinnerOption<>("My Upvotes", MovieList.MY_UPVOTES),
+            new SpinnerOption<>("My Downvotes", MovieList.MY_DOWNVOTES)
+        };
+        listAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, listOptions);
+        listSpinner.setAdapter(listAdapter);
+
         // observe model
         model.getMovies().observe(this, (movies) -> {
             moviesAdapter.setMovies(movies);
@@ -67,15 +79,12 @@ public class MainActivity extends AppCompatActivity {
             if (genres != null) {
                 // FIXME: preserve selected item
 
-                ArrayList<GenreFilter> genreNames = new ArrayList<>(genres.size());
-                genreNames.add(new GenreFilter(
-                    null,
-                    getString(R.string.allGenres)
-                ));
+                ArrayList<SpinnerOption<String>> genreNames = new ArrayList<>(genres.size());
+                genreNames.add(new SpinnerOption<>(getString(R.string.allGenres), null));
 
                 for (Genre genre : genres) {
                     // FIXME: filter out genres that do not have a name
-                    genreNames.add(new GenreFilter(genre.id, genre.name));
+                    genreNames.add(new SpinnerOption<>(genre.name, genre.id));
                 }
 
                 genresAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, genreNames);
@@ -98,9 +107,9 @@ public class MainActivity extends AppCompatActivity {
         genreSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                GenreFilter genre = (GenreFilter) parent.getItemAtPosition(position);
-                model.filterMoviesByGenre(genre.genreId);
-                Log.i(LOG_TAG, "Filter by genre: " + genre.genreId);
+                SpinnerOption<String> option = (SpinnerOption<String>) parent.getItemAtPosition(position);
+                model.filterMoviesByGenre(option.getValue());
+                Log.i(LOG_TAG, "Filter by genre: " + option.getValue());
             }
 
             @Override
@@ -108,7 +117,18 @@ public class MainActivity extends AppCompatActivity {
                 // Do nothing.
             }
         });
+        listSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                SpinnerOption<MovieList> option = (SpinnerOption<MovieList>) parent.getItemAtPosition(position);
+                model.filterMoviesByList(option.getValue());
+                Log.i(LOG_TAG, "Filter by list: " + option.getValue());
+            }
 
-        // FIXME: register listener for listSpinner
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Do nothing.
+            }
+        });
     }
 }

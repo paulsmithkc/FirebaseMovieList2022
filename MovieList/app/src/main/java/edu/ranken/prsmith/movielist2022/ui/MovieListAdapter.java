@@ -18,6 +18,7 @@ import java.util.Objects;
 
 import edu.ranken.prsmith.movielist2022.R;
 import edu.ranken.prsmith.movielist2022.data.Movie;
+import edu.ranken.prsmith.movielist2022.data.MovieSummary;
 import edu.ranken.prsmith.movielist2022.data.MovieVoteValue;
 
 public class MovieListAdapter extends RecyclerView.Adapter<MovieViewHolder> {
@@ -28,7 +29,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieViewHolder> {
     private final LayoutInflater layoutInflater;
     private final Picasso picasso;
     private final MovieListViewModel model;
-    private List<Movie> movies;
+    private List<MovieSummary> movies;
     private List<MovieVoteValue> votes;
 
     public MovieListAdapter(AppCompatActivity context, MovieListViewModel model) {
@@ -38,7 +39,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieViewHolder> {
         this.model = model;
     }
 
-    public void setMovies(List<Movie> movies) {
+    public void setMovies(List<MovieSummary> movies) {
         this.movies = movies;
         notifyDataSetChanged();
     }
@@ -82,20 +83,20 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieViewHolder> {
 
         vh.upvote.setOnClickListener((view) -> {
             Log.i(LOG_TAG, "upvote");
-            Movie movie = movies.get(vh.getAdapterPosition());
+            MovieSummary movie = movies.get(vh.getAdapterPosition());
             if (vh.voteValue > 0) {
                 model.removeVoteFromMovie(movie.id);
             } else {
-                model.addUpvoteForMovie(movie.id);
+                model.addUpvoteForMovie(movie);
             }
         });
         vh.downvote.setOnClickListener((view) -> {
             Log.i(LOG_TAG, "downvote");
-            Movie movie = movies.get(vh.getAdapterPosition());
+            MovieSummary movie = movies.get(vh.getAdapterPosition());
             if (vh.voteValue < 0) {
                 model.removeVoteFromMovie(movie.id);
             } else {
-                model.addDownvoteForMovie(movie.id);
+                model.addDownvoteForMovie(movie);
             }
         });
 
@@ -104,7 +105,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder vh, int position) {
-        Movie movie = movies.get(position);
+        MovieSummary movie = movies.get(position);
 
         if (movie.name == null || movie.name.length() == 0) {
             vh.name.setText(R.string.nameMissing);
@@ -144,21 +145,25 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieViewHolder> {
             int iconIndex = 0;
             for (Map.Entry<String, Boolean> entry : movie.genre.entrySet()) {
                 if (Objects.equals(entry.getValue(), Boolean.TRUE)) {
-                    vh.genreIcons[0].setVisibility(View.VISIBLE);  // FIXME: this is only making the first icon visible
                     switch (entry.getKey()) {
                         default:
-                            vh.genreIcons[iconIndex++].setImageResource(R.drawable.ic_error);
+                            vh.genreIcons[iconIndex].setVisibility(View.VISIBLE);
+                            vh.genreIcons[iconIndex].setImageResource(R.drawable.ic_error);
                             break;
                         case "action":
-                            vh.genreIcons[iconIndex++].setImageResource(R.drawable.ic_action);
+                            vh.genreIcons[iconIndex].setVisibility(View.VISIBLE);
+                            vh.genreIcons[iconIndex].setImageResource(R.drawable.ic_action);
                             break;
                         case "comedy":
-                            vh.genreIcons[iconIndex++].setImageResource(R.drawable.ic_comedy);
+                            vh.genreIcons[iconIndex].setVisibility(View.VISIBLE);
+                            vh.genreIcons[iconIndex].setImageResource(R.drawable.ic_comedy);
                             break;
                         case "romance":
-                            vh.genreIcons[iconIndex++].setImageResource(R.drawable.ic_romance);
+                            vh.genreIcons[iconIndex].setVisibility(View.VISIBLE);
+                            vh.genreIcons[iconIndex].setImageResource(R.drawable.ic_romance);
                             break;
                     }
+                    iconIndex++;
                     if (iconIndex >= vh.genreIcons.length) {
                         break;
                     }
