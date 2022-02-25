@@ -91,9 +91,9 @@ public class MovieListViewModel extends ViewModel {
         // observe genres collection
         // FIXME: move to a separate method
         // FIXME: extract user-visible strings
-        // FIXME: sort by name
         genresRegistration =
             db.collection("genres")
+              .orderBy("name")
               .addSnapshotListener((@NonNull QuerySnapshot querySnapshot, FirebaseFirestoreException error) -> {
                   if (error != null) {
                       Log.e(LOG_TAG, "Error getting genres.", error);
@@ -231,7 +231,11 @@ public class MovieListViewModel extends ViewModel {
         }
 
         if (filterGenreId != null) {
-            query = query.whereEqualTo("genre." + filterGenreId, true);
+            if (filterList == MovieList.ALL_MOVIES) {
+                query = query.whereEqualTo("genre." + filterGenreId, true);
+            } else {
+                query = query.whereEqualTo("movie.genre." + filterGenreId, true);
+            }
         }
 
         // FIXME: extract user-visible strings

@@ -83,8 +83,9 @@ public class MainActivity extends AppCompatActivity {
                 genreNames.add(new SpinnerOption<>(getString(R.string.allGenres), null));
 
                 for (Genre genre : genres) {
-                    // FIXME: filter out genres that do not have a name
-                    genreNames.add(new SpinnerOption<>(genre.name, genre.id));
+                    if (genre.id != null && genre.name != null) {
+                        genreNames.add(new SpinnerOption<>(genre.name, genre.id));
+                    }
                 }
 
                 genresAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, genreNames);
