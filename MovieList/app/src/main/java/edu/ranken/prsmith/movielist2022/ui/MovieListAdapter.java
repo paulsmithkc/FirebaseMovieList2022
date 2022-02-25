@@ -144,7 +144,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieViewHolder> {
             int iconIndex = 0;
             for (Map.Entry<String, Boolean> entry : item.genre.entrySet()) {
                 if (Objects.equals(entry.getValue(), Boolean.TRUE)) {
-                    vh.genreIcons[0].setVisibility(View.VISIBLE);
+                    vh.genreIcons[0].setVisibility(View.VISIBLE);  // FIXME: this is only making the first icon visible
                     switch (entry.getKey()) {
                         default:
                             vh.genreIcons[iconIndex++].setImageResource(R.drawable.ic_error);
