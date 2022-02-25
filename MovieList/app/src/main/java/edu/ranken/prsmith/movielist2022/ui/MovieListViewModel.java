@@ -38,7 +38,7 @@ public class MovieListViewModel extends ViewModel {
     private final MutableLiveData<List<Movie>> movies;
     private final MutableLiveData<List<MovieVoteValue>> votes;
     private final MutableLiveData<List<Genre>> genres;
-    private final MutableLiveData<String> errorMessage;
+    private final MutableLiveData<String> errorMessage;  // FIXME: what if there are multiple errors at once??
     private final MutableLiveData<String> snackbarMessage;
 
     public MovieListViewModel() {
@@ -139,7 +139,7 @@ public class MovieListViewModel extends ViewModel {
         snackbarMessage.postValue(null);
     }
 
-    private void vote(String movieId, int value) {
+    private void addVoteForMovie(String movieId, int value) {
         HashMap<String, Object> vote = new HashMap<>();
         vote.put("movieId", movieId);
         vote.put("username", username);
@@ -161,7 +161,7 @@ public class MovieListViewModel extends ViewModel {
             });
     }
 
-    public void clearVote(String movieId) {
+    public void removeVoteFromMovie(String movieId) {
         // FIXME: extract user-visible strings
         db.collection("movieVote")
             .document(username + ";" + movieId)
@@ -177,12 +177,12 @@ public class MovieListViewModel extends ViewModel {
             });
     }
 
-    public void upvote(String movieId) {
-        vote(movieId, 1);
+    public void addUpvoteForMovie(String movieId) {
+        addVoteForMovie(movieId, 1);
     }
 
-    public void downvote(String movieId) {
-        vote(movieId, -1);
+    public void addDownvoteForMovie(String movieId) {
+        addVoteForMovie(movieId, -1);
     }
 
     public void filterMoviesByGenre(String genreId) {

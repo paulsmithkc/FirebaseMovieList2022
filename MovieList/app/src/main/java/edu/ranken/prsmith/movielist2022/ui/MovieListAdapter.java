@@ -84,18 +84,18 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieViewHolder> {
             Log.i(LOG_TAG, "upvote");
             Movie movie = items.get(vh.getAdapterPosition());
             if (vh.voteValue > 0) {
-                model.clearVote(movie.id);
+                model.removeVoteFromMovie(movie.id);
             } else {
-                model.upvote(movie.id);
+                model.addUpvoteForMovie(movie.id);
             }
         });
         vh.downvote.setOnClickListener((view) -> {
             Log.i(LOG_TAG, "downvote");
             Movie movie = items.get(vh.getAdapterPosition());
             if (vh.voteValue < 0) {
-                model.clearVote(movie.id);
+                model.removeVoteFromMovie(movie.id);
             } else {
-                model.downvote(movie.id);
+                model.addDownvoteForMovie(movie.id);
             }
         });
 

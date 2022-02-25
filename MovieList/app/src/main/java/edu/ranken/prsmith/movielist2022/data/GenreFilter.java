@@ -11,6 +11,7 @@ public class GenreFilter {
 
     @Override
     public String toString() {
+        // FIXME: return a placeholder string, when the genre does not have a name
         return genreName;
     }
 }
