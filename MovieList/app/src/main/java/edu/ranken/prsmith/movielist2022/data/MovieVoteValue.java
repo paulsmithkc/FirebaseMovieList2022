@@ -10,4 +10,9 @@ public class MovieVoteValue {
         this.movieId = movieId;
         this.value = value;
     }
+
+    @Override
+    public String toString() {
+        return "MovieVoteValue {id=" + movieId + ", value=" + value + "}";
+    }
 }

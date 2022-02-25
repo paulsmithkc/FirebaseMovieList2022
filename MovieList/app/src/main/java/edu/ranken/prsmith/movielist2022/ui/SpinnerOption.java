@@ -9,6 +9,7 @@ public class SpinnerOption<T> {
         this.value = value;
     }
 
+    @Override
     public String toString() {
         return text;
     }

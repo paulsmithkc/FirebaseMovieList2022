@@ -16,4 +16,9 @@ public class MovieVote {
 
     @ServerTimestamp
     public Date votedOn;
+
+    @Override
+    public String toString() {
+        return "MovieVote {id=" + id + ", value=" + value + "}";
+    }
 }

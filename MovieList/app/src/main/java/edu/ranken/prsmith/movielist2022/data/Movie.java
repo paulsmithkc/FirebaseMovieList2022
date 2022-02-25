@@ -12,4 +12,9 @@ public class Movie {
     public Integer releaseYear;
     public String image;
     public Map<String, Boolean> genre;
+
+    @Override
+    public String toString() {
+        return "Movie {" + id + ", " + name + "}";
+    }
 }

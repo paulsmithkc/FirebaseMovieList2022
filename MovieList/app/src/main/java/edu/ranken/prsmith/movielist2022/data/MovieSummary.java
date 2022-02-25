@@ -20,4 +20,9 @@ public class MovieSummary {
         this.image = movie.image;
         this.genre = movie.genre;
     }
+
+    @Override
+    public String toString() {
+        return "MovieSummary {" + id + ", " + name + "}";
+    }
 }
