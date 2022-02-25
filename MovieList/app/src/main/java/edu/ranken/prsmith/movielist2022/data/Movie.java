@@ -13,6 +13,8 @@ public class Movie {
     public String image;
     public Map<String, Boolean> genre;
 
+    public Movie() {}
+
     @Override
     public String toString() {
         return "Movie {" + id + ", " + name + "}";

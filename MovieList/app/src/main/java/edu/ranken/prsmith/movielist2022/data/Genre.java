@@ -8,6 +8,8 @@ public class Genre {
     public String name;
     public String icon;
 
+    public Genre() {}
+
     @Override
     public String toString() {
         return "Genre {" + id + ", " + name + "}";

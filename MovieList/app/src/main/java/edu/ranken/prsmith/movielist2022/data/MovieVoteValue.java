@@ -11,6 +11,11 @@ public class MovieVoteValue {
         this.value = value;
     }
 
+    public MovieVoteValue(MovieVote vote) {
+        this.movieId = vote.movieId;
+        this.value = vote.value.intValue();
+    }
+
     @Override
     public String toString() {
         return "MovieVoteValue {id=" + movieId + ", value=" + value + "}";
