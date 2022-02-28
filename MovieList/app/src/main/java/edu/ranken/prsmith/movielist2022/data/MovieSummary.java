@@ -14,7 +14,7 @@ public class MovieSummary {
 
     public MovieSummary() {}
 
-    public MovieSummary(Movie movie) {
+    public MovieSummary(@NonNull Movie movie) {
         this.id = movie.id;
         this.name = movie.name;
         this.director = movie.director;

@@ -1,5 +1,6 @@
 package edu.ranken.prsmith.movielist2022.ui;
 
+import android.annotation.SuppressLint;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +18,6 @@ import java.util.Map;
 import java.util.Objects;
 
 import edu.ranken.prsmith.movielist2022.R;
-import edu.ranken.prsmith.movielist2022.data.Movie;
 import edu.ranken.prsmith.movielist2022.data.MovieSummary;
 import edu.ranken.prsmith.movielist2022.data.MovieVoteValue;
 
@@ -39,11 +39,13 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieViewHolder> {
         this.model = model;
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void setMovies(List<MovieSummary> movies) {
         this.movies = movies;
         notifyDataSetChanged();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void setVotes(List<MovieVoteValue> votes) {
         this.votes = votes;
         notifyDataSetChanged();
@@ -66,7 +68,6 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieViewHolder> {
         vh.name = itemView.findViewById(R.id.item_movie_name);
         vh.director = itemView.findViewById(R.id.item_movie_director);
         vh.image = itemView.findViewById(R.id.item_movie_image);
-        //vh.genre = itemView.findViewById(R.id.item_movie_genre);
         vh.upvote = itemView.findViewById(R.id.item_movie_upvote);
         vh.downvote = itemView.findViewById(R.id.item_movie_downvote);
 

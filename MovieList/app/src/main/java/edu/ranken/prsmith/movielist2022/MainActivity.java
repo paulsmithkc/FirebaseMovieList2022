@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(moviesAdapter);
 
         // populate list spinner
+        // FIXME: extract option text
         SpinnerOption<MovieList>[] listOptions = new SpinnerOption[] {
             new SpinnerOption<>("All Movies", MovieList.ALL_MOVIES),
             new SpinnerOption<>("My Votes", MovieList.MY_VOTES),

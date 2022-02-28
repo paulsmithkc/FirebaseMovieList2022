@@ -10,7 +10,7 @@ public enum MovieList {
 
     private final String name;
 
-    private MovieList(String name) {
+    private MovieList(@NonNull String name) {
         this.name = name;
     }
 

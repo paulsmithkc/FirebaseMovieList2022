@@ -8,12 +8,12 @@ public class MovieVoteValue {
 
     public MovieVoteValue() {}
 
-    public MovieVoteValue(String movieId, int value) {
+    public MovieVoteValue(@NonNull String movieId, int value) {
         this.movieId = movieId;
         this.value = value;
     }
 
-    public MovieVoteValue(MovieVote vote) {
+    public MovieVoteValue(@NonNull MovieVote vote) {
         this.movieId = vote.movieId;
         this.value = vote.value.intValue();
     }

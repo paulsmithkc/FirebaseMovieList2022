@@ -2,7 +2,6 @@ package edu.ranken.prsmith.movielist2022.ui;
 
 import android.util.Log;
 
-import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -264,7 +263,7 @@ public class MovieListViewModel extends ViewModel {
                         case MY_VOTES:
                         case MY_UPVOTES:
                         case MY_DOWNVOTES:
-                            List<MovieVote> newVotes = querySnapshot.toObjects(MovieVote.class);;
+                            List<MovieVote> newVotes = querySnapshot.toObjects(MovieVote.class);
                             for (MovieVote vote : newVotes) {
                                 if (vote.movie != null) {
                                     // vote.movie.id = vote.movieId;
