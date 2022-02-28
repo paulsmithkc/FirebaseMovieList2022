@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import edu.ranken.prsmith.movielist2022.data.Genre;
 import edu.ranken.prsmith.movielist2022.data.MovieList;
@@ -59,12 +60,11 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(moviesAdapter);
 
         // populate list spinner
-        // FIXME: extract option text
         SpinnerOption<MovieList>[] listOptions = new SpinnerOption[] {
-            new SpinnerOption<>("All Movies", MovieList.ALL_MOVIES),
-            new SpinnerOption<>("My Votes", MovieList.MY_VOTES),
-            new SpinnerOption<>("My Upvotes", MovieList.MY_UPVOTES),
-            new SpinnerOption<>("My Downvotes", MovieList.MY_DOWNVOTES)
+            new SpinnerOption<>(getString(R.string.allMovies), MovieList.ALL_MOVIES),
+            new SpinnerOption<>(getString(R.string.myVotes), MovieList.MY_VOTES),
+            new SpinnerOption<>(getString(R.string.myUpvotes), MovieList.MY_UPVOTES),
+            new SpinnerOption<>(getString(R.string.myDownvotes), MovieList.MY_DOWNVOTES)
         };
         listAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, listOptions);
         listSpinner.setAdapter(listAdapter);
@@ -78,19 +78,25 @@ public class MainActivity extends AppCompatActivity {
         });
         model.getGenres().observe(this, (genres) -> {
             if (genres != null) {
-                // FIXME: preserve selected item
+                int selectedPosition = 0;
+                String selectedId = model.getFilterGenreId();
 
                 ArrayList<SpinnerOption<String>> genreNames = new ArrayList<>(genres.size());
                 genreNames.add(new SpinnerOption<>(getString(R.string.allGenres), null));
 
-                for (Genre genre : genres) {
+                for (int i = 0; i < genres.size(); ++i) {
+                    Genre genre = genres.get(i);
                     if (genre.id != null && genre.name != null) {
                         genreNames.add(new SpinnerOption<>(genre.name, genre.id));
+                        if (Objects.equals(genre.id, selectedId)) {
+                            selectedPosition = i + 1;
+                        }
                     }
                 }
 
                 genresAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, genreNames);
                 genreSpinner.setAdapter(genresAdapter);
+                genreSpinner.setSelection(selectedPosition, false);
             }
         });
         model.getErrorMessage().observe(this, (errorMessage) -> {

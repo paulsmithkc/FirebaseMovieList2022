@@ -139,6 +139,10 @@ public class MovieListViewModel extends ViewModel {
         return snackbarMessage;
     }
 
+    public String getFilterGenreId() {
+        return filterGenreId;
+    }
+
     public void clearSnackbar() {
         snackbarMessage.postValue(null);
     }
@@ -215,19 +219,20 @@ public class MovieListViewModel extends ViewModel {
                 query = db.collection("movies");
                 break;
             case MY_VOTES:
-                // FIXME: .whereEqualTo("username", username)
-                query = db.collection("movieVote");
-                break;
-            case MY_UPVOTES:
-                // FIXME: .whereEqualTo("username", username)
                 query =
                     db.collection("movieVote")
+                        .whereEqualTo("username", username);
+                break;
+            case MY_UPVOTES:
+                query =
+                    db.collection("movieVote")
+                        .whereEqualTo("username", username)
                         .whereGreaterThan("value", 0);
                 break;
             case MY_DOWNVOTES:
-                // FIXME: .whereEqualTo("username", username)
                 query =
                     db.collection("movieVote")
+                        .whereEqualTo("username", username)
                         .whereLessThan("value", 0);
                 break;
         }
