@@ -65,11 +65,11 @@ public class MovieListViewModel extends ViewModel {
         votesRegistration =
             db.collection("movieVote")
                 .whereEqualTo("username", username)
-                .addSnapshotListener((@NonNull QuerySnapshot querySnapshot, FirebaseFirestoreException error) -> {
+                .addSnapshotListener((QuerySnapshot querySnapshot, FirebaseFirestoreException error) -> {
                     if (error != null) {
                         Log.e(LOG_TAG, "Error getting votes.", error);
                         snackbarMessage.postValue("Error getting votes.");
-                    } else {
+                    } else if (querySnapshot != null) {
                         Log.i(LOG_TAG, "Votes update.");
 
                         //List<MovieVoteValue> newVotes = querySnapshot.toObjects(MovieVoteValue.class);
@@ -94,11 +94,11 @@ public class MovieListViewModel extends ViewModel {
         genresRegistration =
             db.collection("genres")
               .orderBy("name")
-              .addSnapshotListener((@NonNull QuerySnapshot querySnapshot, FirebaseFirestoreException error) -> {
+              .addSnapshotListener((QuerySnapshot querySnapshot, FirebaseFirestoreException error) -> {
                   if (error != null) {
                       Log.e(LOG_TAG, "Error getting genres.", error);
                       snackbarMessage.postValue("Error getting genres.");
-                  } else {
+                  } else if (querySnapshot != null) {
                       Log.i(LOG_TAG, "Genres updated.");
                       List<Genre> newGenres = querySnapshot.toObjects(Genre.class);
                       genres.postValue(newGenres);
@@ -243,12 +243,12 @@ public class MovieListViewModel extends ViewModel {
 
         // FIXME: extract user-visible strings
         moviesRegistration =
-            query.addSnapshotListener((@NonNull QuerySnapshot querySnapshot, FirebaseFirestoreException error) -> {
+            query.addSnapshotListener((QuerySnapshot querySnapshot, FirebaseFirestoreException error) -> {
                 if (error != null) {
                     Log.e(LOG_TAG, "Error getting movies.", error);
                     errorMessage.postValue(error.getMessage());
                     snackbarMessage.postValue("Error getting movies.");
-                } else {
+                } else if (querySnapshot != null) {
                     Log.i(LOG_TAG, "Movies update.");
 
                     ArrayList<MovieSummary> newMovieSummaries = new ArrayList<>();
