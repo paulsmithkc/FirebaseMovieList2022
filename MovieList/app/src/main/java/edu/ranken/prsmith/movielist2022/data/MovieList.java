@@ -1,5 +1,7 @@
 package edu.ranken.prsmith.movielist2022.data;
 
+import androidx.annotation.NonNull;
+
 public enum MovieList {
     ALL_MOVIES("All Movies"),
     MY_VOTES("My Votes"),
@@ -12,6 +14,7 @@ public enum MovieList {
         this.name = name;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return name;

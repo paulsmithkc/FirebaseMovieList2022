@@ -1,5 +1,7 @@
 package edu.ranken.prsmith.movielist2022.data;
 
+import androidx.annotation.NonNull;
+
 public class MovieVoteValue {
     public String movieId;
     public int value;
@@ -16,6 +18,7 @@ public class MovieVoteValue {
         this.value = vote.value.intValue();
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "MovieVoteValue {id=" + movieId + ", value=" + value + "}";

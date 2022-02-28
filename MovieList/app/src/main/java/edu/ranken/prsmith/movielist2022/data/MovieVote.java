@@ -1,5 +1,7 @@
 package edu.ranken.prsmith.movielist2022.data;
 
+import androidx.annotation.NonNull;
+
 import com.google.firebase.firestore.DocumentId;
 import com.google.firebase.firestore.ServerTimestamp;
 
@@ -19,6 +21,7 @@ public class MovieVote {
 
     public MovieVote() {}
 
+    @NonNull
     @Override
     public String toString() {
         return "MovieVote {id=" + id + ", value=" + value + "}";

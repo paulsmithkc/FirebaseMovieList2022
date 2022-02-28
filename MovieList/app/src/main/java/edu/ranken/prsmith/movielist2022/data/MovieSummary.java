@@ -1,5 +1,7 @@
 package edu.ranken.prsmith.movielist2022.data;
 
+import androidx.annotation.NonNull;
+
 import java.util.Map;
 
 public class MovieSummary {
@@ -21,6 +23,7 @@ public class MovieSummary {
         this.genre = movie.genre;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "MovieSummary {" + id + ", " + name + "}";
