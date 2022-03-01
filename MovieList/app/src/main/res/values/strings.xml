@@ -7,19 +7,21 @@
     <string name="myVotes">My Votes</string>
     <string name="myUpvotes">My Upvotes</string>
     <string name="myDownvotes">My Downvotes</string>
+    <string name="movieDetails">Movie Details</string>
+    <string name="noDescription">No description.</string>
 
     <!--    <string-array name="genreFilters">-->
-<!--        <item>All Genres</item>-->
-<!--        <item>Action</item>-->
-<!--        <item>Comedy</item>-->
-<!--        <item>Romance</item>-->
-<!--    </string-array>-->
+    <!--        <item>All Genres</item>-->
+    <!--        <item>Action</item>-->
+    <!--        <item>Comedy</item>-->
+    <!--        <item>Romance</item>-->
+    <!--    </string-array>-->
 
-<!--    <string-array name="listFilters">-->
-<!--        <item>All Movies</item>-->
-<!--        <item>My Votes</item>-->
-<!--        <item>My Upvotes</item>-->
-<!--        <item>My Downvotes</item>-->
-<!--    </string-array>-->
+    <!--    <string-array name="listFilters">-->
+    <!--        <item>All Movies</item>-->
+    <!--        <item>My Votes</item>-->
+    <!--        <item>My Upvotes</item>-->
+    <!--        <item>My Downvotes</item>-->
+    <!--    </string-array>-->
 
 </resources>

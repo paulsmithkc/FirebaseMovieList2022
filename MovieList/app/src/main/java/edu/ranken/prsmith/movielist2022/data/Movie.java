@@ -14,6 +14,7 @@ public class Movie {
     public Integer releaseYear;
     public String image;
     public Map<String, Boolean> genre;
+    public String description;
 
     public Movie() {}
 

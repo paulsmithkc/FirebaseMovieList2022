@@ -24,7 +24,7 @@ import edu.ranken.prsmith.movielist2022.ui.MovieListAdapter;
 import edu.ranken.prsmith.movielist2022.ui.MovieListViewModel;
 import edu.ranken.prsmith.movielist2022.ui.SpinnerOption;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     private static final String LOG_TAG = "MainActivity";
 
@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
                     if (genre.id != null && genre.name != null) {
                         genreNames.add(new SpinnerOption<>(genre.name, genre.id));
                         if (Objects.equals(genre.id, selectedId)) {
-                            selectedPosition = i + 1;
+                            selectedPosition = genreNames.size() - 1;
                         }
                     }
                 }

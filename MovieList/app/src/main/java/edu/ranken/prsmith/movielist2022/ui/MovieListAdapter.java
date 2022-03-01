@@ -1,6 +1,7 @@
 package edu.ranken.prsmith.movielist2022.ui;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import edu.ranken.prsmith.movielist2022.MovieDetailsActivity;
 import edu.ranken.prsmith.movielist2022.R;
 import edu.ranken.prsmith.movielist2022.data.MovieSummary;
 import edu.ranken.prsmith.movielist2022.data.MovieVoteValue;
@@ -99,6 +101,14 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieViewHolder> {
             } else {
                 model.addDownvoteForMovie(movie);
             }
+        });
+        vh.itemView.setOnClickListener((view) -> {
+            MovieSummary movie = movies.get(vh.getAdapterPosition());
+            Log.i(LOG_TAG, "Clicked on movie: " + movie.id);
+
+            Intent intent = new Intent(context, MovieDetailsActivity.class);
+            intent.putExtra(MovieDetailsActivity.EXTRA_MOVIE_ID, movie.id);
+            context.startActivity(intent);
         });
 
         return vh;
