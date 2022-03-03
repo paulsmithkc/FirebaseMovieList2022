@@ -48,11 +48,15 @@ public class MovieDetailsActivity extends BaseActivity {
                 movieTitleText.setText(null);
                 movieDescriptionText.setText(null);
             } else {
-                movieTitleText.setText(movie.name);
-                if (movie.description == null) {
+                if (movie.name == null) {
+                    movieTitleText.setText(R.string.nameMissing);
+                } else {
+                    movieTitleText.setText(movie.name);
+                }
+                if (movie.longDescription == null) {
                     movieDescriptionText.setText(R.string.noDescription);
                 } else {
-                    movieDescriptionText.setText(movie.description);
+                    movieDescriptionText.setText(movie.longDescription);
                 }
             }
         });
