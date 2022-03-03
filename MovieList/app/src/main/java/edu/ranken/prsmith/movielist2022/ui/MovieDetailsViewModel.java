@@ -66,6 +66,8 @@ public class MovieDetailsViewModel extends ViewModel {
                 db.collection("movies")
                     .document(movieId)
                     .addSnapshotListener((document, error) -> {
+                        boolean isMovieLoaded = movie.getValue() != null;
+
                         if (error != null) {
                             Log.e(LOG_TAG, "Error getting movie.", error);
                             this.movieError.postValue("Error getting movie.");
@@ -74,7 +76,11 @@ public class MovieDetailsViewModel extends ViewModel {
                             Movie movie = document.toObject(Movie.class);
                             this.movie.postValue(movie);
                             this.movieError.postValue(null);
-                            this.snackbarMessage.postValue("Movie updated.");
+                            // don't show this message the first time
+                            // so that it doesn't cover the FAB
+                            if (isMovieLoaded) {
+                                this.snackbarMessage.postValue("Movie updated.");
+                            }
                         } else {
                             this.movie.postValue(null);
                             this.movieError.postValue("Movie does not exist.");
