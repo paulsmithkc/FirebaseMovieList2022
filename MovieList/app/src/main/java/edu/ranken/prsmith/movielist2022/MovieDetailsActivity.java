@@ -4,10 +4,12 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.squareup.picasso.Picasso;
 
@@ -25,6 +27,7 @@ public class MovieDetailsActivity extends BaseActivity {
     private Picasso picasso;
 
     // views
+    private FloatingActionButton composeReviewButton;
     private TextView movieErrorText;
     private TextView movieTitleText;
     private TextView movieDescriptionText;
@@ -37,6 +40,7 @@ public class MovieDetailsActivity extends BaseActivity {
         setContentView(R.layout.activity_movie_details_scroll);
 
         // find views
+        composeReviewButton = findViewById(R.id.composeReviewButton);
         movieErrorText = findViewById(R.id.movieErrorText);
         movieTitleText = findViewById(R.id.movieTitleText);
         movieDescriptionText = findViewById(R.id.movieDescriptionText);
@@ -96,6 +100,11 @@ public class MovieDetailsActivity extends BaseActivity {
                 Snackbar.make(movieTitleText, message, Snackbar.LENGTH_SHORT).show();
                 model.clearSnackbar();
             }
+        });
+
+        // register listeners
+        composeReviewButton.setOnClickListener((view) -> {
+            Log.i(LOG_TAG, "Compose review clicked.");
         });
     }
 }
