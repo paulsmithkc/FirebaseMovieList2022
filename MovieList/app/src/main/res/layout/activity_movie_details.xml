@@ -19,6 +19,17 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="ERROR TEXT" />
 
+    <ImageView
+        android:id="@+id/movieBannerImage"
+        android:layout_width="400dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="8dp"
+        android:scaleType="centerInside"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/movieErrorText"
+        app:srcCompat="@drawable/placeholder_banner" />
+
     <TextView
         android:id="@+id/movieTitleText"
         android:layout_width="0dp"
@@ -27,7 +38,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/movieErrorText"
+        app:layout_constraintTop_toBottomOf="@+id/movieBannerImage"
         tools:text="MOVIE TITLE" />
 
     <TextView
@@ -39,5 +50,38 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/movieTitleText"
         tools:text="MOVIE DESCRIPTION" />
+
+    <ImageView
+        android:id="@+id/movieScreenshot1"
+        android:layout_width="0dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="8dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/movieDescriptionText"
+        app:srcCompat="@drawable/placeholder_screenshot" />
+
+    <ImageView
+        android:id="@+id/movieScreenshot2"
+        android:layout_width="0dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="8dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/movieScreenshot1"
+        app:srcCompat="@drawable/placeholder_screenshot" />
+
+    <ImageView
+        android:id="@+id/movieScreenshot3"
+        android:layout_width="0dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="8dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/movieScreenshot2"
+        app:srcCompat="@drawable/placeholder_screenshot" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

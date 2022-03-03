@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 
 import com.google.firebase.firestore.DocumentId;
 
+import java.util.List;
 import java.util.Map;
 
 public class Movie {
@@ -12,9 +13,12 @@ public class Movie {
     public String name;
     public String director;
     public Integer releaseYear;
-    public String image;
     public Map<String, Boolean> genre;
     public String longDescription;
+
+    public String image;  // thumbnail
+    public String bannerUrl;
+    public List<String> screenshotUrls;
 
     public Movie() {}
 
