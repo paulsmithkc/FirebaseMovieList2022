@@ -118,14 +118,15 @@ public class MovieDetailsActivity extends BaseActivity {
             } else {
                 reviewCountText.setVisibility(View.VISIBLE);
                 reviewCountText.setText(getString(R.string.reviewCountText, reviews.size()));
+
+                // WARNING: code below is only for debugging
                 reviewRecylerView.post(() -> {
                     int recyclerHeight = reviewRecylerView.getMeasuredHeight();
                     int activityHeight = findViewById(android.R.id.content).getMeasuredHeight();
-                    reviewCountText.append("\nheight " + recyclerHeight + "/" + activityHeight);
+                    reviewCountText.append("\nDEBUG height " + recyclerHeight + "px of " + activityHeight + "px");
                     int firstVisiblePos = reviewLayoutManager.findFirstVisibleItemPosition();
                     int lastVisiblePos = reviewLayoutManager.findLastVisibleItemPosition();
-                    reviewCountText.append("\nvisible " + firstVisiblePos + "-" + lastVisiblePos);
-
+                    reviewCountText.append("\nDEBUG visible " + firstVisiblePos + " to " + lastVisiblePos);
                 });
             }
         });
