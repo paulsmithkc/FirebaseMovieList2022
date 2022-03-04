@@ -101,6 +101,7 @@ public class MainActivity extends BaseActivity {
         });
         model.getErrorMessage().observe(this, (errorMessage) -> {
             // FIXME: hide error message when it is null/empty
+            errorText.setVisibility(errorMessage != null ? View.VISIBLE : View.GONE);
             errorText.setText(errorMessage);
         });
         model.getSnackbarMessage().observe(this, (snackbarMessage) -> {
