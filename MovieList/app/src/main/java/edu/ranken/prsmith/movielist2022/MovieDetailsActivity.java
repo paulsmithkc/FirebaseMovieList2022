@@ -1,6 +1,8 @@
 package edu.ranken.prsmith.movielist2022;
 
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,17 +16,13 @@ import com.google.android.material.snackbar.Snackbar;
 import com.squareup.picasso.Picasso;
 
 import edu.ranken.prsmith.movielist2022.ui.MovieDetailsViewModel;
+import edu.ranken.prsmith.movielist2022.ui.ReviewListAdapter;
 
 public class MovieDetailsActivity extends BaseActivity {
 
     // constants
     private static final String LOG_TAG = MovieDetailsActivity.class.getSimpleName();
     public static final String EXTRA_MOVIE_ID = "movieId";
-
-    // state
-    private String movieId;
-    private MovieDetailsViewModel model;
-    private Picasso picasso;
 
     // views
     private FloatingActionButton composeReviewButton;
@@ -33,6 +31,14 @@ public class MovieDetailsActivity extends BaseActivity {
     private TextView movieDescriptionText;
     private ImageView movieBanner;
     private ImageView[] movieScreenshots;
+    private TextView reviewErrorText;
+    private RecyclerView reviewRecylerView;
+
+    // state
+    private String movieId;
+    private MovieDetailsViewModel model;
+    private Picasso picasso;
+    private ReviewListAdapter reviewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +56,8 @@ public class MovieDetailsActivity extends BaseActivity {
             findViewById(R.id.movieScreenshot2),
             findViewById(R.id.movieScreenshot3)
         };
+        reviewErrorText = findViewById(R.id.movieReviewErrorText);
+        reviewRecylerView = findViewById(R.id.movieReviewList);
 
         // get intent
         Intent intent = getIntent();
@@ -58,8 +66,15 @@ public class MovieDetailsActivity extends BaseActivity {
         // get picasso
         picasso = Picasso.get();
 
-        // bind model
+        // get model
         model = new ViewModelProvider(this).get(MovieDetailsViewModel.class);
+
+        // setup recycler view and adapter
+        reviewAdapter = new ReviewListAdapter(this);
+        reviewRecylerView.setLayoutManager(new LinearLayoutManager(this));
+        reviewRecylerView.setAdapter(reviewAdapter);
+
+        // bind model
         model.fetchMovie(movieId);
         model.getMovie().observe(this, (movie) -> {
             if (movie == null) {
@@ -91,9 +106,16 @@ public class MovieDetailsActivity extends BaseActivity {
                 }
             }
         });
+        model.getReviews().observe(this, (reviews) -> {
+            reviewAdapter.setReviews(reviews);
+        });
         model.getMovieError().observe(this, (movieError) -> {
             movieErrorText.setVisibility(movieError != null ? View.VISIBLE : View.GONE);
             movieErrorText.setText(movieError);
+        });
+        model.getReviewError().observe(this, (reviewError) -> {
+            reviewErrorText.setVisibility(reviewError != null ? View.VISIBLE : View.GONE);
+            reviewErrorText.setText(reviewError);
         });
         model.getSnackbarMessage().observe(this, (message) -> {
             if (message != null) {

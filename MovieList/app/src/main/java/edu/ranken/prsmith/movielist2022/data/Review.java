@@ -7,24 +7,21 @@ import com.google.firebase.firestore.ServerTimestamp;
 
 import java.util.Date;
 
-public class MovieVote {
+public class Review {
 
     @DocumentId
     public String id;
     public String movieId;
     public String username;
-    public Long value;
+    public String reviewText;
     @ServerTimestamp
-    public Date votedOn;
+    public Date publishedOn;
 
-    public MovieSummary movie;
-
-    public MovieVote() {
-    }
+    public Review() {}
 
     @NonNull
     @Override
     public String toString() {
-        return "MovieVote {id=" + id + ", value=" + value + "}";
+        return "Review {id=" + id + "}";
     }
 }

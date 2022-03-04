@@ -84,4 +84,29 @@
         app:layout_constraintTop_toBottomOf="@+id/movieScreenshot2"
         app:srcCompat="@drawable/placeholder_screenshot" />
 
+    <TextView
+        android:id="@+id/movieReviewErrorText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/error"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/movieScreenshot3"
+        tools:text="ERROR TEXT" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/movieReviewList"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/movieReviewErrorText"
+        app:layout_constraintVertical_bias="0.0" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
