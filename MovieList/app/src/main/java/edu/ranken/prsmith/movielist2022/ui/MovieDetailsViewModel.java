@@ -10,6 +10,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import edu.ranken.prsmith.movielist2022.data.Movie;
@@ -118,7 +120,21 @@ public class MovieDetailsViewModel extends ViewModel {
                             this.reviewError.postValue("Error getting reviews.");
                             this.snackbarMessage.postValue("Error getting reviews.");
                         } else if (querySnapshot != null) {
-                            List<Review> newReviews = querySnapshot.toObjects(Review.class);
+                            //List<Review> newReviews = querySnapshot.toObjects(Review.class);
+
+                            // populate list with 100 fake reviews
+                            List<Review> newReviews = new ArrayList<>();
+                            for (int i = 0; i < 100; ++i) {
+                                Review review = new Review();
+                                review.movieId = movieId;
+                                review.username = "reviewer" + (i+1);
+                                review.id = review.username + ";" + review.movieId;
+                                review.reviewText = "lorem ipsum";
+                                review.publishedOn = new Date();
+                                review.publishedOn.setDate(review.publishedOn.getDate() - i);
+                                newReviews.add(review);
+                            }
+
                             this.reviews.postValue(newReviews);
                             this.reviewError.postValue(null);
                             // don't show this message the first time
