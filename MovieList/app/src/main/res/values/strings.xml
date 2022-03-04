@@ -11,6 +11,7 @@
     <string name="noDescription">No description.</string>
     <string name="composeReview">Compose Review</string>
     <string name="invalidDate">Invalid Date</string>
+    <string name="notImplemented">Not Implemented.</string>
 
     <!--    <string-array name="genreFilters">-->
     <!--        <item>All Genres</item>-->

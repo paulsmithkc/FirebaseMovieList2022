@@ -126,7 +126,9 @@ public class MovieDetailsActivity extends BaseActivity {
 
         // register listeners
         composeReviewButton.setOnClickListener((view) -> {
+            // TODO: implement compose review activity
             Log.i(LOG_TAG, "Compose review clicked.");
+            Snackbar.make(view, R.string.notImplemented, Snackbar.LENGTH_SHORT).show();
         });
     }
 }
