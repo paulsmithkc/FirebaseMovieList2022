@@ -32,12 +32,14 @@ public class MovieDetailsActivity extends BaseActivity {
     private ImageView movieBanner;
     private ImageView[] movieScreenshots;
     private TextView reviewErrorText;
+    private TextView reviewCountText;
     private RecyclerView reviewRecylerView;
 
     // state
     private String movieId;
     private MovieDetailsViewModel model;
     private Picasso picasso;
+    private LinearLayoutManager reviewLayoutManager;
     private ReviewListAdapter reviewAdapter;
 
     @Override
@@ -57,6 +59,7 @@ public class MovieDetailsActivity extends BaseActivity {
             findViewById(R.id.movieScreenshot3)
         };
         reviewErrorText = findViewById(R.id.movieReviewErrorText);
+        reviewCountText = findViewById(R.id.movieReviewCountText);
         reviewRecylerView = findViewById(R.id.movieReviewList);
 
         // get intent
@@ -70,8 +73,9 @@ public class MovieDetailsActivity extends BaseActivity {
         model = new ViewModelProvider(this).get(MovieDetailsViewModel.class);
 
         // setup recycler view and adapter
+        reviewLayoutManager = new LinearLayoutManager(this);
         reviewAdapter = new ReviewListAdapter(this);
-        reviewRecylerView.setLayoutManager(new LinearLayoutManager(this));
+        reviewRecylerView.setLayoutManager(reviewLayoutManager);
         reviewRecylerView.setAdapter(reviewAdapter);
 
         // bind model
@@ -108,6 +112,22 @@ public class MovieDetailsActivity extends BaseActivity {
         });
         model.getReviews().observe(this, (reviews) -> {
             reviewAdapter.setReviews(reviews);
+            if (reviews == null) {
+                reviewCountText.setVisibility(View.GONE);
+                reviewCountText.setText("");
+            } else {
+                reviewCountText.setVisibility(View.VISIBLE);
+                reviewCountText.setText(getString(R.string.reviewCountText, reviews.size()));
+                reviewRecylerView.post(() -> {
+                    int recyclerHeight = reviewRecylerView.getMeasuredHeight();
+                    int activityHeight = findViewById(android.R.id.content).getMeasuredHeight();
+                    reviewCountText.append("\nheight " + recyclerHeight + "/" + activityHeight);
+                    int firstVisiblePos = reviewLayoutManager.findFirstVisibleItemPosition();
+                    int lastVisiblePos = reviewLayoutManager.findLastVisibleItemPosition();
+                    reviewCountText.append("\nvisible " + firstVisiblePos + "-" + lastVisiblePos);
+
+                });
+            }
         });
         model.getMovieError().observe(this, (movieError) -> {
             movieErrorText.setVisibility(movieError != null ? View.VISIBLE : View.GONE);
