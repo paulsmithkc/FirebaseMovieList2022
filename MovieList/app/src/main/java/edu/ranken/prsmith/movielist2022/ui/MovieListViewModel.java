@@ -28,7 +28,7 @@ import edu.ranken.prsmith.movielist2022.data.MovieVote;
 import edu.ranken.prsmith.movielist2022.data.MovieVoteValue;
 
 public class MovieListViewModel extends ViewModel {
-    private static final String LOG_TAG = "MovieListViewModel";
+    private static final String LOG_TAG = MovieListViewModel.class.getSimpleName();
 
     private final FirebaseFirestore db;
     private ListenerRegistration moviesRegistration;

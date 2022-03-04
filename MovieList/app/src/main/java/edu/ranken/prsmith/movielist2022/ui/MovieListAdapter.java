@@ -25,7 +25,7 @@ import edu.ranken.prsmith.movielist2022.data.MovieVoteValue;
 
 public class MovieListAdapter extends RecyclerView.Adapter<MovieViewHolder> {
 
-    private static final String LOG_TAG = "MovieListAdapter";
+    private static final String LOG_TAG = MovieListAdapter.class.getSimpleName();
 
     private final AppCompatActivity context;
     private final LayoutInflater layoutInflater;
