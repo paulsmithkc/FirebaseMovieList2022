@@ -24,7 +24,7 @@ import edu.ranken.prsmith.movielist2022.ui.MovieListAdapter;
 import edu.ranken.prsmith.movielist2022.ui.MovieListViewModel;
 import edu.ranken.prsmith.movielist2022.ui.SpinnerOption;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = "MainActivity";
 

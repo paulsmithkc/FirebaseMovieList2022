@@ -1,5 +1,7 @@
 package edu.ranken.prsmith.movielist2022;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -7,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -18,7 +21,7 @@ import com.squareup.picasso.Picasso;
 import edu.ranken.prsmith.movielist2022.ui.MovieDetailsViewModel;
 import edu.ranken.prsmith.movielist2022.ui.ReviewListAdapter;
 
-public class MovieDetailsActivity extends BaseActivity {
+public class MovieDetailsActivity extends AppCompatActivity {
 
     // constants
     private static final String LOG_TAG = MovieDetailsActivity.class.getSimpleName();
@@ -151,5 +154,17 @@ public class MovieDetailsActivity extends BaseActivity {
             Log.i(LOG_TAG, "Compose review clicked.");
             Snackbar.make(view, R.string.notImplemented, Snackbar.LENGTH_SHORT).show();
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int itemId = item.getItemId();
+        if (itemId == android.R.id.home) {
+            // force up navigation to have the same behavior as back navigation
+            onBackPressed();
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
     }
 }
