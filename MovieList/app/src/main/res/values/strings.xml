@@ -13,6 +13,8 @@
     <string name="invalidDate">Invalid Date</string>
     <string name="notImplemented">Not Implemented.</string>
     <string name="reviewCountText">%1$d reviews</string>
+    <string name="loginButton">Login</string>
+    <string name="actionSignOut">Sign Out</string>
 
     <!--    <string-array name="genreFilters">-->
     <!--        <item>All Genres</item>-->

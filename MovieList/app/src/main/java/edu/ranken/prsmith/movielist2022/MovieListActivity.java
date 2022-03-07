@@ -2,17 +2,22 @@ package edu.ranken.prsmith.movielist2022;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.firebase.ui.auth.AuthUI;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
@@ -24,7 +29,7 @@ import edu.ranken.prsmith.movielist2022.ui.MovieListAdapter;
 import edu.ranken.prsmith.movielist2022.ui.MovieListViewModel;
 import edu.ranken.prsmith.movielist2022.ui.SpinnerOption;
 
-public class MainActivity extends AppCompatActivity {
+public class MovieListActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = "MainActivity";
 
@@ -43,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_movie_list);
 
         // find views
         genreSpinner = findViewById(R.id.genreSpinner);
@@ -139,5 +144,41 @@ public class MainActivity extends AppCompatActivity {
                 // Do nothing.
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_movie_list, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int itemId = item.getItemId();
+        if (itemId == android.R.id.home) {
+            // force up navigation to have the same behavior as back navigation
+            onBackPressed();
+            return true;
+        } else if (itemId == R.id.actionSignOut) {
+            onSignOut();
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        Log.i(LOG_TAG, "Back Pressed");
+    }
+
+    public void onSignOut() {
+        AuthUI.getInstance()
+            .signOut(this)
+            .addOnCompleteListener((result) -> {
+                Log.i(LOG_TAG, "Signed out.");
+                finish();
+            });
     }
 }

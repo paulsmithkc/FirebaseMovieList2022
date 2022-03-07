@@ -12,7 +12,7 @@ public class MovieVote {
     @DocumentId
     public String id;
     public String movieId;
-    public String username;
+    public String userId;
     public Long value;
     @ServerTimestamp
     public Date votedOn;

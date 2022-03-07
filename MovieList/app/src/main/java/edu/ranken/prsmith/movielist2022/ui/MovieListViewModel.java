@@ -7,6 +7,8 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -34,7 +36,7 @@ public class MovieListViewModel extends ViewModel {
     private ListenerRegistration moviesRegistration;
     private ListenerRegistration votesRegistration;
     private ListenerRegistration genresRegistration;
-    private String username = "prsmith";  // FIXME: implement a login screen, and use the logged in user's id
+    private String userId;
     private String filterGenreId = null;
     private MovieList filterList = MovieList.ALL_MOVIES;
 
@@ -55,6 +57,14 @@ public class MovieListViewModel extends ViewModel {
         errorMessage = new MutableLiveData<>(null);
         snackbarMessage = new MutableLiveData<>(null);
 
+        // get current user
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            userId = user.getUid();
+        } else {
+            userId = null;
+        }
+
         // observe movies collection
         queryMovies();
 
@@ -63,7 +73,7 @@ public class MovieListViewModel extends ViewModel {
         // FIXME: extract user-visible strings
         votesRegistration =
             db.collection("movieVote")
-                .whereEqualTo("username", username)
+                .whereEqualTo("userId", userId)
                 .addSnapshotListener((QuerySnapshot querySnapshot, FirebaseFirestoreException error) -> {
                     if (error != null) {
                         Log.e(LOG_TAG, "Error getting votes.", error);
@@ -150,14 +160,14 @@ public class MovieListViewModel extends ViewModel {
     private void addVoteForMovie(MovieSummary movie, int value) {
         HashMap<String, Object> vote = new HashMap<>();
         vote.put("movieId", movie.id);
-        vote.put("username", username);
+        vote.put("userId", userId);
         vote.put("votedOn", FieldValue.serverTimestamp());
         vote.put("value", value);
         vote.put("movie", movie);
 
         // FIXME: extract user-visible strings
         db.collection("movieVote")
-            .document(username + ";" + movie.id)
+            .document(userId + ";" + movie.id)
             .set(vote)
             .addOnCompleteListener((Task<Void> task) -> {
                 if (!task.isSuccessful()) {
@@ -173,7 +183,7 @@ public class MovieListViewModel extends ViewModel {
     public void removeVoteFromMovie(String movieId) {
         // FIXME: extract user-visible strings
         db.collection("movieVote")
-            .document(username + ";" + movieId)
+            .document(userId + ";" + movieId)
             .delete()
             .addOnCompleteListener((Task<Void> task) -> {
                 if (!task.isSuccessful()) {
@@ -221,18 +231,18 @@ public class MovieListViewModel extends ViewModel {
             case MY_VOTES:
                 query =
                     db.collection("movieVote")
-                        .whereEqualTo("username", username);
+                        .whereEqualTo("userId", userId);
                 break;
             case MY_UPVOTES:
                 query =
                     db.collection("movieVote")
-                        .whereEqualTo("username", username)
+                        .whereEqualTo("userId", userId)
                         .whereGreaterThan("value", 0);
                 break;
             case MY_DOWNVOTES:
                 query =
                     db.collection("movieVote")
-                        .whereEqualTo("username", username)
+                        .whereEqualTo("userId", userId)
                         .whereLessThan("value", 0);
                 break;
         }

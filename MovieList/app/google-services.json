@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "117961389214-n6kfbkhaagpd03tc7b67e5juack4a498.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.ranken.prsmith.movielist2022",
+            "certificate_hash": "eec35777f1230adc8dd6c4a088a6ac18c71eaa64"
+          }
+        },
+        {
           "client_id": "117961389214-4rak1dsjhi5ldq8t1qr910rivp6s9gg9.apps.googleusercontent.com",
           "client_type": 3
         }
