@@ -21,6 +21,9 @@ import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
 
+    // constants
+    private static final String LOG_TAG = LoginActivity.class.getSimpleName();
+
     // views
     private Button loginButton;
 
@@ -73,15 +76,15 @@ public class LoginActivity extends AppCompatActivity {
     private void onSignInResult(FirebaseAuthUIAuthenticationResult result) {
         if (result.getResultCode() == RESULT_OK) {
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-            Log.i("LoginActivity", "sign-in successful: " + user.getUid());
+            Log.i(LOG_TAG, "sign-in successful: " + user.getUid());
             onLoginSuccess(user);
         } else {
             IdpResponse response = result.getIdpResponse();
             if (response != null) {
                 FirebaseUiException error = response.getError();
-                Log.e("LoginActivity", "sign-in failed", error);
+                Log.e(LOG_TAG, "sign-in failed", error);
             } else {
-                Log.e("LoginActivity", "sign-in failed: no response");
+                Log.e(LOG_TAG, "sign-in failed: no response");
             }
         }
     }

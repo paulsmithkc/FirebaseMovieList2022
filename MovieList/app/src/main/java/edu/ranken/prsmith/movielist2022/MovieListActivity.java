@@ -31,7 +31,8 @@ import edu.ranken.prsmith.movielist2022.ui.SpinnerOption;
 
 public class MovieListActivity extends AppCompatActivity {
 
-    private static final String LOG_TAG = "MainActivity";
+    // constants
+    private static final String LOG_TAG = MovieListActivity.class.getSimpleName();
 
     // views
     private Spinner genreSpinner;
