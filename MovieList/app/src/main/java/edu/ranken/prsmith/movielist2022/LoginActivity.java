@@ -11,6 +11,7 @@ import android.widget.Button;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract;
 import com.firebase.ui.auth.FirebaseUiException;
+import com.firebase.ui.auth.IdpResponse;
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -75,8 +76,13 @@ public class LoginActivity extends AppCompatActivity {
             Log.i("LoginActivity", "sign-in successful: " + user.getUid());
             onLoginSuccess(user);
         } else {
-            FirebaseUiException error = result.getIdpResponse().getError();
-            Log.e("LoginActivity", "sign-in failed", error);
+            IdpResponse response = result.getIdpResponse();
+            if (response != null) {
+                FirebaseUiException error = response.getError();
+                Log.e("LoginActivity", "sign-in failed", error);
+            } else {
+                Log.e("LoginActivity", "sign-in failed: no response");
+            }
         }
     }
 
