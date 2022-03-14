@@ -72,7 +72,7 @@ public class MovieListActivity extends AppCompatActivity {
             new SpinnerOption<>(getString(R.string.myUpvotes), MovieList.MY_UPVOTES),
             new SpinnerOption<>(getString(R.string.myDownvotes), MovieList.MY_DOWNVOTES)
         };
-        listAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, listOptions);
+        listAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, listOptions);
         listSpinner.setAdapter(listAdapter);
 
         // observe model
@@ -100,7 +100,7 @@ public class MovieListActivity extends AppCompatActivity {
                     }
                 }
 
-                genresAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, genreNames);
+                genresAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, genreNames);
                 genreSpinner.setAdapter(genresAdapter);
                 genreSpinner.setSelection(selectedPosition, false);
             }
