@@ -9,6 +9,8 @@ import androidx.lifecycle.ViewModel;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -16,12 +18,12 @@ import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.WriteBatch;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import edu.ranken.prsmith.movielist2022.R;
 import edu.ranken.prsmith.movielist2022.data.Genre;
 import edu.ranken.prsmith.movielist2022.data.Movie;
 import edu.ranken.prsmith.movielist2022.data.MovieList;
@@ -157,6 +159,14 @@ public class MovieListViewModel extends ViewModel {
         snackbarMessage.postValue(null);
     }
 
+    public void addUpvoteForMovie(MovieSummary movie) {
+        addVoteForMovie(movie, 1);
+    }
+
+    public void addDownvoteForMovie(MovieSummary movie) {
+        addVoteForMovie(movie, -1);
+    }
+
     private void addVoteForMovie(MovieSummary movie, int value) {
         HashMap<String, Object> vote = new HashMap<>();
         vote.put("movieId", movie.id);
@@ -196,12 +206,53 @@ public class MovieListViewModel extends ViewModel {
             });
     }
 
-    public void addUpvoteForMovie(MovieSummary movie) {
-        addVoteForMovie(movie, 1);
+    public void deleteAllMyVotes() {
+        db.collection("movieVote")
+            .whereEqualTo("userId", userId)
+            .get()
+            .addOnSuccessListener((querySnapshot) -> {
+                WriteBatch batch = db.batch();
+                for (DocumentSnapshot doc : querySnapshot) {
+                    batch.delete(doc.getReference());
+                }
+
+                batch
+                    .commit()
+                    .addOnSuccessListener((result) -> {
+                        Log.i(LOG_TAG, "All my votes have been deleted.");
+                        snackbarMessage.postValue("All my votes have been deleted.");
+                    })
+                    .addOnFailureListener((error) -> {
+                        Log.e(LOG_TAG, "Failed to delete all my votes.", error);
+                        snackbarMessage.postValue("Failed to delete all my votes.");
+                    });
+            })
+            .addOnFailureListener((error) -> {
+                Log.e(LOG_TAG, "Failed to get all my votes.", error);
+                snackbarMessage.postValue("Failed to get all my votes.");
+            });
     }
 
-    public void addDownvoteForMovie(MovieSummary movie) {
-        addVoteForMovie(movie, -1);
+    public void removeVotesFromSelectedMovies(List<String> movieIds) {
+        // create a batch
+        WriteBatch batch = db.batch();
+
+        // queue selected movies for deletion
+        CollectionReference collection = db.collection("movieVote");
+        for (String movieId : movieIds) {
+            batch.delete(collection.document(userId + ";" + movieId));
+        }
+
+        // commit the batch
+        batch.commit()
+            .addOnSuccessListener((result) -> {
+                Log.i(LOG_TAG, "Selected votes have been deleted.");
+                snackbarMessage.postValue("Selected votes have been deleted.");
+            })
+            .addOnFailureListener((error) -> {
+                Log.e(LOG_TAG, "Failed to delete selected votes.", error);
+                snackbarMessage.postValue("Failed to delete selected votes.");
+            });
     }
 
     public void filterMoviesByGenre(String genreId) {
@@ -218,8 +269,6 @@ public class MovieListViewModel extends ViewModel {
         if (moviesRegistration != null) {
             moviesRegistration.remove();
         }
-
-        // FIXME: sort movies by: name, releaseYear
 
         Query query;
         switch (filterList) {
@@ -254,6 +303,9 @@ public class MovieListViewModel extends ViewModel {
                 query = query.whereEqualTo("movie.genre." + filterGenreId, true);
             }
         }
+
+        // FIXME: sort movies by: name, releaseYear
+        // query = query.orderBy("name").orderBy("releaseYear");
 
         // FIXME: extract user-visible strings
         moviesRegistration =
