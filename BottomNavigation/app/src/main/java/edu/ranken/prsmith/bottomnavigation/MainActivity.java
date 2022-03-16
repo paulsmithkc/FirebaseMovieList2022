@@ -16,9 +16,6 @@ import com.google.android.material.tabs.TabLayout;
 import edu.ranken.prsmith.bottomnavigation.ui.MainPageAdapter;
 
 public class MainActivity extends AppCompatActivity {
-    private static final String LOG_TAG = MainActivity.class.getSimpleName();
-
-    private TabLayout tabLayout;
     private ViewPager2 pager;
     private BottomNavigationView bottomNav;
     private MainPageAdapter adapter;
@@ -29,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // find views
-        tabLayout = findViewById(R.id.tabLayout);
         pager = findViewById(R.id.pager);
         bottomNav = findViewById(R.id.bottomNav);
 
@@ -37,38 +33,12 @@ public class MainActivity extends AppCompatActivity {
         adapter = new MainPageAdapter(this);
         pager.setAdapter(adapter);
 
-        // add tabs
-        tabLayout.addTab(tabLayout.newTab().setText(R.string.movieListPage));
-        tabLayout.addTab(tabLayout.newTab().setText(R.string.userListPage));
-
         // register listeners
         pager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
-                Log.i(LOG_TAG, "Selected page: " + position);
-
-                Menu menu = bottomNav.getMenu();
-                menu.getItem(position).setChecked(true);
-
-                TabLayout.Tab tab = tabLayout.getTabAt(position);
-                tabLayout.selectTab(tab);
-            }
-        });
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(@NonNull TabLayout.Tab tab) {
-                pager.setCurrentItem(tab.getPosition());
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-                // do nothing
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-                // do nothing
+                bottomNav.getMenu().getItem(position).setChecked(true);
             }
         });
         bottomNav.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
