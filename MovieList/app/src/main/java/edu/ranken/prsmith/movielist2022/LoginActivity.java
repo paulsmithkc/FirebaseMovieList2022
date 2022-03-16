@@ -4,6 +4,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -15,8 +16,12 @@ import com.firebase.ui.auth.IdpResponse;
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
@@ -90,7 +95,28 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void onLoginSuccess(FirebaseUser user) {
-        Intent intent = new Intent(this, MovieListActivity.class);
-        startActivity(intent);
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        String userId = user.getUid();
+        String displayName = user.getDisplayName();
+        Uri photoUrl = user.getPhotoUrl();
+        String photoUrlString = photoUrl != null ? photoUrl.toString() : null;
+
+        HashMap<String, Object> update = new HashMap<>();
+        update.put("displayName", displayName);
+        update.put("photoUrl", photoUrlString);
+        update.put("lastLogin", FieldValue.serverTimestamp());
+
+        db.collection("users")
+            .document(userId)
+            .set(update, SetOptions.merge())
+            .addOnSuccessListener((result) -> {
+                Log.e(LOG_TAG, "User profile updated.");
+                startActivity(new Intent(this, MovieListActivity.class));
+            })
+            .addOnFailureListener((error) -> {
+                Log.e(LOG_TAG, "Failed to update user profile on login.", error);
+                startActivity(new Intent(this, MovieListActivity.class));
+            });
     }
 }
