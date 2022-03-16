@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 import edu.ranken.prsmith.bottomnavigation.ui.MainPageAdapter;
 
@@ -33,34 +34,15 @@ public class MainActivity extends AppCompatActivity {
         adapter = new MainPageAdapter(this);
         pager.setAdapter(adapter);
 
-        // add tabs
-        tabLayout.addTab(tabLayout.newTab().setText(R.string.movieListPage));
-        tabLayout.addTab(tabLayout.newTab().setText(R.string.userListPage));
-
-        // register listeners
-        pager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override
-            public void onPageSelected(int position) {
-                super.onPageSelected(position);
-                TabLayout.Tab tab = tabLayout.getTabAt(position);
-                tabLayout.selectTab(tab);
-            }
-        });
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(@NonNull TabLayout.Tab tab) {
-                pager.setCurrentItem(tab.getPosition());
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-                // do nothing
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-                // do nothing
-            }
-        });
+        // create mediator
+        String[] tabNames = {
+            getString(R.string.movieListPage),
+            getString(R.string.userListPage)
+        };
+        TabLayoutMediator mediator = new TabLayoutMediator(
+            tabLayout, pager,
+            (tab, position) -> tab.setText(tabNames[position])
+        );
+        mediator.attach();
     }
 }
