@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Bottom Navigation</string>
+    <string name="movieListPage">Movies</string>
+    <string name="userListPage">Users</string>
 </resources>

@@ -3,8 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/projects/AWD1112-android/FirebaseMovieList2022/BottomNavigation/app/src/main/res/layout/activity_main.xml" value="0.35260416666666666" />
+        <entry key="..\:/projects/AWD1112-android/FirebaseMovieList2022/BottomNavigation/app/src/main/res/drawable/ic_local_movies.xml" value="0.34814814814814815" />
+        <entry key="..\:/projects/AWD1112-android/FirebaseMovieList2022/BottomNavigation/app/src/main/res/drawable/ic_people.xml" value="0.34814814814814815" />
+        <entry key="..\:/projects/AWD1112-android/FirebaseMovieList2022/BottomNavigation/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/projects/AWD1112-android/FirebaseMovieList2022/BottomNavigation/app/src/main/res/layout/fragment_page.xml" value="0.36666666666666664" />
+        <entry key="..\:/projects/AWD1112-android/FirebaseMovieList2022/BottomNavigation/app/src/main/res/layout/fragment_users.xml" value="0.2916666666666667" />
+        <entry key="..\:/projects/AWD1112-android/FirebaseMovieList2022/BottomNavigation/app/src/main/res/menu/menu_bottom_navigation.xml" value="0.32407407407407407" />
         <entry key="..\:/projects/AWD1112-android/FirebaseMovieList2022/BottomNavigation/app/src/main/res/menu/menu_main.xml" value="0.36666666666666664" />
       </map>
     </option>
