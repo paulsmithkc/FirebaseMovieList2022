@@ -1,4 +1,4 @@
-package edu.ranken.prsmith.movielist2022.ui;
+package edu.ranken.prsmith.movielist2022.ui.review;
 
 import android.view.View;
 import android.widget.TextView;

@@ -1,29 +1,20 @@
-package edu.ranken.prsmith.movielist2022.ui;
+package edu.ranken.prsmith.movielist2022.ui.review;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.squareup.picasso.Picasso;
-
 import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
-import edu.ranken.prsmith.movielist2022.MovieDetailsActivity;
 import edu.ranken.prsmith.movielist2022.R;
-import edu.ranken.prsmith.movielist2022.data.MovieSummary;
 import edu.ranken.prsmith.movielist2022.data.Review;
 
 public class ReviewListAdapter extends RecyclerView.Adapter<ReviewViewHolder> {

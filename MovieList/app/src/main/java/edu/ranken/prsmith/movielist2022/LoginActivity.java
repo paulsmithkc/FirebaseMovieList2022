@@ -112,11 +112,11 @@ public class LoginActivity extends AppCompatActivity {
             .set(update, SetOptions.merge())
             .addOnSuccessListener((result) -> {
                 Log.e(LOG_TAG, "User profile updated.");
-                startActivity(new Intent(this, MovieListActivity.class));
+                startActivity(new Intent(this, HomeActivity.class));
             })
             .addOnFailureListener((error) -> {
                 Log.e(LOG_TAG, "Failed to update user profile on login.", error);
-                startActivity(new Intent(this, MovieListActivity.class));
+                startActivity(new Intent(this, HomeActivity.class));
             });
     }
 }

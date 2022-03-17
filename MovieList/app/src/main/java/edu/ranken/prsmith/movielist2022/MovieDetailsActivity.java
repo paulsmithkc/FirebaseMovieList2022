@@ -18,8 +18,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.squareup.picasso.Picasso;
 
-import edu.ranken.prsmith.movielist2022.ui.MovieDetailsViewModel;
-import edu.ranken.prsmith.movielist2022.ui.ReviewListAdapter;
+import edu.ranken.prsmith.movielist2022.ui.movie.MovieDetailsViewModel;
+import edu.ranken.prsmith.movielist2022.ui.review.ReviewListAdapter;
 
 public class MovieDetailsActivity extends AppCompatActivity {
 

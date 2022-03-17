@@ -3,7 +3,6 @@ package edu.ranken.prsmith.movielist2022;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -25,9 +24,9 @@ import java.util.Objects;
 
 import edu.ranken.prsmith.movielist2022.data.Genre;
 import edu.ranken.prsmith.movielist2022.data.MovieList;
-import edu.ranken.prsmith.movielist2022.ui.MovieListAdapter;
-import edu.ranken.prsmith.movielist2022.ui.MovieListViewModel;
-import edu.ranken.prsmith.movielist2022.ui.SpinnerOption;
+import edu.ranken.prsmith.movielist2022.ui.movie.MovieListAdapter;
+import edu.ranken.prsmith.movielist2022.ui.movie.MovieListViewModel;
+import edu.ranken.prsmith.movielist2022.ui.utils.SpinnerOption;
 
 public class MovieListActivity extends AppCompatActivity {
 
@@ -49,7 +48,7 @@ public class MovieListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_movie_list);
+        setContentView(R.layout.movie_list);
 
         // find views
         genreSpinner = findViewById(R.id.genreSpinner);
@@ -149,7 +148,7 @@ public class MovieListActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_movie_list, menu);
+        getMenuInflater().inflate(R.menu.home_top_menu, menu);
         return true;
     }
 

@@ -1,4 +1,4 @@
-package edu.ranken.prsmith.movielist2022.ui;
+package edu.ranken.prsmith.movielist2022.ui.user;
 
 import android.util.Log;
 
@@ -6,12 +6,9 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.List;
 

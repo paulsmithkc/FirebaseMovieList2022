@@ -1,4 +1,4 @@
-package edu.ranken.prsmith.movielist2022.ui;
+package edu.ranken.prsmith.movielist2022.ui.movie;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;

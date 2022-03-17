@@ -1,4 +1,4 @@
-package edu.ranken.prsmith.movielist2022.ui;
+package edu.ranken.prsmith.movielist2022.ui.user;
 
 import android.util.Log;
 
