@@ -2,6 +2,7 @@
     <string name="app_name">Movie List</string>
     <string name="nameMissing">NAME MISSING</string>
     <string name="movieNameFormat">%1$s (%2$d)</string>
+
     <string name="allGenres">All Genres</string>
     <string name="allMovies">All Movies</string>
     <string name="myVotes">My Votes</string>
@@ -9,6 +10,7 @@
     <string name="myDownvotes">My Downvotes</string>
     <string name="myLibrary">My Library</string>
     <string name="myWishlist">My Wishlist</string>
+
     <string name="movieList">Movie List</string>
     <string name="movieDetails">Movie Details</string>
     <string name="myProfile">My Profile</string>
@@ -22,7 +24,8 @@
     <string name="emailVerified">Verified</string>
     <string name="emailUnverified">Unverified</string>
     <string name="home">Home</string>
-
+    <string name="movies">Movies</string>
+    <string name="users">Users</string>
 
     <!--    <string-array name="genreFilters">-->
     <!--        <item>All Genres</item>-->
