@@ -15,6 +15,10 @@
     <string name="reviewCountText">%1$d reviews</string>
     <string name="loginButton">Login</string>
     <string name="actionSignOut">Sign Out</string>
+    <string name="home">Home</string>
+    <string name="movieList">Movie List</string>
+    <string name="movies">Movies</string>
+    <string name="users">Users</string>
 
     <!--    <string-array name="genreFilters">-->
     <!--        <item>All Genres</item>-->

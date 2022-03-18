@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
@@ -27,14 +27,14 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieViewHolder> {
 
     private static final String LOG_TAG = MovieListAdapter.class.getSimpleName();
 
-    private final AppCompatActivity context;
+    private final FragmentActivity context;
     private final LayoutInflater layoutInflater;
     private final Picasso picasso;
     private final MovieListViewModel model;
     private List<MovieSummary> movies;
     private List<MovieVoteValue> votes;
 
-    public MovieListAdapter(AppCompatActivity context, MovieListViewModel model) {
+    public MovieListAdapter(FragmentActivity context, MovieListViewModel model) {
         this.context = context;
         this.layoutInflater = LayoutInflater.from(context);
         this.picasso = Picasso.get();
