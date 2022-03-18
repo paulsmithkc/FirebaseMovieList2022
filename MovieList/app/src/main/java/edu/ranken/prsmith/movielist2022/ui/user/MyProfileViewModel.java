@@ -48,7 +48,7 @@ public class MyProfileViewModel extends ViewModel {
     public LiveData<FirebaseUser> getUser() {
         return user;
     }
-    public MutableLiveData<String> getSnackbarMessage() {
+    public LiveData<String> getSnackbarMessage() {
         return snackbarMessage;
     }
 

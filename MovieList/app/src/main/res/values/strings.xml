@@ -7,7 +7,11 @@
     <string name="myVotes">My Votes</string>
     <string name="myUpvotes">My Upvotes</string>
     <string name="myDownvotes">My Downvotes</string>
+    <string name="myLibrary">My Library</string>
+    <string name="myWishlist">My Wishlist</string>
+    <string name="movieList">Movie List</string>
     <string name="movieDetails">Movie Details</string>
+    <string name="myProfile">My Profile</string>
     <string name="noDescription">No description.</string>
     <string name="composeReview">Compose Review</string>
     <string name="invalidDate">Invalid Date</string>
@@ -15,6 +19,10 @@
     <string name="reviewCountText">%1$d reviews</string>
     <string name="loginButton">Login</string>
     <string name="actionSignOut">Sign Out</string>
+    <string name="emailVerified">Verified</string>
+    <string name="emailUnverified">Unverified</string>
+    <string name="home">Home</string>
+
 
     <!--    <string-array name="genreFilters">-->
     <!--        <item>All Genres</item>-->

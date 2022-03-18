@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -77,6 +78,9 @@ public class HomeActivity extends AppCompatActivity {
         } else if (itemId == R.id.actionSignOut) {
             onSignOut();
             return true;
+        } else if (itemId == R.id.actionMyProfile) {
+            viewMyProfile();
+            return true;
         } else {
             return super.onOptionsItemSelected(item);
         }
@@ -95,5 +99,9 @@ public class HomeActivity extends AppCompatActivity {
                 Log.i(LOG_TAG, "Signed out.");
                 finish();
             });
+    }
+
+    public void viewMyProfile() {
+        startActivity(new Intent(this, MyProfileActivity.class));
     }
 }
