@@ -111,7 +111,7 @@ public class LoginActivity extends AppCompatActivity {
             .document(userId)
             .set(update, SetOptions.merge())
             .addOnSuccessListener((result) -> {
-                Log.e(LOG_TAG, "User profile updated.");
+                Log.i(LOG_TAG, "User profile updated.");
                 startActivity(new Intent(this, HomeActivity.class));
             })
             .addOnFailureListener((error) -> {
