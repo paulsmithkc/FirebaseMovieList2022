@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Image Upload</string>
+    <string name="loginButton">Login</string>
 </resources>
