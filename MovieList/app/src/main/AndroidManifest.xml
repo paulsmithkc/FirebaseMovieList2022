@@ -57,6 +57,15 @@
                 android:value="edu.ranken.prsmith.movielist2022.HomeActivity"
                 />
         </activity>
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="edu.ranken.prsmith.movielist2022.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
     </application>
 
 </manifest>

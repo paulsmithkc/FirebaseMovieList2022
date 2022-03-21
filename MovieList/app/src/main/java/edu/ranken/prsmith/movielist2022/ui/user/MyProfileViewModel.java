@@ -141,7 +141,7 @@ public class MyProfileViewModel extends ViewModel {
         }
     }
 
-    public void uploadProfilePhoto(Bitmap bitmap) {
+    public void uploadProfilePhoto(Uri photoFileUri) {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser == null) {
             Log.e(LOG_TAG, "Cannot upload profile photo, because user is not authenticated.");
@@ -151,14 +151,8 @@ public class MyProfileViewModel extends ViewModel {
             String userId = currentUser.getUid();
             StorageReference storageRef = storage.getReference("/user/" + userId + "/profilePhoto.png");
 
-            // convert the image into an array of bytes
-            // FIXME: use an InputStream to upload the image
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-            byte[] bytes = stream.toByteArray();
-
             // start uploading the file
-            UploadTask uploadTask = storageRef.putBytes(bytes);
+            UploadTask uploadTask = storageRef.putFile(photoFileUri);
 
             // perform additional tasks after the file is uploaded
             // FIXME: test that all failure modes are captured and handled

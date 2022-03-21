@@ -42,6 +42,7 @@ public class MyProfileActivity extends AppCompatActivity {
     // state
     private MyProfileViewModel model;
     private Picasso picasso;
+    private Uri uploadProfilePhotoUri;
 
     // colors
     private int successColor;
@@ -146,14 +147,15 @@ public class MyProfileActivity extends AppCompatActivity {
             try {
                 Uri outputUri = createImageFile();
                 Log.i(LOG_TAG, "outputUri: " + outputUri);
+                uploadProfilePhotoUri = outputUri;
                 takePictureLauncher.launch(outputUri);
-            } catch (IOException ex) {
+            } catch (Exception ex) {
                 Log.e(LOG_TAG, "failed to take picture", ex);
             }
         });
     }
 
-    private static final String FILE_PROVIDER_AUTHORITY = "com.example.android.fileprovider";
+    private static final String FILE_PROVIDER_AUTHORITY = "edu.ranken.prsmith.movielist2022.fileprovider";
 
     private Uri createImageFile() throws IOException {
         // create file name
@@ -176,6 +178,6 @@ public class MyProfileActivity extends AppCompatActivity {
     }
 
     private void uploadProfilePhoto() {
-
+        model.uploadProfilePhoto(uploadProfilePhotoUri);
     }
 }
