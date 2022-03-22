@@ -49,6 +49,13 @@ public class ImageUploadViewModel extends ViewModel {
     }
 
     public void uploadProfileImage(Uri profileImageUri) {
+        // 1. Create a StorageReference
+        // 2. Upload file using putFile()
+        // 3. Update metadata
+        // 4. Get download URL
+        // 5. Update profile photo in FirebaseUser
+        // 6. Update user document in firestore database
+
         String userId = user.getUid();
         StorageReference storageRef =
             storage.getReference("/user/" + userId + "/profilePhoto.png");
@@ -61,19 +68,26 @@ public class ImageUploadViewModel extends ViewModel {
                     uploadErrorMessage.postValue("Failed to upload.");
                 } else {
                     Log.i(LOG_TAG, "image uploaded to: " + storageRef.getPath());
-                    storageRef
-                        .getDownloadUrl()
-                        .addOnCompleteListener((downloadTask) -> {
-                            if (!downloadTask.isSuccessful()) {
-                                Log.e(LOG_TAG, "failed to get download url for: " + storageRef.getPath(), downloadTask.getException());
-                                uploadErrorMessage.postValue("Failed to get download URL.");
-                            } else {
-                                Uri downloadUrl = downloadTask.getResult();
-                                Log.i(LOG_TAG, "download url: " + downloadUrl);
-                                this.uploadErrorMessage.postValue(null);
-                                this.downloadUrl.postValue(downloadUrl);
-                            }
-                        });
+                    getProfileImageDownloadUrl(storageRef);
+                }
+            });
+    }
+
+    private void getProfileImageDownloadUrl(StorageReference storageRef) {
+        storageRef
+            .getDownloadUrl()
+            .addOnCompleteListener((downloadTask) -> {
+                if (!downloadTask.isSuccessful()) {
+                    Log.e(LOG_TAG, "failed to get download url for: " + storageRef.getPath(), downloadTask.getException());
+                    uploadErrorMessage.postValue("Failed to get download URL.");
+                } else {
+                    Uri downloadUrl = downloadTask.getResult();
+                    Log.i(LOG_TAG, "download url: " + downloadUrl);
+                    this.uploadErrorMessage.postValue(null);
+                    this.downloadUrl.postValue(downloadUrl);
+
+                    // update auth database ...
+                    // update firestore database ...
                 }
             });
     }
