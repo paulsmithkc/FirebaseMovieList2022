@@ -121,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
         boolean hasCamera =
             this.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY);
         cameraButton.setVisibility(hasCamera ? View.VISIBLE : View.GONE);
+        Log.i(LOG_TAG, "hasCamera = " + hasCamera);
     }
 
     public void uploadImage(Uri uri) {
