@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -18,6 +19,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.squareup.picasso.Picasso;
 
+import java.util.Objects;
+
+import edu.ranken.prsmith.movielist2022.data.Movie;
 import edu.ranken.prsmith.movielist2022.ui.movie.MovieDetailsViewModel;
 import edu.ranken.prsmith.movielist2022.ui.review.ReviewListAdapter;
 
@@ -29,6 +33,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
     // views
     private FloatingActionButton composeReviewButton;
+    private FloatingActionButton shareGameButton;
     private TextView movieErrorText;
     private TextView movieTitleText;
     private TextView movieDescriptionText;
@@ -40,6 +45,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
     // state
     private String movieId;
+    private Movie movie;
     private MovieDetailsViewModel model;
     private Picasso picasso;
     private LinearLayoutManager reviewLayoutManager;
@@ -52,6 +58,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
         // find views
         composeReviewButton = findViewById(R.id.composeReviewButton);
+        shareGameButton = findViewById(R.id.shareGameButton);
         movieErrorText = findViewById(R.id.movieErrorText);
         movieTitleText = findViewById(R.id.movieTitleText);
         movieDescriptionText = findViewById(R.id.movieDescriptionText);
@@ -64,10 +71,6 @@ public class MovieDetailsActivity extends AppCompatActivity {
         reviewErrorText = findViewById(R.id.movieReviewErrorText);
         reviewCountText = findViewById(R.id.movieReviewCountText);
         reviewRecylerView = findViewById(R.id.movieReviewList);
-
-        // get intent
-        Intent intent = getIntent();
-        movieId = intent.getStringExtra(EXTRA_MOVIE_ID);
 
         // get picasso
         picasso = Picasso.get();
@@ -82,8 +85,9 @@ public class MovieDetailsActivity extends AppCompatActivity {
         reviewRecylerView.setAdapter(reviewAdapter);
 
         // bind model
-        model.fetchMovie(movieId);
         model.getMovie().observe(this, (movie) -> {
+            this.movie = movie;
+
             if (movie == null) {
                 movieTitleText.setText(null);
                 movieDescriptionText.setText(null);
@@ -154,6 +158,47 @@ public class MovieDetailsActivity extends AppCompatActivity {
             Log.i(LOG_TAG, "Compose review clicked.");
             Snackbar.make(view, R.string.notImplemented, Snackbar.LENGTH_SHORT).show();
         });
+        shareGameButton.setOnClickListener((view) -> {
+            Log.i(LOG_TAG, "Share game clicked.");
+
+            if (movie == null) {
+                Snackbar.make(view, "Movie not found.", Snackbar.LENGTH_SHORT).show();
+            } else if (movie.name == null) {
+                Snackbar.make(view, "Movie does not have a name.", Snackbar.LENGTH_SHORT).show();
+            } else {
+                String movieName;
+                if (movie.releaseYear == null) {
+                    movieName = movie.name;
+                } else {
+                    movieName = movie.name + " (" + movie.releaseYear + ")";
+                }
+
+                String message =
+                    "Check this movie out!\n" +
+                    movieName +
+                    "\nhttps://my-movie-list.com/movie/" + movie.id;
+
+                Intent sendIntent = new Intent(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, message);
+                // sendIntent.putExtra(Intent.EXTRA_TITLE, movieName);
+                // sendIntent.setData(Uri.parse(movie.image));
+                sendIntent.setType("text/plain");
+
+                startActivity(Intent.createChooser(sendIntent, getString(R.string.shareGame)));
+            }
+        });
+
+        // get intent
+        Intent intent = getIntent();
+        String intentAction = intent.getAction();
+        Uri intentData = intent.getData();
+
+        if (intentAction == null) {
+            movieId = intent.getStringExtra(EXTRA_MOVIE_ID);
+            model.fetchMovie(movieId);
+        } else if (Objects.equals(intentAction, Intent.ACTION_VIEW) && intentData != null) {
+            handleWebLink(intent);
+        }
     }
 
     @Override
@@ -166,5 +211,24 @@ public class MovieDetailsActivity extends AppCompatActivity {
         } else {
             return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void handleWebLink(Intent intent) {
+        Uri uri = intent.getData();
+        String path = uri.getPath();
+        String prefix = "/movie/";
+
+        if (path.startsWith(prefix)) {
+            int movieIdEnd = path.indexOf("/", prefix.length());
+            if (movieIdEnd < 0) {
+                movieId = path.substring(prefix.length());
+            } else {
+                movieId = path.substring(prefix.length(), movieIdEnd);
+            }
+        } else {
+            movieId = null;
+        }
+
+        model.fetchMovie(movieId);
     }
 }

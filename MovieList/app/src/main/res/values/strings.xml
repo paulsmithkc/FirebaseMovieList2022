@@ -19,6 +19,7 @@
     <string name="movieList">Movie List</string>
     <string name="movies">Movies</string>
     <string name="users">Users</string>
+    <string name="shareGame">Share Game</string>
 
     <!--    <string-array name="genreFilters">-->
     <!--        <item>All Genres</item>-->
