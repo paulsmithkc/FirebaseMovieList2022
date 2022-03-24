@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.hardware.Camera;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -118,8 +119,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // disable the camera if not available
-        boolean hasCamera =
-            this.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY);
+        // boolean hasCamera = this.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY);
+        boolean hasCamera = Camera.getNumberOfCameras() > 0;
         cameraButton.setVisibility(hasCamera ? View.VISIBLE : View.GONE);
         Log.i(LOG_TAG, "hasCamera = " + hasCamera);
     }
