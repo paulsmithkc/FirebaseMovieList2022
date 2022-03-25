@@ -60,6 +60,8 @@ public class ImageUploadViewModel extends ViewModel {
         StorageReference storageRef =
             storage.getReference("/user/" + userId + "/profilePhoto.png");
 
+        Log.i(LOG_TAG, "Uploading " + profileImageUri + " to storage " + storageRef.getPath());
+
         storageRef
             .putFile(profileImageUri)
             .addOnCompleteListener((task) -> {

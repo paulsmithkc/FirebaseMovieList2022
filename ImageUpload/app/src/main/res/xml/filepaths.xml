@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Used with Environment.getExternalStoragePublicDirectory() -->
     <external-path path="Pictures/" name="public_images" />
-    <files-path path="Pictures/" name="private_images" />
+    <!-- Used with Context.getExternalFilesDir() -->
+    <external-files-path path="Pictures/" name="public_app_images" />
+    <!-- Used with Context.getFilesDir() -->
+    <files-path path="Pictures/" name="private_app_images" />
+
+    <!-- See https://guides.codepath.com/android/Sharing-Content-with-Intents#sharing-files-with-api-24-or-higher -->
+
 </paths>

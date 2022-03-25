@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
     // constants
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
+    private static final String FILE_PROVIDER_AUTHORITY = "edu.ranken.prsmith.imageupload.fileprovider";
 
     // views
     private ImageView imagePreview;
@@ -147,6 +148,23 @@ public class MainActivity extends AppCompatActivity {
         File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
         File imageFile = new File(storageDir, fileName);
 
+        if (!storageDir.exists()) {
+            if (!storageDir.mkdirs()) {
+                Log.e(LOG_TAG, "Failed to create directories: " + storageDir);
+            } else {
+                Log.e(LOG_TAG, "Directories created: " + storageDir);
+            }
+        }
+
+//        File sdcard = Environment.getExternalStorageDirectory();
+//        if (sdcard != null) {
+//            Log.i(LOG_TAG, "sdcard = " + sdcard);
+//            File cameraDir = new File(sdcard, "/DCIM/Camera");
+//            boolean cameraExists = cameraDir.exists();
+//            boolean cameraCreated = cameraDir.mkdirs();
+//            Log.i(LOG_TAG, "Directory " + cameraDir + " created: " + (cameraExists || cameraCreated));
+//        }
+
         // return File object
         return imageFile;
     }
@@ -154,8 +172,6 @@ public class MainActivity extends AppCompatActivity {
 //    private Uri fileToUri(File file) {
 //        return Uri.fromFile(file);
 //    }
-
-    private static final String FILE_PROVIDER_AUTHORITY = "edu.ranken.prsmith.imageupload.fileprovider";
 
     private Uri fileToUri(File file) {
         return FileProvider.getUriForFile(this, FILE_PROVIDER_AUTHORITY, file);
