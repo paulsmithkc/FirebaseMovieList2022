@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.TaskStackBuilder;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -213,11 +214,24 @@ public class MovieDetailsActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        if (getIntent().getAction() != null) {
+            TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+            stackBuilder.addNextIntent(new Intent(this, LoginActivity.class));
+            stackBuilder.addNextIntent(new Intent(this, HomeActivity.class));
+            stackBuilder.startActivities();
+        } else {
+            super.onBackPressed();
+        }
+    }
+
     private void handleWebLink(Intent intent) {
         Uri uri = intent.getData();
         String path = uri.getPath();
         String prefix = "/movie/";
 
+        // parse uri path
         if (path.startsWith(prefix)) {
             int movieIdEnd = path.indexOf("/", prefix.length());
             if (movieIdEnd < 0) {
@@ -229,6 +243,14 @@ public class MovieDetailsActivity extends AppCompatActivity {
             movieId = null;
         }
 
+        // create synthetic back stack
+//        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+//        stackBuilder.addNextIntent(new Intent(this, LoginActivity.class));
+//        stackBuilder.addNextIntent(new Intent(this, HomeActivity.class));
+//        stackBuilder.addNextIntent(new Intent(this, MovieDetailsActivity.class).putExtra(EXTRA_MOVIE_ID, movieId));
+//        stackBuilder.startActivities();
+
+        // load movie data
         model.fetchMovie(movieId);
     }
 }
