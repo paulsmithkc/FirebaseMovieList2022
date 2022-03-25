@@ -98,11 +98,17 @@ public class ImageUploadActivity extends AppCompatActivity {
         cameraButton.setOnClickListener((view) -> {
             Log.i(LOG_TAG, "camera clicked");
             try {
-                outputImageFile = createImageFile();
-                Log.i(LOG_TAG, "outputImageFile = " + outputImageFile);
-                outputImageUri = fileToUri(outputImageFile);
-                Log.i(LOG_TAG, "outputImageUri = " + outputImageUri);
-                takePictureLauncher.launch(outputImageUri);
+                String permission = Manifest.permission.WRITE_EXTERNAL_STORAGE;
+                if (ActivityCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
+                    requestPermissionLauncher.launch(permission);
+                    throw new IOException("Permission missing: " + permission);
+                } else {
+                    outputImageFile = createImageFile();
+                    Log.i(LOG_TAG, "outputImageFile = " + outputImageFile);
+                    outputImageUri = fileToUri(outputImageFile);
+                    Log.i(LOG_TAG, "outputImageUri = " + outputImageUri);
+                    takePictureLauncher.launch(outputImageUri);
+                }
             } catch (Exception ex) {
                 Log.e(LOG_TAG, "take picture failed", ex);
             }
@@ -152,13 +158,6 @@ public class ImageUploadActivity extends AppCompatActivity {
     }
 
     private File createImageFile() throws IOException {
-        // request permission, if needed
-        String permission = Manifest.permission.WRITE_EXTERNAL_STORAGE;
-        if (ActivityCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
-            requestPermissionLauncher.launch(permission);
-            throw new IOException("Permission missing: " + permission);
-        }
-
         // create file name
         Calendar now = Calendar.getInstance();
         String fileName = String.format(Locale.US, "image_%1$tY%1$tm%1$td_%1$tH%1$tM%1$tS.jpg", now);
