@@ -1,7 +1,6 @@
 package edu.ranken.prsmith.imageupload;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -16,12 +15,8 @@ import com.firebase.ui.auth.IdpResponse;
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FieldValue;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.SetOptions;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
@@ -93,6 +88,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void onLoginSuccess(FirebaseUser user) {
-        startActivity(new Intent(this, MainActivity.class));
+        startActivity(new Intent(this, ImageUploadActivity.class));
     }
 }

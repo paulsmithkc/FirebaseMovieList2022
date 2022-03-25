@@ -6,13 +6,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -27,10 +24,10 @@ import java.util.Calendar;
 import java.util.Locale;
 import java.util.Objects;
 
-public class MainActivity extends AppCompatActivity {
+public class ImageUploadActivity extends AppCompatActivity {
 
     // constants
-    private static final String LOG_TAG = MainActivity.class.getSimpleName();
+    private static final String LOG_TAG = ImageUploadActivity.class.getSimpleName();
     private static final String FILE_PROVIDER_AUTHORITY = "edu.ranken.prsmith.imageupload.fileprovider";
 
     // views
@@ -73,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_image_upload);
 
         // find views
         imagePreview = findViewById(R.id.imagePreview);
