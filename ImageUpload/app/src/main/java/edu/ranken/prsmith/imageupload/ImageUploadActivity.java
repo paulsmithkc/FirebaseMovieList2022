@@ -3,9 +3,12 @@ package edu.ranken.prsmith.imageupload;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.net.Uri;
 import android.os.Bundle;
@@ -64,6 +67,18 @@ public class ImageUploadActivity extends AppCompatActivity {
             }
         );
 
+    private final ActivityResultLauncher<String> requestPermissionLauncher =
+        registerForActivityResult(
+            new ActivityResultContracts.RequestPermission(),
+            (Boolean result) -> {
+                if (Objects.equals(result, Boolean.TRUE)) {
+                    Log.i(LOG_TAG, "permission granted");
+                } else {
+                    Log.e(LOG_TAG, "failed to get permission");
+                }
+            }
+        );
+
     // model
     private ImageUploadViewModel model;
 
@@ -81,7 +96,7 @@ public class ImageUploadActivity extends AppCompatActivity {
 
         // register listeners
         cameraButton.setOnClickListener((view) -> {
-            Log.i(LOG_TAG, "camera");
+            Log.i(LOG_TAG, "camera clicked");
             try {
                 outputImageFile = createImageFile();
                 Log.i(LOG_TAG, "outputImageFile = " + outputImageFile);
@@ -93,7 +108,7 @@ public class ImageUploadActivity extends AppCompatActivity {
             }
         });
         galleryButton.setOnClickListener((view) -> {
-            Log.i(LOG_TAG, "gallery");
+            Log.i(LOG_TAG, "gallery clicked");
 
 //            Intent getContentIntent = new Intent(Intent.ACTION_GET_CONTENT);
 //            getContentIntent.setType("image/*");
@@ -137,6 +152,13 @@ public class ImageUploadActivity extends AppCompatActivity {
     }
 
     private File createImageFile() throws IOException {
+        // request permission, if needed
+        String permission = Manifest.permission.WRITE_EXTERNAL_STORAGE;
+        if (ActivityCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissionLauncher.launch(permission);
+            throw new IOException("Permission missing: " + permission);
+        }
+
         // create file name
         Calendar now = Calendar.getInstance();
         String fileName = String.format(Locale.US, "image_%1$tY%1$tm%1$td_%1$tH%1$tM%1$tS.jpg", now);
@@ -145,12 +167,18 @@ public class ImageUploadActivity extends AppCompatActivity {
         File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
         File imageFile = new File(storageDir, fileName);
 
+        // create storage dir, if needed
         if (!storageDir.exists()) {
             if (!storageDir.mkdirs()) {
                 Log.e(LOG_TAG, "Failed to create directories: " + storageDir);
             } else {
                 Log.e(LOG_TAG, "Directories created: " + storageDir);
             }
+        }
+
+        // create output file, if needed
+        if (!imageFile.exists()) {
+            imageFile.createNewFile();
         }
 
 //        File sdcard = Environment.getExternalStorageDirectory();
