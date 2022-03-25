@@ -58,7 +58,7 @@ public class ImageUploadViewModel extends ViewModel {
 
         String userId = user.getUid();
         StorageReference storageRef =
-            storage.getReference("/user/" + userId + "/profilePhoto.png");
+            storage.getReference("/user/" + userId + "/profilePhoto");
 
         Log.i(LOG_TAG, "Uploading " + profileImageUri + " to storage " + storageRef.getPath());
 
