@@ -43,7 +43,7 @@ public class ChooserOptionAdapter extends ArrayAdapter<ChooserOption> {
         // bind data from item
         ChooserOption option = getItem(position);
         iconView.setImageDrawable(option.getIcon());
-        nameView.setText(option.getName());
+        nameView.setText(option.getText());
 
         // return item view
         return itemView;
