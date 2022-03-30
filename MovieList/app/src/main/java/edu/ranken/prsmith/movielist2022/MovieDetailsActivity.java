@@ -243,7 +243,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
             movieId = null;
         }
 
-        // create synthetic back stack
+//        // create synthetic back stack
 //        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
 //        stackBuilder.addNextIntent(new Intent(this, LoginActivity.class));
 //        stackBuilder.addNextIntent(new Intent(this, HomeActivity.class));
