@@ -39,38 +39,29 @@ public class ConsoleChooserDialog {
         ImageButton playstationButton = contentView.findViewById(R.id.playstationButton);
         // ... other consoles
 
-        // supported
-        if (supportedConsoles == null) {
-            this.supportedConsoles = null;
-        } else {
-            this.supportedConsoles = supportedConsoles;
+        // save maps to instance variables
+        this.supportedConsoles = supportedConsoles;
+        this.selectedConsoles = selectedConsoles != null ? selectedConsoles : new HashMap<>();
 
-            boolean xbox = Objects.equals(supportedConsoles.get("xbox"), Boolean.TRUE);
-            xboxButton.setEnabled(xbox);
-            // ... other consoles
+        // loop over keys and buttons
+        String[] keys = { "xbox", "playstation" };
+        ImageButton[] buttons = { xboxButton, playstationButton };
+        for (int i = 0; i < keys.length; ++i) {
+            String key = keys[i];
+            boolean enabled = supportedConsoles == null || Objects.equals(supportedConsoles.get(key), Boolean.TRUE);
+            boolean checkedInitially = Objects.equals(this.selectedConsoles.get(key), Boolean.TRUE);
+
+            ImageButton button = buttons[i];
+            button.setEnabled(enabled);
+            // button.setBackgroundTintList();
+            // button.setImageResource();
+            button.setOnClickListener((view) -> {
+                boolean checked = !Objects.equals(this.selectedConsoles.get(key), Boolean.TRUE);
+                this.selectedConsoles.put(key, checked);
+                // button.setBackgroundTintList();
+                // button.setImageResource();
+            });
         }
-
-        // selected
-        if (selectedConsoles == null) {
-            this.selectedConsoles = new HashMap<>();
-        } else {
-            this.selectedConsoles = selectedConsoles;
-
-            boolean xbox = Objects.equals(selectedConsoles.get("xbox"), Boolean.TRUE);
-            // xboxButton.setBackgroundTintList();
-            // xboxButton.setImageResource();
-
-            // ... other consoles
-        }
-
-        // register listeners
-        xboxButton.setOnClickListener((view) -> {
-            boolean checked = !Objects.equals(this.selectedConsoles.get("xbox"), Boolean.TRUE);
-            this.selectedConsoles.put("xbox", checked);
-            // xboxButton.setBackgroundTintList();
-            // xboxButton.setImageResource();
-        });
-        // ... other consoles
 
         // build dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
