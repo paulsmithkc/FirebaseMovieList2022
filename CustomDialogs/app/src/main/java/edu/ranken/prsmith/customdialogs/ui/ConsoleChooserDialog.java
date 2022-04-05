@@ -65,8 +65,8 @@ public class ConsoleChooserDialog {
 
         // register listeners
         xboxButton.setOnClickListener((view) -> {
-            boolean checked = Objects.equals(this.selectedConsoles.get("xbox"), Boolean.TRUE);
-            this.selectedConsoles.put("xbox", !checked);
+            boolean checked = !Objects.equals(this.selectedConsoles.get("xbox"), Boolean.TRUE);
+            this.selectedConsoles.put("xbox", checked);
             // xboxButton.setBackgroundTintList();
             // xboxButton.setImageResource();
         });
@@ -84,6 +84,9 @@ public class ConsoleChooserDialog {
         });
         dialog = builder.create();
     }
+
+    public void show() { dialog.show(); }
+    public void cancel() { dialog.cancel(); }
 
     public interface OnChooseListener {
         void onChoose(@NonNull Map<String, Boolean> selectedConsoles);

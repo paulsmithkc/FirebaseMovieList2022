@@ -16,6 +16,7 @@ import edu.ranken.prsmith.customdialogs.ui.AdapterChooserDialog;
 import edu.ranken.prsmith.customdialogs.ui.ChooserOption;
 import edu.ranken.prsmith.customdialogs.ui.ChooserOptionAdapter;
 import edu.ranken.prsmith.customdialogs.ui.ConfirmDialog;
+import edu.ranken.prsmith.customdialogs.ui.ConsoleChooserDialog;
 import edu.ranken.prsmith.customdialogs.ui.NameChooserDialog;
 import edu.ranken.prsmith.customdialogs.ui.ThingChooserAdapter;
 import edu.ranken.prsmith.customdialogs.ui.ThingChooserDialog;
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private Button chooserButton2;
     private Button chooserButton3;
     private Button chooserButton4;
+    private Button chooserButton5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,13 +45,14 @@ public class MainActivity extends AppCompatActivity {
         chooserButton2 = findViewById(R.id.chooserButton2);
         chooserButton3 = findViewById(R.id.chooserButton3);
         chooserButton4 = findViewById(R.id.chooserButton4);
+        chooserButton5 = findViewById(R.id.chooserButton5);
 
         // register listeners
         confirmButton.setOnClickListener((view) -> showConfirmDialog());
         chooserButton1.setOnClickListener((view) -> showChooser1());
         chooserButton2.setOnClickListener((view) -> showChooser2());
         chooserButton3.setOnClickListener((view) -> showChooser3());
-        chooserButton4.setOnClickListener((view) -> showChooser4());
+        chooserButton5.setOnClickListener((view) -> showChooser5());
     }
 
     private void showConfirmDialog() {
@@ -136,6 +139,21 @@ public class MainActivity extends AppCompatActivity {
             adapter,
             (index, item) -> {
                 Toast.makeText(context,"You chose " + item.getValue() + ".", Toast.LENGTH_SHORT).show();
+            }
+        );
+        dialog.show();
+    }
+
+    private void showChooser5() {
+        Context context = this;
+
+        ConsoleChooserDialog dialog = new ConsoleChooserDialog(
+            context,
+            getText(R.string.console_chooser_dialog_wishlist_title),
+            null,
+            null,
+            (selectedConsoles) -> {
+                Toast.makeText(context,"You chose " + selectedConsoles + ".", Toast.LENGTH_SHORT).show();
             }
         );
         dialog.show();

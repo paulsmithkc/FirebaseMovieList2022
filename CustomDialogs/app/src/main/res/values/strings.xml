@@ -7,5 +7,7 @@
     <string name="chooser_2">Chooser 2</string>
     <string name="chooser_3">Chooser 3</string>
     <string name="chooser_4">Chooser 4</string>
+    <string name="chooser_5">Console Chooser</string>
     <string name="name_missing">NAME MISSING</string>
+    <string name="console_chooser_dialog_wishlist_title"><b>Wishlist:</b> Choose a console</string>
 </resources>
