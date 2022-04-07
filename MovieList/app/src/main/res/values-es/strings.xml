@@ -34,4 +34,17 @@
     <string name="genre_1">Género 1</string>
     <string name="genre_2">Género 2</string>
     <string name="genre_3">Género 3</string>
+    <string name="errorMovieNotFound">Película no encontrada.</string>
+    <string name="movieHasNoName">La película no tiene nombre.</string>
+    <string name="shareGameMessage">¡Mira esta película!</string>
+    <string name="errorFetchingVotes">Error al obtener votos.</string>
+    <string name="errorFetchingGenres">Error al obtener los géneros.</string>
+    <string name="errorSaveVote">No se pudo guardar el voto.</string>
+    <string name="voteSaved">Voto guardado.</string>
+    <string name="errorRemoveVote">No se pudo eliminar el voto.</string>
+    <string name="voteRemoved">Voto eliminado.</string>
+    <string name="errorFetchingMovies">Error al obtener películas.</string>
+    <string name="moviesUpdated">Películas actualizadas.</string>
+    <string name="votesUpdated">Votos actualizados.</string>
+    <string name="genresUpdated">Géneros actualizados.</string>
 </resources>

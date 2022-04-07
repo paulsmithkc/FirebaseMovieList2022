@@ -36,7 +36,7 @@
     <string name="genre_3">Genre 3</string>
     <string name="errorMovieNotFound">Movie not found.</string>
     <string name="movieHasNoName">Movie does not have a name.</string>
-    <string name="shareGameMessage">Check this movie out!\n</string>
+    <string name="shareGameMessage">"Check this movie out! "</string>
     <string name="errorFetchingVotes">Error getting votes.</string>
     <string name="errorFetchingGenres">Error getting genres.</string>
     <string name="errorSaveVote">Failed to save vote.</string>
