@@ -28,7 +28,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/movieErrorText"
-        app:srcCompat="@drawable/placeholder_banner" />
+        app:srcCompat="@drawable/placeholder_banner"
+        android:contentDescription="@string/movieBannerDescription" />
 
     <TextView
         android:id="@+id/movieTitleText"
@@ -60,7 +61,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/movieDescriptionText"
-        app:srcCompat="@drawable/placeholder_screenshot" />
+        app:srcCompat="@drawable/placeholder_screenshot"
+        android:contentDescription="@string/screenshot_1" />
 
     <ImageView
         android:id="@+id/movieScreenshot2"
@@ -71,7 +73,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/movieScreenshot1"
-        app:srcCompat="@drawable/placeholder_screenshot" />
+        app:srcCompat="@drawable/placeholder_screenshot"
+        android:contentDescription="@string/screenshot_2" />
 
     <ImageView
         android:id="@+id/movieScreenshot3"
@@ -82,7 +85,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/movieScreenshot2"
-        app:srcCompat="@drawable/placeholder_screenshot" />
+        app:srcCompat="@drawable/placeholder_screenshot"
+        android:contentDescription="@string/screenshot_3" />
 
     <TextView
         android:id="@+id/movieReviewErrorText"

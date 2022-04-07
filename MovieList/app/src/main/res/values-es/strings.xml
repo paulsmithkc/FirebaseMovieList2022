@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Lista de películas</string>
+    <string name="nameMissing">FALTA EL NOMBRE</string>
+    <string name="allGenres">Todos los generos</string>
+    <string name="allMovies">Todas las películas</string>
+    <string name="myVotes">Mis votos</string>
+    <string name="myUpvotes">Mis votos a favor</string>
+    <string name="myDownvotes">Mis votos negativos</string>
+    <string name="movieDetails">Detalles de la película</string>
+    <string name="noDescription">Sin descripción.</string>
+    <string name="composeReview">Redactar reseña</string>
+    <string name="invalidDate">Fecha invalida</string>
+    <string name="notImplemented">No implementado.</string>
+    <string name="reviewCountText">%1$d reseñas</string>
+    <string name="loginButton">Acceso</string>
+    <string name="actionSignOut">Desconectar</string>
+    <string name="home">Casa</string>
+    <string name="movieList">Lista de películas</string>
+    <string name="movies">Películas</string>
+    <string name="users">Usuarios</string>
+    <string name="shareGame">Compartir juego</string>
+    <string name="movieBannerDescription">Pancarta para pelicula</string>
+    <string name="screenshot_1">Captura de pantalla 1</string>
+    <string name="screenshot_2">Captura de pantalla 2</string>
+    <string name="screenshot_3">Captura de pantalla 3</string>
+    <string name="movieThumbnailDescription">Miniatura de la película</string>
+    <string name="upvote">Votar a favor</string>
+    <string name="downvote">Voto negativo</string>
+    <string name="unknownGenre">Género desconocido</string>
+    <string name="actionGenre">Acción</string>
+    <string name="comedyGenre">Comedia</string>
+    <string name="romanceGenre">Romance</string>
+    <string name="genre_1">Género 1</string>
+    <string name="genre_2">Género 2</string>
+    <string name="genre_3">Género 3</string>
+</resources>

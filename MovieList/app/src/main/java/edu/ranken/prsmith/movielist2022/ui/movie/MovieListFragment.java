@@ -22,7 +22,6 @@ import com.google.android.material.snackbar.Snackbar;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import edu.ranken.prsmith.movielist2022.MovieListActivity;
 import edu.ranken.prsmith.movielist2022.R;
 import edu.ranken.prsmith.movielist2022.data.Genre;
 import edu.ranken.prsmith.movielist2022.data.MovieList;
@@ -111,16 +110,35 @@ public class MovieListFragment extends Fragment {
                 genreSpinner.setSelection(selectedPosition, false);
             }
         });
-        model.getErrorMessage().observe(lifecycleOwner, (errorMessage) -> {
-            // FIXME: hide error message when it is null/empty
-            errorText.setVisibility(errorMessage != null ? View.VISIBLE : View.GONE);
-            errorText.setText(errorMessage);
+        model.getErrorMessages().observe(lifecycleOwner, (errorMessages) -> {
+            StringBuilder sb = new StringBuilder();
+
+            if (errorMessages != null) {
+                for (Integer messageId : errorMessages.values()) {
+                    if (messageId != null) {
+                        sb.append(getString(messageId)).append("\n");
+                    }
+                }
+            }
+
+            errorText.setText(sb);
+            errorText.setVisibility(sb.length() > 0 ? View.VISIBLE : View.GONE);
         });
-        model.getSnackbarMessage().observe(lifecycleOwner, (snackbarMessage) -> {
-            // Only show a snackbar, when there is a message to be shown
-            if (snackbarMessage != null) {
-                Snackbar.make(recyclerView, snackbarMessage, Snackbar.LENGTH_SHORT).show();
-                model.clearSnackbar();
+        model.getSnackbarMessages().observe(lifecycleOwner, (snackbarMessages) -> {
+            Integer messageId =
+                snackbarMessages != null && snackbarMessages.size() > 0 ?
+                snackbarMessages.get(0) : null;
+
+            if (messageId != null) {
+                Snackbar
+                    .make(recyclerView, messageId, Snackbar.LENGTH_SHORT)
+                    .addCallback(new Snackbar.Callback() {
+                        @Override
+                        public void onDismissed(Snackbar transientBottomBar, int event) {
+                            model.removeSnackbar();
+                        }
+                    })
+                    .show();
             }
         });
 

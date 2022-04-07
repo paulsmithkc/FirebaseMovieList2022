@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Movie List</string>
     <string name="nameMissing">NAME MISSING</string>
-    <string name="movieNameFormat">%1$s (%2$d)</string>
+    <string name="movieNameFormat" translatable="false">%1$s (%2$d)</string>
     <string name="allGenres">All Genres</string>
     <string name="allMovies">All Movies</string>
     <string name="myVotes">My Votes</string>
@@ -20,6 +20,31 @@
     <string name="movies">Movies</string>
     <string name="users">Users</string>
     <string name="shareGame">Share Game</string>
+    <string name="movieBannerDescription">Banner for movie</string>
+    <string name="screenshot_1">Screenshot 1</string>
+    <string name="screenshot_2">Screenshot 2</string>
+    <string name="screenshot_3">Screenshot 3</string>
+    <string name="movieThumbnailDescription">Thumbnail for Movie</string>
+    <string name="upvote">Upvote</string>
+    <string name="downvote">Downvote</string>
+    <string name="unknownGenre">Unknown Genre</string>
+    <string name="actionGenre">Action</string>
+    <string name="comedyGenre">Comedy</string>
+    <string name="romanceGenre">Romance</string>
+    <string name="genre_1">Genre 1</string>
+    <string name="genre_2">Genre 2</string>
+    <string name="genre_3">Genre 3</string>
+    <string name="errorMovieNotFound">Movie not found.</string>
+    <string name="movieHasNoName">Movie does not have a name.</string>
+    <string name="shareGameMessage">Check this movie out!\n</string>
+    <string name="errorFetchingVotes">Error getting votes.</string>
+    <string name="errorFetchingGenres">Error getting genres.</string>
+    <string name="errorSaveVote">Failed to save vote.</string>
+    <string name="voteSaved">Vote saved.</string>
+    <string name="errorRemoveVote">Failed to clear vote.</string>
+    <string name="voteRemoved">Vote cleared.</string>
+    <string name="errorFetchingMovies">Error getting movies.</string>
+    <string name="moviesUpdated">Movies Updated.</string>
 
     <!--    <string-array name="genreFilters">-->
     <!--        <item>All Genres</item>-->

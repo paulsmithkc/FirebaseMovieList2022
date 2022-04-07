@@ -160,18 +160,22 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieViewHolder> {
                         default:
                             vh.genreIcons[iconIndex].setVisibility(View.VISIBLE);
                             vh.genreIcons[iconIndex].setImageResource(R.drawable.ic_error);
+                            vh.genreIcons[iconIndex].setContentDescription(context.getString(R.string.unknownGenre));
                             break;
                         case "action":
                             vh.genreIcons[iconIndex].setVisibility(View.VISIBLE);
                             vh.genreIcons[iconIndex].setImageResource(R.drawable.ic_action);
+                            vh.genreIcons[iconIndex].setContentDescription(context.getString(R.string.actionGenre));
                             break;
                         case "comedy":
                             vh.genreIcons[iconIndex].setVisibility(View.VISIBLE);
                             vh.genreIcons[iconIndex].setImageResource(R.drawable.ic_comedy);
+                            vh.genreIcons[iconIndex].setContentDescription(context.getString(R.string.comedyGenre));
                             break;
                         case "romance":
                             vh.genreIcons[iconIndex].setVisibility(View.VISIBLE);
                             vh.genreIcons[iconIndex].setImageResource(R.drawable.ic_romance);
+                            vh.genreIcons[iconIndex].setContentDescription(context.getString(R.string.romanceGenre));
                             break;
                     }
                     iconIndex++;

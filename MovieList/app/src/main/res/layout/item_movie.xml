@@ -18,7 +18,8 @@
             android:layout_height="150dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_broken_image" />
+            app:srcCompat="@drawable/ic_broken_image"
+            android:contentDescription="@string/movieThumbnailDescription" />
 
         <TextView
             android:id="@+id/item_movie_name"
@@ -47,7 +48,8 @@
             android:scaleType="centerInside"
             app:layout_constraintStart_toEndOf="@+id/item_movie_image"
             app:layout_constraintTop_toBottomOf="@+id/item_movie_director"
-            app:srcCompat="@drawable/ic_thumbs_up_outline" />
+            app:srcCompat="@drawable/ic_thumbs_up_outline"
+            android:contentDescription="@string/upvote" />
 
         <ImageButton
             android:id="@+id/item_movie_downvote"
@@ -56,7 +58,8 @@
             android:scaleType="centerInside"
             app:layout_constraintStart_toEndOf="@+id/item_movie_upvote"
             app:layout_constraintTop_toBottomOf="@+id/item_movie_director"
-            app:srcCompat="@drawable/ic_thumbs_down_outline" />
+            app:srcCompat="@drawable/ic_thumbs_down_outline"
+            android:contentDescription="@string/downvote" />
 
         <ImageView
             android:id="@+id/item_movie_genre_1"
@@ -69,7 +72,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/item_movie_image"
             app:srcCompat="@drawable/ic_downloading"
-            tools:srcCompat="@drawable/ic_action" />
+            tools:srcCompat="@drawable/ic_action"
+            android:contentDescription="@string/genre_1" />
 
         <ImageView
             android:id="@+id/item_movie_genre_2"
@@ -82,7 +86,8 @@
             app:layout_constraintStart_toEndOf="@+id/item_movie_genre_1"
             app:layout_constraintTop_toBottomOf="@+id/item_movie_image"
             app:srcCompat="@drawable/ic_downloading"
-            tools:srcCompat="@drawable/ic_comedy" />
+            tools:srcCompat="@drawable/ic_comedy"
+            android:contentDescription="@string/genre_2" />
 
         <ImageView
             android:id="@+id/item_movie_genre_3"
@@ -95,7 +100,8 @@
             app:layout_constraintStart_toEndOf="@+id/item_movie_genre_2"
             app:layout_constraintTop_toBottomOf="@+id/item_movie_image"
             app:srcCompat="@drawable/ic_downloading"
-            tools:srcCompat="@drawable/ic_romance" />
+            tools:srcCompat="@drawable/ic_romance"
+            android:contentDescription="@string/genre_3" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

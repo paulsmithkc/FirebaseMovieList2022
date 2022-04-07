@@ -163,9 +163,9 @@ public class MovieDetailsActivity extends AppCompatActivity {
             Log.i(LOG_TAG, "Share game clicked.");
 
             if (movie == null) {
-                Snackbar.make(view, "Movie not found.", Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(view, R.string.errorMovieNotFound, Snackbar.LENGTH_SHORT).show();
             } else if (movie.name == null) {
-                Snackbar.make(view, "Movie does not have a name.", Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(view, R.string.movieHasNoName, Snackbar.LENGTH_SHORT).show();
             } else {
                 String movieName;
                 if (movie.releaseYear == null) {
@@ -175,7 +175,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
                 }
 
                 String message =
-                    "Check this movie out!\n" +
+                    getString(R.string.shareGameMessage) +
                     movieName +
                     "\nhttps://my-movie-list.com/movie/" + movie.id;
 
