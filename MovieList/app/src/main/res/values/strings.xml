@@ -41,10 +41,12 @@
     <string name="errorFetchingGenres">Error getting genres.</string>
     <string name="errorSaveVote">Failed to save vote.</string>
     <string name="voteSaved">Vote saved.</string>
-    <string name="errorRemoveVote">Failed to clear vote.</string>
-    <string name="voteRemoved">Vote cleared.</string>
+    <string name="errorRemoveVote">Failed to remove vote.</string>
+    <string name="voteRemoved">Vote removed.</string>
     <string name="errorFetchingMovies">Error getting movies.</string>
     <string name="moviesUpdated">Movies Updated.</string>
+    <string name="votesUpdated">Votes Updated.</string>
+    <string name="genresUpdated">Genres Updated.</string>
 
     <!--    <string-array name="genreFilters">-->
     <!--        <item>All Genres</item>-->

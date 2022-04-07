@@ -110,36 +110,11 @@ public class MovieListFragment extends Fragment {
                 genreSpinner.setSelection(selectedPosition, false);
             }
         });
-        model.getErrorMessages().observe(lifecycleOwner, (errorMessages) -> {
-            StringBuilder sb = new StringBuilder();
-
-            if (errorMessages != null) {
-                for (Integer messageId : errorMessages.values()) {
-                    if (messageId != null) {
-                        sb.append(getString(messageId)).append("\n");
-                    }
-                }
-            }
-
-            errorText.setText(sb);
-            errorText.setVisibility(sb.length() > 0 ? View.VISIBLE : View.GONE);
+        model.getErrorMessages().observe(lifecycleOwner, (x) -> {
+            model.getErrorMessages().showMessage(getContext(), errorText);
         });
         model.getSnackbarMessages().observe(lifecycleOwner, (snackbarMessages) -> {
-            Integer messageId =
-                snackbarMessages != null && snackbarMessages.size() > 0 ?
-                snackbarMessages.get(0) : null;
-
-            if (messageId != null) {
-                Snackbar
-                    .make(recyclerView, messageId, Snackbar.LENGTH_SHORT)
-                    .addCallback(new Snackbar.Callback() {
-                        @Override
-                        public void onDismissed(Snackbar transientBottomBar, int event) {
-                            model.removeSnackbar();
-                        }
-                    })
-                    .show();
-            }
+            model.getSnackbarMessages().showMessage(getContext(), recyclerView);
         });
 
         // register listeners
