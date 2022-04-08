@@ -30,12 +30,17 @@ import edu.ranken.prsmith.movielist2022.data.MovieVote;
 import edu.ranken.prsmith.movielist2022.data.MovieVoteValue;
 
 public class MovieListViewModel extends ViewModel {
+
+    // constants
     private static final String LOG_TAG = MovieListViewModel.class.getSimpleName();
 
+    // firebase
     private final FirebaseFirestore db;
     private ListenerRegistration moviesRegistration;
     private ListenerRegistration votesRegistration;
     private ListenerRegistration genresRegistration;
+
+    // data
     private final String userId;
     private String filterGenreId = null;
     private MovieList filterList = MovieList.ALL_MOVIES;
@@ -201,13 +206,13 @@ public class MovieListViewModel extends ViewModel {
                 query =
                     db.collection("movieVote")
                         .whereEqualTo("userId", userId)
-                        .whereGreaterThan("value", 0);
+                        .whereEqualTo("value", 1);
                 break;
             case MY_DOWNVOTES:
                 query =
                     db.collection("movieVote")
                         .whereEqualTo("userId", userId)
-                        .whereLessThan("value", 0);
+                        .whereEqualTo("value", -1);
                 break;
         }
 
@@ -219,8 +224,7 @@ public class MovieListViewModel extends ViewModel {
             }
         }
 
-        // FIXME: sort movies by: name, releaseYear
-        // query = query.orderBy("name").orderBy("releaseYear");
+        query = query.orderBy("name").orderBy("releaseYear");
 
         moviesRegistration =
             query.addSnapshotListener((QuerySnapshot querySnapshot, FirebaseFirestoreException error) -> {
@@ -255,7 +259,7 @@ public class MovieListViewModel extends ViewModel {
 
                     movies.postValue(newMovieSummaries);
                     moviesError.postValue(null);
-                    snackbarMessage.postValue(R.string.moviesUpdated);
+                    // snackbarMessage.postValue(R.string.moviesUpdated);
                 }
             });
     }
@@ -288,7 +292,7 @@ public class MovieListViewModel extends ViewModel {
 
                         votes.postValue(newVotes);
                         votesError.postValue(null);
-                        snackbarMessage.postValue(R.string.votesUpdated);
+                        // snackbarMessage.postValue(R.string.votesUpdated);
                     }
                 });
     }
@@ -311,7 +315,7 @@ public class MovieListViewModel extends ViewModel {
 
                         genres.postValue(newGenres);
                         genresError.postValue(null);
-                        snackbarMessage.postValue(R.string.genresUpdated);
+                        // snackbarMessage.postValue(R.string.genresUpdated);
                     }
                 });
     }

@@ -12,6 +12,7 @@ import com.google.firebase.firestore.Query;
 
 import java.util.List;
 
+import edu.ranken.prsmith.movielist2022.R;
 import edu.ranken.prsmith.movielist2022.data.UserProfile;
 
 public class UserListViewModel extends ViewModel {
@@ -25,8 +26,8 @@ public class UserListViewModel extends ViewModel {
 
     // live data
     private final MutableLiveData<List<UserProfile>> users;
-    private final MutableLiveData<String> usersError;
-    private final MutableLiveData<String> snackbarMessage;
+    private final MutableLiveData<Integer> usersError;
+    private final MutableLiveData<Integer> snackbarMessage;
 
     public UserListViewModel() {
         db = FirebaseFirestore.getInstance();
@@ -53,10 +54,10 @@ public class UserListViewModel extends ViewModel {
     public LiveData<List<UserProfile>> getUsers() {
         return users;
     }
-    public LiveData<String> getUsersError() {
+    public LiveData<Integer> getUsersError() {
         return usersError;
     }
-    public MutableLiveData<String> getSnackbarMessage() {
+    public MutableLiveData<Integer> getSnackbarMessage() {
         return snackbarMessage;
     }
 
@@ -82,12 +83,12 @@ public class UserListViewModel extends ViewModel {
             query.addSnapshotListener((querySnapshot, error) -> {
                 if (error != null) {
                     Log.e(LOG_TAG, "Failed to get users.", error);
-                    usersError.postValue("Failed to get users.");
+                    usersError.postValue(R.string.errorFetchingUsers);
                 } else if (querySnapshot != null) {
                     Log.e(LOG_TAG, "Users updated.");
                     List<UserProfile> newUsers = querySnapshot.toObjects(UserProfile.class);
-                    usersError.postValue(null);
                     users.postValue(newUsers);
+                    usersError.postValue(null);
                 }
             });
     }

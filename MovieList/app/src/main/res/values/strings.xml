@@ -47,6 +47,16 @@
     <string name="moviesUpdated">Movies Updated.</string>
     <string name="votesUpdated">Votes Updated.</string>
     <string name="genresUpdated">Genres Updated.</string>
+    <string name="errorNoMovieSelected">No movie selected.</string>
+    <string name="errorFetchingMovie">Error getting movie.</string>
+    <string name="movieUpdated">Movie updated.</string>
+    <string name="errorMovieDoesNotExist">Movie does not exist.</string>
+    <string name="errorFetchingReviews">Error getting reviews.</string>
+    <string name="reviewsUpdated">Reviews updated.</string>
+    <string name="errorCurrentlySignedOut">You are currently signed-out.</string>
+    <string name="profileUpdated">Profile updated.</string>
+    <string name="errorUpdateProfile">Failed to update profile.</string>
+    <string name="errorFetchingUsers">Failed to get users.</string>
 
     <!--    <string-array name="genreFilters">-->
     <!--        <item>All Genres</item>-->

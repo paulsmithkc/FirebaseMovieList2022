@@ -128,9 +128,11 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieViewHolder> {
         }
 
         if (movie.director == null || movie.director.length() == 0) {
-            vh.director.setText("");
+            vh.director.setText(null);
+            vh.director.setVisibility(View.GONE);
         } else {
             vh.director.setText(movie.director);
+            vh.director.setVisibility(View.VISIBLE);
         }
 
         if (movie.image == null || movie.image.length() == 0) {

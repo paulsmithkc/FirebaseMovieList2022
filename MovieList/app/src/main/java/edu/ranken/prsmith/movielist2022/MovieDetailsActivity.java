@@ -138,18 +138,30 @@ public class MovieDetailsActivity extends AppCompatActivity {
 //                });
             }
         });
-        model.getMovieError().observe(this, (movieError) -> {
-            movieErrorText.setVisibility(movieError != null ? View.VISIBLE : View.GONE);
-            movieErrorText.setText(movieError);
+        model.getMovieError().observe(this, (messageId) -> {
+            if (messageId != null) {
+                movieErrorText.setText(messageId);
+                movieErrorText.setVisibility(View.VISIBLE);
+            } else {
+                movieErrorText.setText(null);
+                movieErrorText.setVisibility(View.GONE);
+            }
         });
-        model.getReviewError().observe(this, (reviewError) -> {
-            reviewErrorText.setVisibility(reviewError != null ? View.VISIBLE : View.GONE);
-            reviewErrorText.setText(reviewError);
+        model.getReviewsError().observe(this, (messageId) -> {
+            if (messageId != null) {
+                reviewErrorText.setText(messageId);
+                reviewErrorText.setVisibility(View.VISIBLE);
+            } else {
+                reviewErrorText.setText(null);
+                reviewErrorText.setVisibility(View.GONE);
+            }
         });
-        model.getSnackbarMessage().observe(this, (message) -> {
-            if (message != null) {
-                Snackbar.make(movieTitleText, message, Snackbar.LENGTH_SHORT).show();
+        model.getSnackbarMessage().observe(this, (messageId) -> {
+            if (messageId != null) {
+                Snackbar.make(movieTitleText, messageId, Snackbar.LENGTH_SHORT).show();
                 model.clearSnackbar();
+            } else {
+                // no message to show
             }
         });
 

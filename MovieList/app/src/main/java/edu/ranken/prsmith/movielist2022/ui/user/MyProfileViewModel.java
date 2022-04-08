@@ -14,6 +14,8 @@ import com.google.firebase.firestore.SetOptions;
 
 import java.util.HashMap;
 
+import edu.ranken.prsmith.movielist2022.R;
+
 public class MyProfileViewModel extends ViewModel {
 
     // constants
@@ -24,18 +26,24 @@ public class MyProfileViewModel extends ViewModel {
 
     // live data
     private final MutableLiveData<FirebaseUser> user;
-    private final MutableLiveData<String> snackbarMessage;
+    private final MutableLiveData<Integer> userError;
+    private final MutableLiveData<Integer> snackbarMessage;
 
     public MyProfileViewModel() {
         db = FirebaseFirestore.getInstance();
 
         // live data
         user = new MutableLiveData<>(null);
+        userError = new MutableLiveData<>(null);
         snackbarMessage = new MutableLiveData<>(null);
 
         // get current user
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        user.postValue(currentUser);
+        if (currentUser != null) {
+            user.postValue(currentUser);
+        } else {
+            userError.postValue(R.string.errorCurrentlySignedOut);
+        }
     }
 
     @Override
@@ -48,7 +56,10 @@ public class MyProfileViewModel extends ViewModel {
     public LiveData<FirebaseUser> getUser() {
         return user;
     }
-    public MutableLiveData<String> getSnackbarMessage() {
+    public MutableLiveData<Integer> getUserError() {
+        return userError;
+    }
+    public MutableLiveData<Integer> getSnackbarMessage() {
         return snackbarMessage;
     }
 
@@ -62,7 +73,7 @@ public class MyProfileViewModel extends ViewModel {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser == null) {
             Log.e(LOG_TAG, "Cannot update display name, because user is not authenticated.");
-            snackbarMessage.postValue("You are currently signed-out.");
+            snackbarMessage.postValue(R.string.errorCurrentlySignedOut);
         } else {
             UserProfileChangeRequest request =
                 new UserProfileChangeRequest.Builder()
@@ -82,17 +93,19 @@ public class MyProfileViewModel extends ViewModel {
                         .set(update, SetOptions.merge())
                         .addOnSuccessListener((result2) -> {
                             Log.e(LOG_TAG, "Display name updated in database.");
-                            snackbarMessage.postValue("Profile updated.");
+                            user.postValue(currentUser);
+                            userError.postValue(null);
+                            snackbarMessage.postValue(R.string.profileUpdated);
                         })
                         .addOnFailureListener((error2) -> {
                             Log.e(LOG_TAG, "Failed to update display name in database.", error2);
-                            snackbarMessage.postValue("Failed to update profile.");
+                            snackbarMessage.postValue(R.string.errorUpdateProfile);
                         });
 
                 })
                 .addOnFailureListener((error) -> {
                     Log.e(LOG_TAG, "Failed to update display name in auth.", error);
-                    snackbarMessage.postValue("Failed to update profile.");
+                    snackbarMessage.postValue(R.string.errorUpdateProfile);
                 });
         }
     }
