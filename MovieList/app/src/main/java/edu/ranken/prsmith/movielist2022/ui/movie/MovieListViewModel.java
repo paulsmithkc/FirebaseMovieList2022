@@ -2,7 +2,6 @@ package edu.ranken.prsmith.movielist2022.ui.movie;
 
 import android.util.Log;
 
-import androidx.annotation.StringRes;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -10,8 +9,6 @@ import androidx.lifecycle.ViewModel;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -19,12 +16,10 @@ import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.firestore.WriteBatch;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import edu.ranken.prsmith.movielist2022.R;
 import edu.ranken.prsmith.movielist2022.data.Genre;
@@ -33,8 +28,6 @@ import edu.ranken.prsmith.movielist2022.data.MovieList;
 import edu.ranken.prsmith.movielist2022.data.MovieSummary;
 import edu.ranken.prsmith.movielist2022.data.MovieVote;
 import edu.ranken.prsmith.movielist2022.data.MovieVoteValue;
-import edu.ranken.prsmith.movielist2022.ui.utils.ErrorMessageContainer;
-import edu.ranken.prsmith.movielist2022.ui.utils.SnackbarMessageContainer;
 
 public class MovieListViewModel extends ViewModel {
     private static final String LOG_TAG = MovieListViewModel.class.getSimpleName();
@@ -43,26 +36,30 @@ public class MovieListViewModel extends ViewModel {
     private ListenerRegistration moviesRegistration;
     private ListenerRegistration votesRegistration;
     private ListenerRegistration genresRegistration;
-    private String userId;
+    private final String userId;
     private String filterGenreId = null;
     private MovieList filterList = MovieList.ALL_MOVIES;
 
     // live data
     private final MutableLiveData<List<MovieSummary>> movies;
+    private final MutableLiveData<Integer> moviesError;
     private final MutableLiveData<List<MovieVoteValue>> votes;
+    private final MutableLiveData<Integer> votesError;
     private final MutableLiveData<List<Genre>> genres;
-    private final ErrorMessageContainer errorMessages;
-    private final SnackbarMessageContainer snackbarMessages;
+    private final MutableLiveData<Integer> genresError;
+    private final MutableLiveData<Integer> snackbarMessage;
 
     public MovieListViewModel() {
         db = FirebaseFirestore.getInstance();
 
         // live data
         movies = new MutableLiveData<>(null);
+        moviesError = new MutableLiveData<>(null);
         votes = new MutableLiveData<>(null);
+        votesError = new MutableLiveData<>(null);
         genres = new MutableLiveData<>(null);
-        errorMessages = new ErrorMessageContainer();
-        snackbarMessages = new SnackbarMessageContainer();
+        genresError = new MutableLiveData<>(null);
+        snackbarMessage = new MutableLiveData<>(null);
 
         // get current user
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -96,20 +93,32 @@ public class MovieListViewModel extends ViewModel {
         return movies;
     }
 
+    public LiveData<Integer> getMoviesError() {
+        return moviesError;
+    }
+
     public LiveData<List<MovieVoteValue>> getVotes() {
         return votes;
+    }
+
+    public LiveData<Integer> getVotesError() {
+        return votesError;
     }
 
     public LiveData<List<Genre>> getGenres() {
         return genres;
     }
 
-    public ErrorMessageContainer getErrorMessages() {
-        return errorMessages;
+    public LiveData<Integer> getGenresError() {
+        return genresError;
     }
 
-    public SnackbarMessageContainer getSnackbarMessages() {
-        return snackbarMessages;
+    public LiveData<Integer> getSnackbarMessage() {
+        return snackbarMessage;
+    }
+
+    public void clearSnackbar() {
+        snackbarMessage.postValue(null);
     }
 
     public String getFilterGenreId() {
@@ -138,10 +147,10 @@ public class MovieListViewModel extends ViewModel {
             .addOnCompleteListener((Task<Void> task) -> {
                 if (!task.isSuccessful()) {
                     Log.e(LOG_TAG, "Failed to save vote.", task.getException());
-                    snackbarMessages.addMessage(R.string.errorSaveVote);
+                    snackbarMessage.postValue(R.string.errorSaveVote);
                 } else {
                     Log.i(LOG_TAG, "Vote saved.");
-                    snackbarMessages.addMessage(R.string.voteSaved);
+                    snackbarMessage.postValue(R.string.voteSaved);
                 }
             });
     }
@@ -153,10 +162,10 @@ public class MovieListViewModel extends ViewModel {
             .addOnCompleteListener((Task<Void> task) -> {
                 if (!task.isSuccessful()) {
                     Log.e(LOG_TAG, "Failed to clear vote.", task.getException());
-                    snackbarMessages.addMessage(R.string.errorRemoveVote);
+                    snackbarMessage.postValue(R.string.errorRemoveVote);
                 } else {
                     Log.i(LOG_TAG, "Vote cleared.");
-                    snackbarMessages.addMessage(R.string.voteRemoved);
+                    snackbarMessage.postValue(R.string.voteRemoved);
                 }
             });
     }
@@ -213,12 +222,11 @@ public class MovieListViewModel extends ViewModel {
         // FIXME: sort movies by: name, releaseYear
         // query = query.orderBy("name").orderBy("releaseYear");
 
-        // FIXME: extract user-visible strings
         moviesRegistration =
             query.addSnapshotListener((QuerySnapshot querySnapshot, FirebaseFirestoreException error) -> {
                 if (error != null) {
                     Log.e(LOG_TAG, "Error getting movies.", error);
-                    errorMessages.setMessage("movies", R.string.errorFetchingMovies);
+                    moviesError.postValue(R.string.errorFetchingMovies);
                 } else if (querySnapshot != null) {
                     Log.i(LOG_TAG, "Movies update.");
 
@@ -245,9 +253,9 @@ public class MovieListViewModel extends ViewModel {
                             break;
                     }
 
-                    errorMessages.setMessage("movies", null);
-                    snackbarMessages.addMessage(R.string.moviesUpdated);
                     movies.postValue(newMovieSummaries);
+                    moviesError.postValue(null);
+                    snackbarMessage.postValue(R.string.moviesUpdated);
                 }
             });
     }
@@ -263,7 +271,7 @@ public class MovieListViewModel extends ViewModel {
                 .addSnapshotListener((QuerySnapshot querySnapshot, FirebaseFirestoreException error) -> {
                     if (error != null) {
                         Log.e(LOG_TAG, "Error getting votes.", error);
-                        errorMessages.setMessage("movieVote", R.string.errorFetchingVotes);
+                        votesError.postValue(R.string.errorFetchingVotes);
                     } else if (querySnapshot != null) {
                         Log.i(LOG_TAG, "Votes update.");
 
@@ -278,9 +286,9 @@ public class MovieListViewModel extends ViewModel {
                             }
                         }
 
-                        //snackbarMessages.addMessage(R.string.votesUpdated);
-                        errorMessages.setMessage("movieVote", null);
                         votes.postValue(newVotes);
+                        votesError.postValue(null);
+                        snackbarMessage.postValue(R.string.votesUpdated);
                     }
                 });
     }
@@ -296,14 +304,14 @@ public class MovieListViewModel extends ViewModel {
                 .addSnapshotListener((QuerySnapshot querySnapshot, FirebaseFirestoreException error) -> {
                     if (error != null) {
                         Log.e(LOG_TAG, "Error getting genres.", error);
-                        errorMessages.setMessage("genres", R.string.errorFetchingGenres);
+                        genresError.postValue(R.string.errorFetchingGenres);
                     } else if (querySnapshot != null) {
                         Log.i(LOG_TAG, "Genres updated.");
                         List<Genre> newGenres = querySnapshot.toObjects(Genre.class);
 
-                        //snackbarMessages.addMessage(R.string.genresUpdated);
-                        errorMessages.setMessage("genres", null);
                         genres.postValue(newGenres);
+                        genresError.postValue(null);
+                        snackbarMessage.postValue(R.string.genresUpdated);
                     }
                 });
     }

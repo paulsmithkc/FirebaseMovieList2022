@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MovieListActivity">
+    android:layout_height="match_parent">
 
     <Spinner
         android:id="@+id/genreSpinner"
@@ -32,7 +31,7 @@
         app:layout_constraintTop_toBottomOf="@+id/genreSpinner" />
 
     <TextView
-        android:id="@+id/errorText"
+        android:id="@+id/moviesError"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -47,15 +46,44 @@
         app:layout_constraintTop_toBottomOf="@+id/listSpinner"
         tools:text="ERROR MESSAGE" />
 
+    <TextView
+        android:id="@+id/votesError"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:textColor="@color/error"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/moviesError"
+        tools:text="ERROR MESSAGE" />
+
+    <TextView
+        android:id="@+id/genresError"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:textColor="@color/error"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/votesError"
+        tools:text="ERROR MESSAGE" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/movieList"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/errorText" />
+        app:layout_constraintTop_toBottomOf="@+id/genresError" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

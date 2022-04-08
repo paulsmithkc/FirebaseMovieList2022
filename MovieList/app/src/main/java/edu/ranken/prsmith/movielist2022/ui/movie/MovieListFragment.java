@@ -35,7 +35,9 @@ public class MovieListFragment extends Fragment {
     // views
     private Spinner genreSpinner;
     private Spinner listSpinner;
-    private TextView errorText;
+    private TextView moviesError;
+    private TextView votesError;
+    private TextView genresError;
     private RecyclerView recyclerView;
 
     // state
@@ -55,7 +57,9 @@ public class MovieListFragment extends Fragment {
         // find views
         genreSpinner = view.findViewById(R.id.genreSpinner);
         listSpinner = view.findViewById(R.id.listSpinner);
-        errorText = view.findViewById(R.id.errorText);
+        moviesError = view.findViewById(R.id.moviesError);
+        votesError = view.findViewById(R.id.votesError);
+        genresError = view.findViewById(R.id.genresError);
         recyclerView = view.findViewById(R.id.movieList);
 
         // get activity
@@ -110,11 +114,40 @@ public class MovieListFragment extends Fragment {
                 genreSpinner.setSelection(selectedPosition, false);
             }
         });
-        model.getErrorMessages().observe(lifecycleOwner, (x) -> {
-            model.getErrorMessages().showMessage(getContext(), errorText);
+        model.getMoviesError().observe(lifecycleOwner, (messageId) -> {
+            if (messageId != null) {
+                moviesError.setText(messageId);
+                moviesError.setVisibility(View.VISIBLE);
+            } else {
+                moviesError.setText(null);
+                moviesError.setVisibility(View.GONE);
+            }
         });
-        model.getSnackbarMessages().observe(lifecycleOwner, (snackbarMessages) -> {
-            model.getSnackbarMessages().showMessage(getContext(), recyclerView);
+        model.getVotesError().observe(lifecycleOwner, (messageId) -> {
+            if (messageId != null) {
+                votesError.setText(messageId);
+                votesError.setVisibility(View.VISIBLE);
+            } else {
+                votesError.setText(null);
+                votesError.setVisibility(View.GONE);
+            }
+        });
+        model.getGenresError().observe(lifecycleOwner, (messageId) -> {
+            if (messageId != null) {
+                genresError.setText(messageId);
+                genresError.setVisibility(View.VISIBLE);
+            } else {
+                genresError.setText(null);
+                genresError.setVisibility(View.GONE);
+            }
+        });
+        model.getSnackbarMessage().observe(lifecycleOwner, (messageId) -> {
+            if (messageId != null) {
+                Snackbar.make(recyclerView, messageId, Snackbar.LENGTH_SHORT).show();
+                model.clearSnackbar();
+            } else {
+                // no message to show
+            }
         });
 
         // register listeners
