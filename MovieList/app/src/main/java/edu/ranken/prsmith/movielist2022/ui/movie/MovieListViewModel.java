@@ -216,14 +216,16 @@ public class MovieListViewModel extends ViewModel {
                 break;
         }
 
-        if (filterGenreId != null) {
-            if (filterList == MovieList.ALL_MOVIES) {
+        if (filterList == MovieList.ALL_MOVIES) {
+            if (filterGenreId != null) {
                 query = query.whereEqualTo("genre." + filterGenreId, true);
-                query = query.orderBy("name").orderBy("releaseYear");
-            } else {
-                query = query.whereEqualTo("movie.genre." + filterGenreId, true);
-                query = query.orderBy("movie.name").orderBy("movie.releaseYear");
             }
+            query = query.orderBy("name").orderBy("releaseYear");
+        } else {
+            if (filterGenreId != null) {
+                query = query.whereEqualTo("movie.genre." + filterGenreId, true);
+            }
+            query = query.orderBy("movie.name").orderBy("movie.releaseYear");
         }
 
         moviesRegistration =
