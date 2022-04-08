@@ -219,12 +219,12 @@ public class MovieListViewModel extends ViewModel {
         if (filterGenreId != null) {
             if (filterList == MovieList.ALL_MOVIES) {
                 query = query.whereEqualTo("genre." + filterGenreId, true);
+                query = query.orderBy("name").orderBy("releaseYear");
             } else {
                 query = query.whereEqualTo("movie.genre." + filterGenreId, true);
+                query = query.orderBy("movie.name").orderBy("movie.releaseYear");
             }
         }
-
-        query = query.orderBy("name").orderBy("releaseYear");
 
         moviesRegistration =
             query.addSnapshotListener((QuerySnapshot querySnapshot, FirebaseFirestoreException error) -> {
