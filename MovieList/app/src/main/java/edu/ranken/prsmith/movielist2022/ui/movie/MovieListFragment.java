@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -67,7 +68,9 @@ public class MovieListFragment extends Fragment {
         LifecycleOwner lifecycleOwner = getViewLifecycleOwner();
 
         // setup recycler view
-        recyclerView.setLayoutManager(new LinearLayoutManager(activity));
+        // recyclerView.setLayoutManager(new LinearLayoutManager(activity));
+        int columns = getResources().getInteger(R.integer.movieListColumns);
+        recyclerView.setLayoutManager(new GridLayoutManager(activity, columns));
 
         // setup view model and adapter
         model = new ViewModelProvider(this).get(MovieListViewModel.class);

@@ -144,7 +144,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieViewHolder> {
                 .noPlaceholder()
                 //.placeholder(R.drawable.ic_downloading)
                 .error(R.drawable.ic_error)
-                .resize(200, 300)
+                .resizeDimen(R.dimen.movieThumbnailResizeWidth, R.dimen.movieThumbnailResizeHeight)
                 .centerInside()
                 .into(vh.image);
         }
