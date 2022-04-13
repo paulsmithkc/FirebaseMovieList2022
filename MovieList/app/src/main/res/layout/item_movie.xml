@@ -14,8 +14,8 @@
 
         <ImageView
             android:id="@+id/item_movie_image"
-            android:layout_width="100dp"
-            android:layout_height="150dp"
+            android:layout_width="@dimen/movieThumbnailWidth"
+            android:layout_height="@dimen/movieThumbnailHeight"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_broken_image"
@@ -43,8 +43,8 @@
 
         <ImageButton
             android:id="@+id/item_movie_upvote"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="@dimen/voteButtonSize"
+            android:layout_height="@dimen/voteButtonSize"
             android:scaleType="centerInside"
             app:layout_constraintStart_toEndOf="@+id/item_movie_image"
             app:layout_constraintTop_toBottomOf="@+id/item_movie_director"
@@ -53,8 +53,8 @@
 
         <ImageButton
             android:id="@+id/item_movie_downvote"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="@dimen/voteButtonSize"
+            android:layout_height="@dimen/voteButtonSize"
             android:scaleType="centerInside"
             app:layout_constraintStart_toEndOf="@+id/item_movie_upvote"
             app:layout_constraintTop_toBottomOf="@+id/item_movie_director"
@@ -63,8 +63,8 @@
 
         <ImageView
             android:id="@+id/item_movie_genre_1"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="@dimen/genreIconSize"
+            android:layout_height="@dimen/genreIconSize"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
@@ -77,8 +77,8 @@
 
         <ImageView
             android:id="@+id/item_movie_genre_2"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="@dimen/genreIconSize"
+            android:layout_height="@dimen/genreIconSize"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
@@ -91,8 +91,8 @@
 
         <ImageView
             android:id="@+id/item_movie_genre_3"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="@dimen/genreIconSize"
+            android:layout_height="@dimen/genreIconSize"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"

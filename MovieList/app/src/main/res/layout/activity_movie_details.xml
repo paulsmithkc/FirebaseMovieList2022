@@ -21,8 +21,8 @@
 
     <ImageView
         android:id="@+id/movieBannerImage"
-        android:layout_width="400dp"
-        android:layout_height="100dp"
+        android:layout_width="@dimen/movieBannerWidth"
+        android:layout_height="@dimen/movieBannerHeight"
         android:layout_marginTop="8dp"
         android:scaleType="centerInside"
         app:layout_constraintEnd_toEndOf="parent"
@@ -54,8 +54,8 @@
 
     <ImageView
         android:id="@+id/movieScreenshot1"
-        android:layout_width="0dp"
-        android:layout_height="300dp"
+        android:layout_width="@dimen/movieScreenshotWidth"
+        android:layout_height="@dimen/movieScreenshotHeight"
         android:layout_marginTop="8dp"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
@@ -66,8 +66,8 @@
 
     <ImageView
         android:id="@+id/movieScreenshot2"
-        android:layout_width="0dp"
-        android:layout_height="300dp"
+        android:layout_width="@dimen/movieScreenshotWidth"
+        android:layout_height="@dimen/movieScreenshotHeight"
         android:layout_marginTop="8dp"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
@@ -78,8 +78,8 @@
 
     <ImageView
         android:id="@+id/movieScreenshot3"
-        android:layout_width="0dp"
-        android:layout_height="300dp"
+        android:layout_width="@dimen/movieScreenshotWidth"
+        android:layout_height="@dimen/movieScreenshotHeight"
         android:layout_marginTop="8dp"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
