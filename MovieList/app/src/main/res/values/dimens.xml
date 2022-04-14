@@ -3,14 +3,6 @@
     <!-- home -->
     <dimen name="homeBottomNavHeight">50dp</dimen>
 
-    <!-- movie details -->
-    <dimen name="movieBannerWidth">400dp</dimen>
-    <dimen name="movieBannerHeight">100dp</dimen>
-    <dimen name="movieBannerResizeWidth">400dp</dimen>
-    <dimen name="movieBannerResizeHeight">100dp</dimen>
-    <dimen name="movieScreenshotWidth">0dp</dimen>
-    <dimen name="movieScreenshotHeight">300dp</dimen>
-
     <!-- movie list -->
     <dimen name="movieListSpinnerHeight">50dp</dimen>
     <integer name="movieListColumns">1</integer>
@@ -20,5 +12,15 @@
     <dimen name="movieThumbnailResizeHeight">300dp</dimen>
     <dimen name="voteButtonSize">50dp</dimen>
     <dimen name="genreIconSize">20dp</dimen>
+
+    <!-- movie details -->
+    <dimen name="movieBannerWidth">0dp</dimen>
+    <dimen name="movieBannerHeight">100dp</dimen>
+    <dimen name="movieBannerResizeWidth">400dp</dimen>
+    <dimen name="movieBannerResizeHeight">100dp</dimen>
+    <dimen name="movieScreenshotWidth">0dp</dimen>
+    <dimen name="movieScreenshotHeight">180dp</dimen>
+    <dimen name="movieScreenshotResizeWidth">320dp</dimen>
+    <dimen name="movieScreenshotResizeHeight">180dp</dimen>
 
 </resources>

@@ -1,4 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- movie list -->
     <integer name="movieListColumns">2</integer>
+
+    <!-- movie details -->
+    <dimen name="movieBannerWidth">400dp</dimen>
+    <dimen name="movieBannerHeight">100dp</dimen>
+    <dimen name="movieBannerResizeWidth">400dp</dimen>
+    <dimen name="movieBannerResizeHeight">100dp</dimen>
+    <dimen name="movieScreenshotWidth">480dp</dimen>
+    <dimen name="movieScreenshotHeight">270dp</dimen>
+    <dimen name="movieScreenshotResizeWidth">640dp</dimen>
+    <dimen name="movieScreenshotResizeHeight">360dp</dimen>
+
 </resources>
