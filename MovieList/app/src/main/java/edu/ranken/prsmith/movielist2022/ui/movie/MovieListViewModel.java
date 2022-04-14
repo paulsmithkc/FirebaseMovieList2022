@@ -126,6 +126,10 @@ public class MovieListViewModel extends ViewModel {
         snackbarMessage.postValue(null);
     }
 
+    public String getUserId() {
+        return userId;
+    }
+
     public String getFilterGenreId() {
         return filterGenreId;
     }
@@ -271,32 +275,38 @@ public class MovieListViewModel extends ViewModel {
             votesRegistration.remove();
         }
 
-        votesRegistration =
-            db.collection("movieVote")
-                .whereEqualTo("userId", userId)
-                .addSnapshotListener((QuerySnapshot querySnapshot, FirebaseFirestoreException error) -> {
-                    if (error != null) {
-                        Log.e(LOG_TAG, "Error getting votes.", error);
-                        votesError.postValue(R.string.errorFetchingVotes);
-                    } else if (querySnapshot != null) {
-                        Log.i(LOG_TAG, "Votes update.");
+        if (userId == null) {
+            votesRegistration = null;
+            votes.postValue(null);
+            votesError.postValue(null);
+        } else {
+            votesRegistration =
+                db.collection("movieVote")
+                    .whereEqualTo("userId", userId)
+                    .addSnapshotListener((QuerySnapshot querySnapshot, FirebaseFirestoreException error) -> {
+                        if (error != null) {
+                            Log.e(LOG_TAG, "Error getting votes.", error);
+                            votesError.postValue(R.string.errorFetchingVotes);
+                        } else if (querySnapshot != null) {
+                            Log.i(LOG_TAG, "Votes update.");
 
-                        //List<MovieVoteValue> newVotes = querySnapshot.toObjects(MovieVoteValue.class);
+                            //List<MovieVoteValue> newVotes = querySnapshot.toObjects(MovieVoteValue.class);
 
-                        List<MovieVoteValue> newVotes = new ArrayList<>();
-                        for (QueryDocumentSnapshot document : querySnapshot) {
-                            String movieId = document.getString("movieId");
-                            Long value = document.getLong("value");
-                            if (movieId != null && value != null) {
-                                newVotes.add(new MovieVoteValue(movieId, value.intValue()));
+                            List<MovieVoteValue> newVotes = new ArrayList<>();
+                            for (QueryDocumentSnapshot document : querySnapshot) {
+                                String movieId = document.getString("movieId");
+                                Long value = document.getLong("value");
+                                if (movieId != null && value != null) {
+                                    newVotes.add(new MovieVoteValue(movieId, value.intValue()));
+                                }
                             }
-                        }
 
-                        votes.postValue(newVotes);
-                        votesError.postValue(null);
-                        // snackbarMessage.postValue(R.string.votesUpdated);
-                    }
-                });
+                            votes.postValue(newVotes);
+                            votesError.postValue(null);
+                            // snackbarMessage.postValue(R.string.votesUpdated);
+                        }
+                    });
+        }
     }
 
     private void queryGenres() {

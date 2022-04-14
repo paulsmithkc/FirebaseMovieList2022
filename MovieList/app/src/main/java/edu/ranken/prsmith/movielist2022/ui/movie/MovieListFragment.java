@@ -68,7 +68,6 @@ public class MovieListFragment extends Fragment {
         LifecycleOwner lifecycleOwner = getViewLifecycleOwner();
 
         // setup recycler view
-        // recyclerView.setLayoutManager(new LinearLayoutManager(activity));
         int columns = getResources().getInteger(R.integer.movieListColumns);
         recyclerView.setLayoutManager(new GridLayoutManager(activity, columns));
 
@@ -78,12 +77,21 @@ public class MovieListFragment extends Fragment {
         recyclerView.setAdapter(moviesAdapter);
 
         // populate list spinner
-        SpinnerOption<MovieList>[] listOptions = new SpinnerOption[] {
-            new SpinnerOption<>(getString(R.string.allMovies), MovieList.ALL_MOVIES),
-            new SpinnerOption<>(getString(R.string.myVotes), MovieList.MY_VOTES),
-            new SpinnerOption<>(getString(R.string.myUpvotes), MovieList.MY_UPVOTES),
-            new SpinnerOption<>(getString(R.string.myDownvotes), MovieList.MY_DOWNVOTES)
-        };
+
+        SpinnerOption<MovieList>[] listOptions;
+        if (model.getUserId() != null) {
+            listOptions = new SpinnerOption[]{
+                new SpinnerOption<>(getString(R.string.allMovies), MovieList.ALL_MOVIES),
+                new SpinnerOption<>(getString(R.string.myVotes), MovieList.MY_VOTES),
+                new SpinnerOption<>(getString(R.string.myUpvotes), MovieList.MY_UPVOTES),
+                new SpinnerOption<>(getString(R.string.myDownvotes), MovieList.MY_DOWNVOTES)
+            };
+        } else {
+            listOptions = new SpinnerOption[]{
+                new SpinnerOption<>(getString(R.string.allMovies), MovieList.ALL_MOVIES)
+            };
+        }
+
         listAdapter = new ArrayAdapter<>(activity, android.R.layout.simple_spinner_dropdown_item, listOptions);
         listSpinner.setAdapter(listAdapter);
 

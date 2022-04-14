@@ -31,26 +31,25 @@ public class LoginActivity extends AppCompatActivity {
 
     // views
     private Button loginButton;
+    private Button guestButton;
 
-    // state
-    private ActivityResultLauncher<Intent> signInLauncher;
+    // launchers
+    private ActivityResultLauncher<Intent> signInLauncher =
+        registerForActivityResult(
+            new FirebaseAuthUIActivityResultContract(),
+            (result) -> onSignInResult(result)
+        );
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // find views
+        // Find views
         loginButton = findViewById(R.id.loginButton);
+        guestButton = findViewById(R.id.guestButton);
 
-        // Register a callback for when the sign in process is complete
-        signInLauncher =
-            registerForActivityResult(
-                new FirebaseAuthUIActivityResultContract(),
-                (result) -> onSignInResult(result)
-            );
-
-        // register listeners
+        // Register listeners
         loginButton.setOnClickListener((view) -> {
 
             // Choose authentication providers
@@ -69,12 +68,17 @@ public class LoginActivity extends AppCompatActivity {
             signInLauncher.launch(signInIntent);
 
         });
+        guestButton.setOnClickListener((view) -> {
+            // bypass login and go straight to home screen
+            startActivity(new Intent(this, HomeActivity.class));
+        });
 
+        // auto-login
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             onLoginSuccess(user);
         } else {
-            loginButton.performClick();
+            // loginButton.performClick();
         }
     }
 

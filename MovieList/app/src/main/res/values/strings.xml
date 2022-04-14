@@ -57,6 +57,7 @@
     <string name="profileUpdated">Profile updated.</string>
     <string name="errorUpdateProfile">Failed to update profile.</string>
     <string name="errorFetchingUsers">Failed to get users.</string>
+    <string name="continueAsGuest">Continue as guest</string>
 
     <!--    <string-array name="genreFilters">-->
     <!--        <item>All Genres</item>-->
