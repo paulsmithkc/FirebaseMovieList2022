@@ -12,7 +12,6 @@
     <string name="composeReview">Redactar reseña</string>
     <string name="invalidDate">Fecha invalida</string>
     <string name="notImplemented">No implementado.</string>
-    <string name="reviewCountText">%1$d reseñas</string>
     <string name="loginButton">Acceso</string>
     <string name="actionSignOut">Desconectar</string>
     <string name="home">Casa</string>
@@ -47,4 +46,14 @@
     <string name="moviesUpdated">Películas actualizadas.</string>
     <string name="votesUpdated">Votos actualizados.</string>
     <string name="genresUpdated">Géneros actualizados.</string>
+
+    <plurals name="game">
+        <item quantity="one">juego</item>
+        <item quantity="other">juegos</item>
+    </plurals>
+    <plurals name="review">
+        <item quantity="one">revisión</item>
+        <item quantity="other">reseñas</item>
+    </plurals>
+
 </resources>

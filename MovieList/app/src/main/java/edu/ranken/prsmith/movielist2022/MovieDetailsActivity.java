@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.TaskStackBuilder;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -144,8 +145,12 @@ public class MovieDetailsActivity extends AppCompatActivity {
                 reviewCountText.setVisibility(View.GONE);
                 reviewCountText.setText("");
             } else {
+                Resources res = getResources();
+
+                int reviewCount = reviews.size();
+                String reviewPlural = res.getQuantityString(R.plurals.review, reviewCount);
                 reviewCountText.setVisibility(View.VISIBLE);
-                reviewCountText.setText(getString(R.string.reviewCountText, reviews.size()));
+                reviewCountText.setText(getString(R.string.reviewCountText, reviewCount, reviewPlural));
 
 //                // WARNING: code below is only for debugging
 //                reviewRecylerView.post(() -> {

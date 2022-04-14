@@ -12,7 +12,7 @@
     <string name="composeReview">Compose Review</string>
     <string name="invalidDate">Invalid Date</string>
     <string name="notImplemented">Not Implemented.</string>
-    <string name="reviewCountText">%1$d reviews</string>
+    <string name="reviewCountText" translatable="false">%1$d %2$s</string>
     <string name="loginButton">Login</string>
     <string name="actionSignOut">Sign Out</string>
     <string name="home">Home</string>
@@ -58,6 +58,15 @@
     <string name="errorUpdateProfile">Failed to update profile.</string>
     <string name="errorFetchingUsers">Failed to get users.</string>
     <string name="continueAsGuest">Continue as guest</string>
+
+    <plurals name="game">
+        <item quantity="one">game</item>
+        <item quantity="other">games</item>
+    </plurals>
+    <plurals name="review">
+        <item quantity="one">review</item>
+        <item quantity="other">reviews</item>
+    </plurals>
 
     <!--    <string-array name="genreFilters">-->
     <!--        <item>All Genres</item>-->
