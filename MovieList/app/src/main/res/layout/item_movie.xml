@@ -72,7 +72,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/item_movie_image"
             app:srcCompat="@drawable/ic_downloading"
-            tools:srcCompat="@drawable/ic_action"
+            tools:srcCompat="@drawable/ic_action_512px"
             android:contentDescription="@string/genre_1" />
 
         <ImageView
@@ -86,7 +86,7 @@
             app:layout_constraintStart_toEndOf="@+id/item_movie_genre_1"
             app:layout_constraintTop_toBottomOf="@+id/item_movie_image"
             app:srcCompat="@drawable/ic_downloading"
-            tools:srcCompat="@drawable/ic_comedy"
+            tools:srcCompat="@drawable/ic_comedy_512px"
             android:contentDescription="@string/genre_2" />
 
         <ImageView
@@ -100,7 +100,7 @@
             app:layout_constraintStart_toEndOf="@+id/item_movie_genre_2"
             app:layout_constraintTop_toBottomOf="@+id/item_movie_image"
             app:srcCompat="@drawable/ic_downloading"
-            tools:srcCompat="@drawable/ic_romance"
+            tools:srcCompat="@drawable/ic_romance_512px"
             android:contentDescription="@string/genre_3" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
