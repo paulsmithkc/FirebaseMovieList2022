@@ -6,6 +6,8 @@
     <!-- movie details -->
     <dimen name="movieBannerWidth">400dp</dimen>
     <dimen name="movieBannerHeight">100dp</dimen>
+    <dimen name="movieBannerResizeWidth">400dp</dimen>
+    <dimen name="movieBannerResizeHeight">100dp</dimen>
     <dimen name="movieScreenshotWidth">0dp</dimen>
     <dimen name="movieScreenshotHeight">300dp</dimen>
 

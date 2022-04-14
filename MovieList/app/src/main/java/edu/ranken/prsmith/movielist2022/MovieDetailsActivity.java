@@ -112,7 +112,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
                         .noPlaceholder()
                         //.placeholder(R.drawable.ic_downloading)
                         .error(R.drawable.ic_error)
-                        .resize(800, 200)
+                        .resizeDimen(R.dimen.movieBannerResizeWidth, R.dimen.movieBannerResizeHeight)
                         .centerInside()
                         .into(movieBanner);
                 }
