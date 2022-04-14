@@ -103,7 +103,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
             }
 
             if (movie == null || movie.bannerUrl == null) {
-                movieBanner.setImageResource(R.drawable.ic_broken_image);
+                movieBanner.setImageResource(R.drawable.placeholder_banner);
             } else {
                 movieBanner.setImageResource(R.drawable.ic_downloading);
                 picasso
@@ -118,13 +118,13 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
             if (movie == null || movie.screenshots == null) {
                 for (int i = 0; i < movieScreenshots.length; ++i) {
-                    movieScreenshots[i].setImageResource(R.drawable.ic_broken_image);
+                    movieScreenshots[i].setImageResource(R.drawable.placeholder_screenshot);
                 }
             } else {
                 for (int i = 0; i < movieScreenshots.length; ++i) {
                     ImageView imageView = movieScreenshots[i];
                     if (i >= movie.screenshots.size()) {
-                        imageView.setImageResource(R.drawable.ic_broken_image);
+                        imageView.setImageResource(R.drawable.placeholder_screenshot);
                     } else {
                         imageView.setImageResource(R.drawable.ic_downloading);
                         picasso
