@@ -13,11 +13,16 @@
         android:theme="@style/Theme.MovieList"
         >
         <activity
+            android:name=".MyProfileActivity"
+            android:exported="false"
+            />
+        <activity
             android:name=".LoginActivity"
             android:exported="true"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -47,10 +52,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.ranken.prsmith.movielist2022.HomeActivity"
                 />
+
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data android:scheme="http" />
                 <data android:scheme="https" />
                 <data android:host="my-movie-list.com" />
@@ -58,8 +66,10 @@
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data android:scheme="movies" />
                 <data android:host="movies" />
                 <data android:pathPrefix="/movie" />
