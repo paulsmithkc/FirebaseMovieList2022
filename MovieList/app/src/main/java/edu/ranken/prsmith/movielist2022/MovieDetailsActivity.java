@@ -89,32 +89,52 @@ public class MovieDetailsActivity extends AppCompatActivity {
         model.getMovie().observe(this, (movie) -> {
             this.movie = movie;
 
-            if (movie == null) {
-                movieTitleText.setText(null);
-                movieDescriptionText.setText(null);
+            if (movie == null || movie.name == null) {
+                movieTitleText.setText(R.string.nameMissing);
             } else {
-                if (movie.name == null) {
-                    movieTitleText.setText(R.string.nameMissing);
-                } else {
-                    movieTitleText.setText(movie.name);
+                movieTitleText.setText(movie.name);
+            }
+
+            if (movie == null || movie.longDescription == null) {
+                movieDescriptionText.setText(R.string.noDescription);
+            } else {
+                movieDescriptionText.setText(movie.longDescription);
+            }
+
+            if (movie == null || movie.bannerUrl == null) {
+                movieBanner.setImageResource(R.drawable.ic_broken_image);
+            } else {
+                movieBanner.setImageResource(R.drawable.ic_downloading);
+                picasso
+                    .load(movie.bannerUrl)
+                    .noPlaceholder()
+                    //.placeholder(R.drawable.ic_downloading)
+                    .error(R.drawable.ic_error)
+                    .resizeDimen(R.dimen.movieBannerResizeWidth, R.dimen.movieBannerResizeHeight)
+                    .centerInside()
+                    .into(movieBanner);
+            }
+
+            if (movie == null || movie.screenshots == null) {
+                for (int i = 0; i < movieScreenshots.length; ++i) {
+                    movieScreenshots[i].setImageResource(R.drawable.ic_broken_image);
                 }
-                if (movie.longDescription == null) {
-                    movieDescriptionText.setText(R.string.noDescription);
-                } else {
-                    movieDescriptionText.setText(movie.longDescription);
-                }
-                if (movie.bannerUrl == null) {
-                    movieBanner.setImageResource(R.drawable.ic_broken_image);
-                } else {
-                    movieBanner.setImageResource(R.drawable.ic_downloading);
-                    picasso
-                        .load(movie.bannerUrl)
-                        .noPlaceholder()
-                        //.placeholder(R.drawable.ic_downloading)
-                        .error(R.drawable.ic_error)
-                        .resizeDimen(R.dimen.movieBannerResizeWidth, R.dimen.movieBannerResizeHeight)
-                        .centerInside()
-                        .into(movieBanner);
+            } else {
+                for (int i = 0; i < movieScreenshots.length; ++i) {
+                    ImageView imageView = movieScreenshots[i];
+                    if (i >= movie.screenshots.size()) {
+                        imageView.setImageResource(R.drawable.ic_broken_image);
+                    } else {
+                        imageView.setImageResource(R.drawable.ic_downloading);
+                        picasso
+                            .load(movie.screenshots.get(i))
+                            .noPlaceholder()
+                            //.placeholder(R.drawable.ic_downloading)
+                            .error(R.drawable.ic_error)
+                            .resizeDimen(R.dimen.movieScreenshotResizeWidth, R.dimen.movieScreenshotResizeHeight)
+                            .centerInside()
+                            .into(imageView);
+                    }
                 }
             }
         });

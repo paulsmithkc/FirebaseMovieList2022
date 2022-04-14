@@ -18,7 +18,7 @@ public class Movie {
 
     public String image;  // thumbnail
     public String bannerUrl;
-    public List<String> screenshotUrls;
+    public List<String> screenshots;
 
     public Movie() {}
 
