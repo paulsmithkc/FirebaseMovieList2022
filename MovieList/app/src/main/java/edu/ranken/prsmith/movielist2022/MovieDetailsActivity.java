@@ -226,17 +226,32 @@ public class MovieDetailsActivity extends AppCompatActivity {
             }
         });
 
-        // get intent
-        Intent intent = getIntent();
-        String intentAction = intent.getAction();
-        Uri intentData = intent.getData();
+        if (savedInstanceState == null) {
+            // get intent
+            Intent intent = getIntent();
+            String intentAction = intent.getAction();
+            Uri intentData = intent.getData();
 
-        if (intentAction == null) {
-            movieId = intent.getStringExtra(EXTRA_MOVIE_ID);
-            model.fetchMovie(movieId);
-        } else if (Objects.equals(intentAction, Intent.ACTION_VIEW) && intentData != null) {
-            handleWebLink(intent);
+            if (intentAction == null) {
+                movieId = intent.getStringExtra(EXTRA_MOVIE_ID);
+                model.fetchMovie(movieId);
+            } else if (Objects.equals(intentAction, Intent.ACTION_VIEW) && intentData != null) {
+                handleWebLink(intent);
+            }
+        } else {
+            Log.i(LOG_TAG, "movieId: " + movieId);
+            movieId = savedInstanceState.getString("movieId");
+            movie = model.getMovie().getValue();
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        Log.i(LOG_TAG, "onSaveInstanceState()");
+        super.onSaveInstanceState(outState);
+
+        outState.putString("movieId", movieId);
+        // outState.putParcelable("movie", movie);
     }
 
     @Override

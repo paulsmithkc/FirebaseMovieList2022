@@ -62,6 +62,12 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        Log.i(LOG_TAG, "onSaveInstanceState()");
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.home_top_menu, menu);
         return true;

@@ -95,6 +95,13 @@ public class MovieListFragment extends Fragment {
         listAdapter = new ArrayAdapter<>(activity, android.R.layout.simple_spinner_dropdown_item, listOptions);
         listSpinner.setAdapter(listAdapter);
 
+        if (savedInstanceState != null) {
+            int genreSelectedIndex = savedInstanceState.getInt("genreSelectedIndex");
+            int listSelectedIndex = savedInstanceState.getInt("listSelectedIndex");
+            genreSpinner.setSelection(genreSelectedIndex);
+            listSpinner.setSelection(listSelectedIndex);
+        }
+
         // observe model
         model.getMovies().observe(lifecycleOwner, (movies) -> {
             moviesAdapter.setMovies(movies);
@@ -188,5 +195,14 @@ public class MovieListFragment extends Fragment {
                 // Do nothing.
             }
         });
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        Log.i(LOG_TAG, "onSaveInstanceState()");
+        super.onSaveInstanceState(outState);
+
+        outState.putInt("genreSelectedIndex", genreSpinner.getSelectedItemPosition());
+        outState.putInt("listSelectedIndex", listSpinner.getSelectedItemPosition());
     }
 }
