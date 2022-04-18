@@ -54,9 +54,8 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
         getSupportFragmentManager()
             .beginTransaction()
-            .add(R.id.fragmentContainer, fragment)
+            .replace(R.id.fragmentContainer, fragment)
             .commit();
-
 
         if (savedInstanceState == null) {
             Intent intent = getIntent();

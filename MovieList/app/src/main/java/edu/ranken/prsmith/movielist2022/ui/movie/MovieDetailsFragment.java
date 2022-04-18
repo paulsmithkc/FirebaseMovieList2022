@@ -46,6 +46,7 @@ public class MovieDetailsFragment extends Fragment {
     private RecyclerView reviewRecylerView;
 
     // state
+    private String movieId;
     private Movie movie;
     private MovieDetailsViewModel model;
     private Picasso picasso;
@@ -90,6 +91,7 @@ public class MovieDetailsFragment extends Fragment {
         LifecycleOwner lifecycleOwner = getViewLifecycleOwner();
         model = new ViewModelProvider(activity).get(MovieDetailsViewModel.class);
         model.getMovie().observe(lifecycleOwner, (movie) -> {
+            this.movieId = model.getMovieId();
             this.movie = movie;
 
             if (movie == null || movie.name == null) {
@@ -233,5 +235,8 @@ public class MovieDetailsFragment extends Fragment {
     public void onSaveInstanceState(@NonNull Bundle outState) {
         Log.i(LOG_TAG, "onSaveInstanceState()");
         super.onSaveInstanceState(outState);
+
+        outState.putString("movieId", movieId);
+        // outState.putParcelable("movie", movie);
     }
 }
