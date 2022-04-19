@@ -39,7 +39,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.ranken.prsmith.movielist2022.HomeActivity"
                 />
-            <intent-filter>
+            <intent-filter android:label="@string/viewMovie">
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
@@ -48,7 +48,7 @@
                 <data android:host="my-movie-list.com" />
                 <data android:pathPrefix="/movie" />
             </intent-filter>
-            <intent-filter>
+            <intent-filter android:label="@string/viewMovie">
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
@@ -102,7 +102,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.ranken.prsmith.movielist2022.HomeActivity"
                 />
-            <intent-filter>
+            <intent-filter android:label="@string/viewUser">
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />

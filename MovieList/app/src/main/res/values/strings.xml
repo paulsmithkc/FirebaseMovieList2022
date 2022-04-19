@@ -60,6 +60,8 @@
     <string name="userProfile">User Profile</string>
     <string name="composeReview">Compose Review</string>
     <string name="browseEbay">Browse eBay</string>
+    <string name="viewMovie">View Movie</string>
+    <string name="viewUser">View User</string>
 
     <plurals name="game">
         <item quantity="one">game</item>
