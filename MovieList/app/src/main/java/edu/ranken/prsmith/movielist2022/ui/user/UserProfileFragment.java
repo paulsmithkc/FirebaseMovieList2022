@@ -9,10 +9,10 @@ import androidx.fragment.app.Fragment;
 
 import edu.ranken.prsmith.movielist2022.R;
 
-public class UserListFragment extends Fragment {
+public class UserProfileFragment extends Fragment {
 
-    public UserListFragment() {
-        super(R.layout.user_list);
+    public UserProfileFragment() {
+        super(R.layout.user_profile);
     }
 
     @Override
