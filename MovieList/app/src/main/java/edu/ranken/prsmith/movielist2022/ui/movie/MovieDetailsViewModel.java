@@ -13,6 +13,7 @@ import com.google.firebase.firestore.Query;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import edu.ranken.prsmith.movielist2022.R;
 import edu.ranken.prsmith.movielist2022.data.Movie;
@@ -72,7 +73,11 @@ public class MovieDetailsViewModel extends ViewModel {
 
     // fetch a particular movie from the database
     public void fetchMovie(String movieId) {
+        if (Objects.equals(movieId, this.movieId)) { return; }
+
         this.movieId = movieId;
+        this.movie.postValue(null);
+        this.reviews.postValue(null);
 
         if (movieRegistration != null) {
             movieRegistration.remove();
@@ -82,9 +87,8 @@ public class MovieDetailsViewModel extends ViewModel {
         }
 
         if (movieId == null) {
-            this.movie.postValue(null);
             this.movieError.postValue(R.string.errorNoMovieSelected);
-            this.snackbarMessage.postValue(R.string.errorNoMovieSelected);
+            // this.snackbarMessage.postValue(R.string.errorNoMovieSelected);
         } else {
             movieRegistration =
                 db.collection("movies")
