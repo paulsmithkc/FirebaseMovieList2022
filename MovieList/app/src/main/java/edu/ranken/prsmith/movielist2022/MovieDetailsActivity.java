@@ -94,14 +94,15 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (getIntent().getAction() != null) {
-            TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-            stackBuilder.addNextIntent(new Intent(this, LoginActivity.class));
-            stackBuilder.addNextIntent(new Intent(this, HomeActivity.class));
-            stackBuilder.startActivities();
-        } else {
-            super.onBackPressed();
-        }
+        super.onBackPressed();
+//        if (getIntent().getAction() != null) {
+//            TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+//            stackBuilder.addNextIntent(new Intent(this, LoginActivity.class));
+//            stackBuilder.addNextIntent(new Intent(this, HomeActivity.class));
+//            stackBuilder.startActivities();
+//        } else {
+//            super.onBackPressed();
+//        }
     }
 
     private void handleWebLink(Intent intent) {
@@ -121,12 +122,12 @@ public class MovieDetailsActivity extends AppCompatActivity {
             movieId = null;
         }
 
-//        // create synthetic back stack
-//        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-//        stackBuilder.addNextIntent(new Intent(this, LoginActivity.class));
-//        stackBuilder.addNextIntent(new Intent(this, HomeActivity.class));
-//        stackBuilder.addNextIntent(new Intent(this, MovieDetailsActivity.class).putExtra(EXTRA_MOVIE_ID, movieId));
-//        stackBuilder.startActivities();
+        // create synthetic back stack
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+        stackBuilder.addNextIntent(new Intent(this, LoginActivity.class));
+        stackBuilder.addNextIntent(new Intent(this, HomeActivity.class));
+        stackBuilder.addNextIntent(new Intent(this, MovieDetailsActivity.class).putExtra(EXTRA_MOVIE_ID, movieId));
+        stackBuilder.startActivities();
 
         // load movie data
         model.fetchMovie(movieId);
