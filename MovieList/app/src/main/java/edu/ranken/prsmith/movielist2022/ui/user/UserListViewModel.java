@@ -13,6 +13,7 @@ import com.google.firebase.firestore.Query;
 import java.util.List;
 
 import edu.ranken.prsmith.movielist2022.R;
+import edu.ranken.prsmith.movielist2022.data.MovieSummary;
 import edu.ranken.prsmith.movielist2022.data.UserProfile;
 
 public class UserListViewModel extends ViewModel {
@@ -28,6 +29,7 @@ public class UserListViewModel extends ViewModel {
     private final MutableLiveData<List<UserProfile>> users;
     private final MutableLiveData<Integer> usersError;
     private final MutableLiveData<Integer> snackbarMessage;
+    private final MutableLiveData<UserProfile> selectedUser;
 
     public UserListViewModel() {
         db = FirebaseFirestore.getInstance();
@@ -36,6 +38,7 @@ public class UserListViewModel extends ViewModel {
         users = new MutableLiveData<>(null);
         usersError = new MutableLiveData<>(null);
         snackbarMessage = new MutableLiveData<>(null);
+        selectedUser = new MutableLiveData<>(null);
 
         // query users collection
         queryUsers();
@@ -57,14 +60,19 @@ public class UserListViewModel extends ViewModel {
     public LiveData<Integer> getUsersError() {
         return usersError;
     }
-    public MutableLiveData<Integer> getSnackbarMessage() {
+    public LiveData<Integer> getSnackbarMessage() {
         return snackbarMessage;
     }
+    public LiveData<UserProfile> getSelectedUser() { return selectedUser; }
 
     // mutators
 
     public void clearSnackbar() {
         snackbarMessage.postValue(null);
+    }
+
+    public void setSelectedUser(UserProfile user) {
+        this.selectedUser.postValue(user);
     }
 
     private void queryUsers() {
