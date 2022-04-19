@@ -20,6 +20,8 @@ import edu.ranken.prsmith.movielist2022.ui.movie.MovieDetailsFragment;
 import edu.ranken.prsmith.movielist2022.ui.movie.MovieDetailsViewModel;
 import edu.ranken.prsmith.movielist2022.ui.movie.MovieListViewModel;
 import edu.ranken.prsmith.movielist2022.ui.user.UserListViewModel;
+import edu.ranken.prsmith.movielist2022.ui.user.UserProfileFragment;
+import edu.ranken.prsmith.movielist2022.ui.user.UserProfileViewModel;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -36,7 +38,9 @@ public class HomeActivity extends AppCompatActivity {
     private MovieListViewModel movieListModel;
     private MovieDetailsViewModel movieDetailsViewModel;
     private UserListViewModel userListModel;
-    // private UserProfileViewModel userProfileModel;
+    private UserProfileViewModel userProfileModel;
+    private String movieId;
+    private String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,9 +81,12 @@ public class HomeActivity extends AppCompatActivity {
         movieListModel = new ViewModelProvider(this).get(MovieListViewModel.class);
         movieDetailsViewModel = new ViewModelProvider(this).get(MovieDetailsViewModel.class);
         userListModel = new ViewModelProvider(this).get(UserListViewModel.class);
+        userProfileModel = new ViewModelProvider(this).get(UserProfileViewModel.class);
 
         // observe models
         movieListModel.getSelectedMovie().observe(this, (movie) -> {
+            movieId = movie != null ? movie.id : null;
+
             if (detailsContainer == null) {
                 if (movie != null) {
                     movieListModel.setSelectedMovie(null);
@@ -97,19 +104,48 @@ public class HomeActivity extends AppCompatActivity {
                         .commit();
                 } else {
                     movieDetailsViewModel.fetchMovie(null);
-//                    getSupportFragmentManager()
-//                        .beginTransaction()
-//                        .replace(R.id.homeDetailsContainer, null)
-//                        .commit();
                 }
             }
         });
+        userListModel.getSelectedUser().observe(this, (user) -> {
+            userId = user != null ? user.userId : null;
+
+            if (detailsContainer == null) {
+                if (user != null) {
+                    userListModel.setSelectedUser(null);
+
+                    Intent intent = new Intent(this, UserProfileActivity.class);
+                    intent.putExtra(UserProfileActivity.EXTRA_USER_ID, user.userId);
+                    this.startActivity(intent);
+                }
+            } else {
+                if (user != null) {
+                    userProfileModel.fetchUser(user.userId);
+                    getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.homeDetailsContainer, UserProfileFragment.class, null)
+                        .commit();
+                } else {
+                    userProfileModel.fetchUser(null);
+                }
+            }
+        });
+
+        if (savedInstanceState != null) {
+            pager.setCurrentItem(savedInstanceState.getInt("page"));
+            movieId = savedInstanceState.getString("movieId");
+            userId = savedInstanceState.getString("userId");
+        }
     }
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         Log.i(LOG_TAG, "onSaveInstanceState()");
         super.onSaveInstanceState(outState);
+
+        outState.putInt("page", pager.getCurrentItem());
+        outState.putString("movieId", movieId);
+        outState.putString("userId", userId);
     }
 
     @Override
