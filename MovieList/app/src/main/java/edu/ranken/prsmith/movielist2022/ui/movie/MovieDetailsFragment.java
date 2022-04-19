@@ -95,21 +95,36 @@ public class MovieDetailsFragment extends Fragment {
             this.movieId = model.getMovieId();
             this.movie = movie;
 
-            if (movie == null || movie.name == null) {
+            if (movie == null) {
+                movieTitleText.setVisibility(View.GONE);
+                movieTitleText.setText(null);
+            } else if (movie.name == null) {
+                movieTitleText.setVisibility(View.VISIBLE);
                 movieTitleText.setText(R.string.nameMissing);
             } else {
+                movieTitleText.setVisibility(View.VISIBLE);
                 movieTitleText.setText(movie.name);
             }
 
-            if (movie == null || movie.longDescription == null) {
+            if (movie == null) {
+                movieDescriptionText.setVisibility(View.GONE);
+                movieDescriptionText.setText(null);
+            } else  if (movie.longDescription == null) {
+                movieDescriptionText.setVisibility(View.VISIBLE);
                 movieDescriptionText.setText(R.string.noDescription);
             } else {
+                movieDescriptionText.setVisibility(View.VISIBLE);
                 movieDescriptionText.setText(movie.longDescription);
             }
 
-            if (movie == null || movie.bannerUrl == null) {
+            if (movie == null) {
+                movieBanner.setVisibility(View.GONE);
+                movieBanner.setImageResource(R.drawable.placeholder_banner);
+            } else if (movie.bannerUrl == null) {
+                movieBanner.setVisibility(View.VISIBLE);
                 movieBanner.setImageResource(R.drawable.placeholder_banner);
             } else {
+                movieBanner.setVisibility(View.VISIBLE);
                 movieBanner.setImageResource(R.drawable.ic_downloading);
                 picasso
                     .load(movie.bannerUrl)
@@ -121,11 +136,14 @@ public class MovieDetailsFragment extends Fragment {
                     .into(movieBanner);
             }
 
-            if (movie == null || movie.screenshots == null) {
-                for (int i = 0; i < movieScreenshots.length; ++i) {
-                    movieScreenshots[i].setImageResource(R.drawable.placeholder_screenshot);
-                }
-            } else {
+            // reset screenshots
+            for (ImageView imageView : movieScreenshots) {
+                imageView.setVisibility(movie != null ? View.VISIBLE : View.GONE);
+                imageView.setImageResource(R.drawable.placeholder_screenshot);
+            }
+
+            // show screenshots
+            if (movie != null && movie.screenshots != null) {
                 for (int i = 0; i < movieScreenshots.length; ++i) {
                     ImageView imageView = movieScreenshots[i];
                     if (i >= movie.screenshots.size()) {

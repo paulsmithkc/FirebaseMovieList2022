@@ -88,6 +88,7 @@ public class MovieDetailsViewModel extends ViewModel {
 
         if (movieId == null) {
             this.movieError.postValue(R.string.errorNoMovieSelected);
+            this.reviewsError.postValue(null);
             // this.snackbarMessage.postValue(R.string.errorNoMovieSelected);
         } else {
             movieRegistration =
