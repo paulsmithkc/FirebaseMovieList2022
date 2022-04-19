@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <!-- home -->
+    <integer name="homeListColumns">1</integer>
     <dimen name="homeListWidth">0dp</dimen>
     <dimen name="homeBottomNavHeight">50dp</dimen>
 
     <!-- movie list -->
     <dimen name="movieListSpinnerHeight">50dp</dimen>
-    <integer name="movieListColumns">1</integer>
     <dimen name="movieNameTextSize">16sp</dimen>
     <dimen name="movieThumbnailWidth">50dp</dimen>
     <dimen name="movieThumbnailHeight">75dp</dimen>

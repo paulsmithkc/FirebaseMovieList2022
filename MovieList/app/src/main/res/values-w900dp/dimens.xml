@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- movie list -->
+    <!-- home -->
+    <integer name="homeListColumns">1</integer>
     <dimen name="homeListWidth">300dp</dimen>
-    <integer name="movieListColumns">1</integer>
 
     <!-- movie details -->
     <dimen name="movieBannerWidth">400dp</dimen>

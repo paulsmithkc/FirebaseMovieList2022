@@ -15,7 +15,6 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -68,7 +67,7 @@ public class MovieListFragment extends Fragment {
         LifecycleOwner lifecycleOwner = getViewLifecycleOwner();
 
         // setup recycler view
-        int columns = getResources().getInteger(R.integer.movieListColumns);
+        int columns = getResources().getInteger(R.integer.homeListColumns);
         recyclerView.setLayoutManager(new GridLayoutManager(activity, columns));
 
         // setup view model and adapter
