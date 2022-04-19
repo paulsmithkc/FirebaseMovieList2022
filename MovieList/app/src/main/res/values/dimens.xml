@@ -7,10 +7,11 @@
     <!-- movie list -->
     <dimen name="movieListSpinnerHeight">50dp</dimen>
     <integer name="movieListColumns">1</integer>
-    <dimen name="movieThumbnailWidth">100dp</dimen>
-    <dimen name="movieThumbnailHeight">150dp</dimen>
-    <dimen name="movieThumbnailResizeWidth">200dp</dimen>
-    <dimen name="movieThumbnailResizeHeight">300dp</dimen>
+    <dimen name="movieNameTextSize">16sp</dimen>
+    <dimen name="movieThumbnailWidth">50dp</dimen>
+    <dimen name="movieThumbnailHeight">75dp</dimen>
+    <dimen name="movieThumbnailResizeWidth">100dp</dimen>
+    <dimen name="movieThumbnailResizeHeight">150dp</dimen>
     <dimen name="voteButtonSize">50dp</dimen>
     <dimen name="genreIconSize">20dp</dimen>
 

@@ -6,11 +6,11 @@
     <integer name="movieListColumns">1</integer>
 
     <!-- movie details -->
-    <dimen name="movieBannerWidth">400dp</dimen>
+    <dimen name="movieBannerWidth">0dp</dimen>
     <dimen name="movieBannerHeight">100dp</dimen>
     <dimen name="movieBannerResizeWidth">400dp</dimen>
     <dimen name="movieBannerResizeHeight">100dp</dimen>
-    <dimen name="movieScreenshotWidth">480dp</dimen>
+    <dimen name="movieScreenshotWidth">0dp</dimen>
     <dimen name="movieScreenshotHeight">270dp</dimen>
     <dimen name="movieScreenshotResizeWidth">640dp</dimen>
     <dimen name="movieScreenshotResizeHeight">360dp</dimen>
