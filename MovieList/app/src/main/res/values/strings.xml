@@ -58,6 +58,9 @@
     <string name="errorUpdateProfile">Failed to update profile.</string>
     <string name="errorFetchingUsers">Failed to get users.</string>
     <string name="continueAsGuest">Continue as guest</string>
+    <string name="userProfile">User Profile</string>
+    <string name="composeReview">Compose Review</string>
+    <string name="browseEbay">Browse eBay</string>
 
     <plurals name="game">
         <item quantity="one">game</item>

@@ -12,36 +12,23 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MovieList"
         >
-        <activity
-            android:name=".MyProfileActivity"
-            android:exported="false"
-            />
+
         <activity
             android:name=".LoginActivity"
             android:exported="true"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".HomeActivity"
             android:exported="true"
             android:label="@string/home"
             />
-        <activity
-            android:name=".MovieListActivity"
-            android:exported="true"
-            android:label="@string/movieList"
-            android:parentActivityName=".HomeActivity"
-            >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="edu.ranken.prsmith.movielist2022.HomeActivity"
-                />
-        </activity>
+
         <activity
             android:name=".MovieDetailsActivity"
             android:exported="true"
@@ -52,29 +39,70 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.ranken.prsmith.movielist2022.HomeActivity"
                 />
-
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-
                 <data android:scheme="http" />
                 <data android:scheme="https" />
                 <data android:host="my-movie-list.com" />
                 <data android:pathPrefix="/movie" />
             </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".ComposeReviewActivity"
+            android:exported="true"
+            android:parentActivityName=".MovieDetailsActivity"
+            >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.ranken.prsmith.movielist2022.MovieDetailsActivity"
+                />
+        </activity>
+
+        <activity
+            android:name=".EbayBrowseActivity"
+            android:exported="true"
+            android:parentActivityName=".MovieDetailsActivity"
+            >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.ranken.prsmith.movielist2022.MovieDetailsActivity"
+                />
+        </activity>
+
+        <activity
+            android:name=".MyProfileActivity"
+            android:exported="true"
+            android:parentActivityName=".HomeActivity"
+            >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.ranken.prsmith.movielist2022.HomeActivity"
+                />
+        </activity>
+
+        <activity
+            android:name=".UserProfileActivity"
+            android:exported="true"
+            android:parentActivityName=".HomeActivity"
+            >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.ranken.prsmith.movielist2022.HomeActivity"
+                />
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-
-                <data android:scheme="movies" />
-                <data android:host="movies" />
-                <data android:pathPrefix="/movie" />
+                <data android:scheme="http" />
+                <data android:scheme="https" />
+                <data android:host="my-movie-list.com" />
+                <data android:pathPrefix="/user" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>
