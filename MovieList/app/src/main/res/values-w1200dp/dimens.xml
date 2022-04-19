@@ -2,6 +2,7 @@
 <resources>
 
     <!-- movie list -->
-    <integer name="movieListColumns">4</integer>
+    <dimen name="homeListWidth">300dp</dimen>
+    <integer name="movieListColumns">1</integer>
 
 </resources>

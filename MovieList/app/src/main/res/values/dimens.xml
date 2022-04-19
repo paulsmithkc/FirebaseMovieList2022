@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- home -->
+    <dimen name="homeListWidth">0dp</dimen>
     <dimen name="homeBottomNavHeight">50dp</dimen>
 
     <!-- movie list -->

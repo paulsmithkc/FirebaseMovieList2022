@@ -53,6 +53,7 @@ public class MovieListViewModel extends ViewModel {
     private final MutableLiveData<List<Genre>> genres;
     private final MutableLiveData<Integer> genresError;
     private final MutableLiveData<Integer> snackbarMessage;
+    private final MutableLiveData<MovieSummary> selectedMovie;
 
     public MovieListViewModel() {
         db = FirebaseFirestore.getInstance();
@@ -65,6 +66,7 @@ public class MovieListViewModel extends ViewModel {
         genres = new MutableLiveData<>(null);
         genresError = new MutableLiveData<>(null);
         snackbarMessage = new MutableLiveData<>(null);
+        selectedMovie = new MutableLiveData<>(null);
 
         // get current user
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -122,6 +124,8 @@ public class MovieListViewModel extends ViewModel {
         return snackbarMessage;
     }
 
+    public LiveData<MovieSummary> getSelectedMovie() { return selectedMovie; }
+
     public void clearSnackbar() {
         snackbarMessage.postValue(null);
     }
@@ -132,6 +136,10 @@ public class MovieListViewModel extends ViewModel {
 
     public String getFilterGenreId() {
         return filterGenreId;
+    }
+
+    public void setSelectedMovie(MovieSummary movie) {
+        this.selectedMovie.postValue(movie);
     }
 
     public void addUpvoteForMovie(MovieSummary movie) {

@@ -72,7 +72,7 @@ public class MovieListFragment extends Fragment {
         recyclerView.setLayoutManager(new GridLayoutManager(activity, columns));
 
         // setup view model and adapter
-        model = new ViewModelProvider(this).get(MovieListViewModel.class);
+        model = new ViewModelProvider(activity).get(MovieListViewModel.class);
         moviesAdapter = new MovieListAdapter(activity, model);
         recyclerView.setAdapter(moviesAdapter);
 

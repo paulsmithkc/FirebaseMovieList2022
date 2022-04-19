@@ -2,8 +2,11 @@ package edu.ranken.prsmith.movielist2022;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentContainerView;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -13,6 +16,10 @@ import com.firebase.ui.auth.AuthUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import edu.ranken.prsmith.movielist2022.ui.home.HomePageAdapter;
+import edu.ranken.prsmith.movielist2022.ui.movie.MovieDetailsFragment;
+import edu.ranken.prsmith.movielist2022.ui.movie.MovieDetailsViewModel;
+import edu.ranken.prsmith.movielist2022.ui.movie.MovieListViewModel;
+import edu.ranken.prsmith.movielist2022.ui.user.UserListViewModel;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -22,9 +29,14 @@ public class HomeActivity extends AppCompatActivity {
     // views
     private ViewPager2 pager;
     private BottomNavigationView bottomNav;
+    private FragmentContainerView detailsContainer;
 
     // state
     private HomePageAdapter adapter;
+    private MovieListViewModel movieListModel;
+    private MovieDetailsViewModel movieDetailsViewModel;
+    private UserListViewModel userListModel;
+    // private UserProfileViewModel userProfileModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +46,7 @@ public class HomeActivity extends AppCompatActivity {
         // find views
         pager = findViewById(R.id.homePager);
         bottomNav = findViewById(R.id.homeBottomNav);
+        detailsContainer = findViewById(R.id.homeDetailsContainer);
 
         // create adapter
         adapter = new HomePageAdapter(this);
@@ -57,6 +70,38 @@ public class HomeActivity extends AppCompatActivity {
                 return true;
             } else {
                 return false;
+            }
+        });
+
+        // get models
+        movieListModel = new ViewModelProvider(this).get(MovieListViewModel.class);
+        movieDetailsViewModel = new ViewModelProvider(this).get(MovieDetailsViewModel.class);
+        userListModel = new ViewModelProvider(this).get(UserListViewModel.class);
+
+        // observe models
+        movieListModel.getSelectedMovie().observe(this, (movie) -> {
+            if (detailsContainer == null) {
+                if (movie != null) {
+                    movieListModel.setSelectedMovie(null);
+
+                    Intent intent = new Intent(this, MovieDetailsActivity.class);
+                    intent.putExtra(MovieDetailsActivity.EXTRA_MOVIE_ID, movie.id);
+                    this.startActivity(intent);
+                }
+            } else {
+                if (movie != null) {
+                    movieDetailsViewModel.fetchMovie(movie.id);
+                    getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.homeDetailsContainer, MovieDetailsFragment.class, null)
+                        .commit();
+                } else {
+                    movieDetailsViewModel.fetchMovie(null);
+//                    getSupportFragmentManager()
+//                        .beginTransaction()
+//                        .replace(R.id.homeDetailsContainer, null)
+//                        .commit();
+                }
             }
         });
     }

@@ -106,9 +106,10 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieViewHolder> {
             MovieSummary movie = movies.get(vh.getAdapterPosition());
             Log.i(LOG_TAG, "Clicked on movie: " + movie.id);
 
-            Intent intent = new Intent(context, MovieDetailsActivity.class);
-            intent.putExtra(MovieDetailsActivity.EXTRA_MOVIE_ID, movie.id);
-            context.startActivity(intent);
+            model.setSelectedMovie(movie);
+//            Intent intent = new Intent(context, MovieDetailsActivity.class);
+//            intent.putExtra(MovieDetailsActivity.EXTRA_MOVIE_ID, movie.id);
+//            context.startActivity(intent);
         });
 
         return vh;
