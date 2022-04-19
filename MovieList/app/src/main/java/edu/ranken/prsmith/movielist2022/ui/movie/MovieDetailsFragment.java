@@ -24,6 +24,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.Objects;
 
+import edu.ranken.prsmith.movielist2022.ComposeReviewActivity;
 import edu.ranken.prsmith.movielist2022.R;
 import edu.ranken.prsmith.movielist2022.data.Movie;
 import edu.ranken.prsmith.movielist2022.ui.review.ReviewListAdapter;
@@ -196,9 +197,11 @@ public class MovieDetailsFragment extends Fragment {
 
         // register listeners
         composeReviewButton.setOnClickListener((v) -> {
-            // TODO: implement compose review activity
             Log.i(LOG_TAG, "Compose review clicked.");
-            Snackbar.make(v, R.string.notImplemented, Snackbar.LENGTH_SHORT).show();
+
+            Intent intent = new Intent(activity, ComposeReviewActivity.class);
+            intent.putExtra(ComposeReviewActivity.EXTRA_MOVIE_ID, movieId);
+            startActivity(intent);
         });
         shareGameButton.setOnClickListener((v) -> {
             Log.i(LOG_TAG, "Share game clicked.");

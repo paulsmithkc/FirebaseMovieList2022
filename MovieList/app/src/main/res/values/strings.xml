@@ -9,7 +9,6 @@
     <string name="myDownvotes">My Downvotes</string>
     <string name="movieDetails">Movie Details</string>
     <string name="noDescription">No description.</string>
-    <string name="composeReview">Compose Review</string>
     <string name="invalidDate">Invalid Date</string>
     <string name="notImplemented">Not Implemented.</string>
     <string name="reviewCountText" translatable="false">%1$d %2$s</string>
