@@ -37,7 +37,6 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
     // views
     private FragmentContainerView fragmentContainer;
-    private MovieDetailsFragment fragment;
     private MovieDetailsViewModel model;
 
     // state
@@ -49,15 +48,14 @@ public class MovieDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.fragment_container);
 
         fragmentContainer = findViewById(R.id.fragmentContainer);
-        fragment = new MovieDetailsFragment();
         model = new ViewModelProvider(this).get(MovieDetailsViewModel.class);
 
-        getSupportFragmentManager()
-            .beginTransaction()
-            .replace(R.id.fragmentContainer, fragment)
-            .commit();
-
         if (savedInstanceState == null) {
+            getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragmentContainer, MovieDetailsFragment.class, null)
+                .commit();
+
             Intent intent = getIntent();
             String intentAction = intent.getAction();
             Uri intentData = intent.getData();
