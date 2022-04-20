@@ -62,23 +62,42 @@ public class HomeActivity extends AppCompatActivity {
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
                 bottomNav.getMenu().getItem(position).setChecked(true);
+                if (position == 0) {
+                    if (detailsContainer != null) {
+                        getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.homeDetailsContainer, MovieDetailsFragment.class, null)
+                            .commit();
+                    }
+                } else if (position == 1) {
+                    if (detailsContainer != null) {
+                        getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.homeDetailsContainer, UserProfileFragment.class, null)
+                            .commit();
+                    }
+                }
             }
         });
         bottomNav.setOnItemSelectedListener((MenuItem item) -> {
             int itemId = item.getItemId();
             if (itemId == R.id.actionMovieList) {
                 pager.setCurrentItem(0);
-                getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.homeDetailsContainer, MovieDetailsFragment.class, null)
-                    .commit();
+                if (detailsContainer != null) {
+                    getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.homeDetailsContainer, MovieDetailsFragment.class, null)
+                        .commit();
+                }
                 return true;
             } else if (itemId == R.id.actionUserList) {
                 pager.setCurrentItem(1);
-                getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.homeDetailsContainer, UserProfileFragment.class, null)
-                    .commit();
+                if (detailsContainer != null) {
+                    getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.homeDetailsContainer, UserProfileFragment.class, null)
+                        .commit();
+                }
                 return true;
             } else {
                 return false;
@@ -90,6 +109,13 @@ public class HomeActivity extends AppCompatActivity {
         movieDetailsViewModel = new ViewModelProvider(this).get(MovieDetailsViewModel.class);
         userListModel = new ViewModelProvider(this).get(UserListViewModel.class);
         userProfileModel = new ViewModelProvider(this).get(UserProfileViewModel.class);
+
+        // restore saved state
+        if (savedInstanceState != null) {
+            pager.setCurrentItem(savedInstanceState.getInt("page"));
+            movieId = savedInstanceState.getString("movieId");
+            userId = savedInstanceState.getString("userId");
+        }
 
         // observe models
         movieListModel.getSelectedMovie().observe(this, (movie) -> {
@@ -130,12 +156,6 @@ public class HomeActivity extends AppCompatActivity {
                 }
             }
         });
-
-        if (savedInstanceState != null) {
-            pager.setCurrentItem(savedInstanceState.getInt("page"));
-            movieId = savedInstanceState.getString("movieId");
-            userId = savedInstanceState.getString("userId");
-        }
     }
 
     @Override
