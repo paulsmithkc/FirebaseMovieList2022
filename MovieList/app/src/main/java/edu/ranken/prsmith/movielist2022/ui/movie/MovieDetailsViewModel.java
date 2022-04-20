@@ -45,7 +45,7 @@ public class MovieDetailsViewModel extends ViewModel {
         // live data
         snackbarMessage = new MutableLiveData<>(null);
         movie = new MutableLiveData<>(null);
-        movieError = new MutableLiveData<>(null);
+        movieError = new MutableLiveData<>(R.string.errorNoMovieSelected);
         reviews = new MutableLiveData<>(null);
         reviewsError = new MutableLiveData<>(null);
     }
@@ -77,7 +77,9 @@ public class MovieDetailsViewModel extends ViewModel {
 
         this.movieId = movieId;
         this.movie.postValue(null);
+        this.movieError.postValue(null);
         this.reviews.postValue(null);
+        this.reviewsError.postValue(null);
 
         if (movieRegistration != null) {
             movieRegistration.remove();
@@ -88,7 +90,6 @@ public class MovieDetailsViewModel extends ViewModel {
 
         if (movieId == null) {
             this.movieError.postValue(R.string.errorNoMovieSelected);
-            this.reviewsError.postValue(null);
             // this.snackbarMessage.postValue(R.string.errorNoMovieSelected);
         } else {
             movieRegistration =

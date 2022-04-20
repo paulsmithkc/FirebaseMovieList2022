@@ -68,9 +68,17 @@ public class HomeActivity extends AppCompatActivity {
             int itemId = item.getItemId();
             if (itemId == R.id.actionMovieList) {
                 pager.setCurrentItem(0);
+                getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.homeDetailsContainer, MovieDetailsFragment.class, null)
+                    .commit();
                 return true;
             } else if (itemId == R.id.actionUserList) {
                 pager.setCurrentItem(1);
+                getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.homeDetailsContainer, UserProfileFragment.class, null)
+                    .commit();
                 return true;
             } else {
                 return false;
@@ -98,10 +106,6 @@ public class HomeActivity extends AppCompatActivity {
             } else {
                 if (movie != null) {
                     movieDetailsViewModel.fetchMovie(movie.id);
-                    getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.homeDetailsContainer, MovieDetailsFragment.class, null)
-                        .commit();
                 } else {
                     movieDetailsViewModel.fetchMovie(null);
                 }
@@ -121,10 +125,6 @@ public class HomeActivity extends AppCompatActivity {
             } else {
                 if (user != null) {
                     userProfileModel.fetchUser(user.userId);
-                    getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.homeDetailsContainer, UserProfileFragment.class, null)
-                        .commit();
                 } else {
                     userProfileModel.fetchUser(null);
                 }
