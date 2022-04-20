@@ -73,8 +73,10 @@ public class MovieDetailsViewModel extends ViewModel {
 
     // fetch a particular movie from the database
     public void fetchMovie(String movieId) {
+        // nothing to do, if the movieId is not changing
         if (Objects.equals(movieId, this.movieId)) { return; }
 
+        // clear out old data
         this.movieId = movieId;
         this.movie.postValue(null);
         this.movieError.postValue(null);
