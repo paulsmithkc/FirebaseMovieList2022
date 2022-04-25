@@ -14,6 +14,7 @@ import android.view.MenuItem;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 import edu.ranken.prsmith.movielist2022.ui.home.HomePageAdapter;
 import edu.ranken.prsmith.movielist2022.ui.movie.MovieDetailsFragment;
@@ -196,11 +197,17 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void onSignOut() {
-        AuthUI.getInstance()
-            .signOut(this)
-            .addOnCompleteListener((result) -> {
-                Log.i(LOG_TAG, "Signed out.");
-                finish();
-            });
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+            Log.i(LOG_TAG, "onSignOut - authenticated");
+            AuthUI.getInstance()
+                .signOut(this)
+                .addOnCompleteListener((result) -> {
+                    Log.i(LOG_TAG, "Signed out.");
+                    finish();
+                });
+        } else {
+            Log.i(LOG_TAG, "onSignOut - guest");
+            finish();
+        }
     }
 }
