@@ -1,20 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- text color -->
     <style name="ErrorText">
         <item name="android:textColor">?attr/colorError</item>
     </style>
-    <style name="PrimaryButton" parent="Widget.MaterialComponents.Button">
-        <item name="android:backgroundTint">?attr/colorPrimary</item>
+
+    <!-- widgets -->
+    <style name="Widget" />
+    <style name="Widget.Button" parent="Widget.MaterialComponents.Button" />
+    <style name="Widget.Button.Primary">
+        <item name="backgroundTint">?attr/colorPrimary</item>
+        <item name="strokeColor">?attr/colorPrimaryVariant</item>
         <item name="android:textColor">?attr/colorOnPrimary</item>
     </style>
-    <style name="PrimaryButton.Large">
+    <style name="Widget.Button.Secondary">
+        <item name="backgroundTint">?attr/colorSecondary</item>
+        <item name="strokeColor">?attr/colorSecondaryVariant</item>
+        <item name="android:textColor">?attr/colorOnSecondary</item>
+    </style>
+    <style name="Widget.Button.Error">
+        <item name="backgroundTint">?attr/colorError</item>
+        <item name="strokeColor">?attr/colorError</item>
+        <item name="android:textColor">?attr/colorOnError</item>
+    </style>
+
+    <!-- widget overlays -->
+    <style name="WidgetOverlay" />
+    <style name="WidgetOverlay.Primary">
+        <item name="backgroundTint">?attr/colorPrimary</item>
+        <item name="strokeColor">?attr/colorPrimaryVariant</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+    </style>
+    <style name="WidgetOverlay.PrimaryVariant">
+        <item name="backgroundTint">?attr/colorPrimaryVariant</item>
+        <item name="strokeColor">?attr/colorPrimaryVariant</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+    </style>
+    <style name="WidgetOverlay.Primary.Large">
         <item name="android:textSize">20sp</item>
         <item name="android:padding">8dp</item>
     </style>
-    <style name="SecondaryButton" parent="Widget.MaterialComponents.Button">
-        <item name="android:backgroundTint">?attr/colorSecondary</item>
+    <style name="WidgetOverlay.Secondary">
+        <item name="backgroundTint">?attr/colorSecondary</item>
+        <item name="strokeColor">?attr/colorSecondaryVariant</item>
         <item name="android:textColor">?attr/colorOnSecondary</item>
+    </style>
+    <style name="WidgetOverlay.SecondaryVariant">
+        <item name="backgroundTint">?attr/colorSecondaryVariant</item>
+        <item name="strokeColor">?attr/colorSecondaryVariant</item>
+        <item name="android:textColor">?attr/colorOnSecondary</item>
+    </style>
+    <style name="WidgetOverlay.Error">
+        <item name="backgroundTint">?attr/colorError</item>
+        <item name="strokeColor">?attr/colorError</item>
+        <item name="android:textColor">?attr/colorOnError</item>
     </style>
 
 </resources>

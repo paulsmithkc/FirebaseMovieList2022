@@ -7,7 +7,7 @@
     tools:context=".LoginActivity">
 
     <Button
-        style="@style/PrimaryButton.Large"
+        style="@style/WidgetOverlay.Primary.Large"
         android:id="@+id/loginButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -21,7 +21,7 @@
         app:layout_constraintVertical_chainStyle="packed" />
 
     <Button
-        style="@style/SecondaryButton"
+        style="@style/WidgetOverlay.Secondary"
         android:id="@+id/guestButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
