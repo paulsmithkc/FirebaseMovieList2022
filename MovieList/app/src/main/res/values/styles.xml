@@ -24,6 +24,22 @@
         <item name="strokeColor">?attr/colorError</item>
         <item name="android:textColor">?attr/colorOnError</item>
     </style>
+    <style name="Widget.FAB" parent="Widget.MaterialComponents.FloatingActionButton" />
+    <style name="Widget.FAB.Primary">
+        <item name="backgroundTint">?attr/colorPrimary</item>
+        <item name="strokeColor">?attr/colorPrimaryVariant</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+    </style>
+    <style name="Widget.FAB.Secondary">
+        <item name="backgroundTint">?attr/colorSecondary</item>
+        <item name="strokeColor">?attr/colorSecondaryVariant</item>
+        <item name="android:textColor">?attr/colorOnSecondary</item>
+    </style>
+    <style name="Widget.FAB.Error">
+        <item name="backgroundTint">?attr/colorError</item>
+        <item name="strokeColor">?attr/colorError</item>
+        <item name="android:textColor">?attr/colorOnError</item>
+    </style>
 
     <!-- widget overlays -->
     <style name="WidgetOverlay" />
