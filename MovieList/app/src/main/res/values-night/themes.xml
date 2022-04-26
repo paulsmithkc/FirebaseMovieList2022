@@ -14,5 +14,7 @@
         <!-- Customize your theme here. -->
         <item name="colorError">@color/red_500</item>
         <item name="colorOnError">@color/black</item>
+        <item name="materialButtonStyle">@style/Widget.Button</item>
+        <item name="floatingActionButtonStyle">@style/Widget.FAB</item>
     </style>
 </resources>
