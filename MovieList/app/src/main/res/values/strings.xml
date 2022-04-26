@@ -62,6 +62,7 @@
     <string name="browseEbay">Browse eBay</string>
     <string name="viewMovie">View Movie</string>
     <string name="viewUser">View User</string>
+    <string name="myProfile">My Profile</string>
 
     <plurals name="game">
         <item quantity="one">game</item>

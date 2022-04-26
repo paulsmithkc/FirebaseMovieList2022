@@ -63,6 +63,7 @@
         <activity
             android:name=".ComposeReviewActivity"
             android:exported="true"
+            android:label="@string/composeReview"
             android:parentActivityName=".MovieDetailsActivity"
             >
             <meta-data
@@ -74,6 +75,7 @@
         <activity
             android:name=".EbayBrowseActivity"
             android:exported="true"
+            android:label="@string/browseEbay"
             android:parentActivityName=".MovieDetailsActivity"
             >
             <meta-data
@@ -85,6 +87,7 @@
         <activity
             android:name=".MyProfileActivity"
             android:exported="true"
+            android:label="@string/myProfile"
             android:parentActivityName=".HomeActivity"
             >
             <meta-data
@@ -96,6 +99,7 @@
         <activity
             android:name=".UserProfileActivity"
             android:exported="true"
+            android:label="@string/userProfile"
             android:parentActivityName=".HomeActivity"
             >
             <meta-data
