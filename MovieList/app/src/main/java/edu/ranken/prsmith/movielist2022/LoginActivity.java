@@ -62,6 +62,7 @@ public class LoginActivity extends AppCompatActivity {
                 AuthUI.getInstance()
                     .createSignInIntentBuilder()
                     .setAvailableProviders(providers)
+                    .setTheme(R.style.Theme_MovieList)  // set the theme used for the sign-in flow
                     .build();
 
             // Launch sign-in activity
